@@ -4,6 +4,7 @@
 
 ## v1.5.0 release (2026-09-14)
 
+- ✅ [AUTO] Merge Dependabot [#109](https://github.com/edwardlthompson/agent-project-bootstrap/pull/109) (`actions/setup-java` 5→6)
 - ✅ [AGENT] Merge release [#108](https://github.com/edwardlthompson/agent-project-bootstrap/pull/108) (chore(main): release 1.5.0)
 - ✅ [AGENT] Sacred `AGENT.md` brief + Cycles icon factory + Lightroom #29 Lua/SDK gates
 

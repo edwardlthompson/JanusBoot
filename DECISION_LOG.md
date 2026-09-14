@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-09-14 — Merge setup-java v6 (#109)
+- **Status:** Accepted
+- **Context:** Dependabot major `actions/setup-java` 5→6 was deferred at v1.5.0 `/ship` because `/update-deps` caps patch/minor. Workflows use `distribution: temurin` and `java-version` only (no `jdkFile` / Adopt).
+- **Decision:** Rebase #109 onto `main` (blender prune-skip) and squash-merge after CI green, including Android assemble + connected tests and both upgrade-sim jobs.
+- **Alternatives considered:** Leave the PR open (rejected: user asked to deal with it; v6 ESM is not a user-facing break for our inputs). Apply via local `/update-deps --apply` (rejected: updater does not bump Action majors).
+- **Consequences:** CI/CodeQL/weekly-health use `actions/setup-java@v6`. Open PR board is empty.
+
 ### 2026-09-14 — v1.5.0 /ship
 - **Status:** Accepted
 - **Context:** Feat (product brief + Cycles factory) plus Lightroom #29 Lua/SDK gates were on `main`. Open RP #108 was still titled 1.4.1 for the go-missing patch. Dependabot #109 is `actions/setup-java` 5→6 (major).

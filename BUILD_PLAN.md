@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 0 · AUTO 1 · HUMAN 0 · ADB 0 · **1 open**
+**Remaining:** AGENT 0 · AUTO 0 · HUMAN 0 · ADB 0 · **0 open**
 <!-- /remaining-tally -->
 
 ### Product (do not drift)
@@ -36,7 +36,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ## Template Maintainer
 
-**Now:** **v1.5.0** shipped. **M61** archived · next allideas batch when ready. Leave Dependabot [#109](https://github.com/edwardlthompson/agent-project-bootstrap/pull/109) (`setup-java` 5→6 major). After Cloud work, `/resume`. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
+**Now:** **v1.5.0** shipped. **M61** archived · next allideas batch when ready. Open PRs none. After Cloud work, `/resume`. Child model: [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md).
 
 > **v1.5.0** release archived in COMPLETED_TASKS.md @ `9808229`.
 > **v1.4.0** release archived in COMPLETED_TASKS.md @ `f105c3b`.
@@ -53,7 +53,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 > Auto-managed. Do not hand-edit rows inside the markers. Run `python3 scripts/agent-run.py sync-open-prs-build-plan -- --apply` (or `/resume` / `/dependabot`).
 
 <!-- open-prs-sync:begin -->
-- 🔲 [AUTO] Merge Dependabot [#109](https://github.com/edwardlthompson/agent-project-bootstrap/pull/109) (chore(deps): Bump actions/setup-java from 5 to 6 in the github-actions group across 1 directory)
+_No open Dependabot or Release Please PRs._
 <!-- open-prs-sync:end -->
 
 ### Template gaps (synced)

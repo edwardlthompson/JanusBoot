@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SCRIPT = ROOT / "scripts" / "simulate-template-upgrade.sh"
 SACRED = (
     "AGENTS.md",
+    "AGENT.md",
     "docs/spec.md",
     "docs/plan.md",
     "docs/INITIALIZATION_PROMPT.md",
@@ -24,7 +25,9 @@ class UpgradeSimSacredTests(unittest.TestCase):
         for path in SACRED:
             self.assertNotIn(path, areas)
         self.assertIn("upgrade-sim-sacred-agents-md", text)
+        self.assertIn("upgrade-sim-sacred-agent-md", text)
         self.assertIn("Sacred AGENTS.md was overwritten", text)
+        self.assertIn("Sacred AGENT.md was overwritten", text)
         self.assertIn("env -u CI -u GITHUB_ACTIONS", text)
         self.assertIn("child_quick", text)
         self.assertIn("BOOTSTRAP_UPGRADE_SIM=1", text)

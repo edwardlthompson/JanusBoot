@@ -1,6 +1,7 @@
 {
   "rules": [
     {"glob": "AGENTS.md", "policy": "sacred", "owner": "HUMAN"},
+    {"glob": "AGENT.md", "policy": "sacred", "owner": "HUMAN"},
     {"glob": "docs/INITIALIZATION_PROMPT.md", "policy": "sacred", "owner": "HUMAN"},
     {"glob": "docs/spec.md", "policy": "sacred", "owner": "HUMAN"},
     {"glob": "docs/plan.md", "policy": "sacred", "owner": "HUMAN"},

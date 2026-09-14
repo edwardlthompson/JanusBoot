@@ -21,6 +21,7 @@ SKILLS = (
     "local-models",
     "emulator",
     "adr",
+    "blender-icons",
 )
 AGENTS = ("verifier", "gate-fixer", "explorer")
 COMMAND_SKILL = {

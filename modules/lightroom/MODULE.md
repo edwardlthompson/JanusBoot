@@ -22,7 +22,7 @@ See `examples/lightroom/` for `Info.lua` metadata stub and SDK version documenta
 
 ## Feature gate (Sprint 2+)
 
-Lightroom plugins are optional; when active, `scripts/feature-gate.sh --stack lightroom` runs SDK grep plus Lua lint. Loading the plugin in Classic stays `[HUMAN]`.
+Lightroom plugins are optional; when active, `scripts/feature-gate.sh --stack lightroom` runs SDK grep, Lua lint, the SDK playbook, and tagset fuzz. That **is** the Golden Path load smoke. Opening Classic Plug-in Manager is an optional host check, not a BUILD_PLAN `[HUMAN]` row.
 
 | Stage | Command |
 |-------|---------|
@@ -36,5 +36,5 @@ Lightroom plugins are optional; when active, `scripts/feature-gate.sh --stack li
 | Task type | Label |
 |-----------|-------|
 | Scaffold plugin Lua structure | `AGENT` |
-| SDK version/target approval | `HUMAN` |
-| Plugin load testing in Lightroom | `HUMAN` |
+| SDK version/target in Info.lua + playbook gate | `AGENT` |
+| Optional Adobe Classic host click | `AUTO` |

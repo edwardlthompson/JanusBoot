@@ -36,4 +36,4 @@
 
 ## Definition of Done
 
-See `docs/FEATURE_MODULES.md`. Loading the plugin in Lightroom Classic stays `[HUMAN]`.
+See `docs/FEATURE_MODULES.md`. Golden Path load smoke is `feature-gate --stack lightroom` (no Adobe app).

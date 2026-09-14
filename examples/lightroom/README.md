@@ -20,9 +20,13 @@ Update these fields in `Info.lua` when you change target Lightroom versions. Fol
 
 ## Local Load Test
 
+Optional if Adobe Classic is installed (not a BUILD_PLAN HUMAN row):
+
 1. Copy or symlink this folder as `YourPlugin.lrplugin`.
 2. In Lightroom Classic: **File → Plug-in Manager → Add**.
 3. Confirm the plugin appears and `LrLogger` output is visible when you add handlers.
+
+Golden Path smoke is `bash scripts/feature-gate.sh --stack lightroom`.
 
 ## CI Integration
 

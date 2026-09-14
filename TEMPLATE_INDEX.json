@@ -2602,7 +2602,7 @@
     },
     {
       "path": "docs/LIGHTROOM_SDK_BUMP.md",
-      "purpose": "How to bump LrSdkVersion with a HUMAN Plug-in Manager test",
+      "purpose": "How to bump LrSdkVersion with Lua/SDK gates (Plug-in Manager optional)",
       "read_when": "lightroom_quality_gate",
       "update_when": "lightroom_tooling_change",
       "owner": "maintainer"
@@ -2944,6 +2944,62 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-agent-brief.sh",
+      "purpose": "Anti-amnesia: AGENT.md one-liner and keywords must stay on BUILD_PLAN",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/blender-icons.sh",
+      "purpose": "Render icon-factory jobs via Blender runtime or stub QA",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "AGENT.md.example",
+      "purpose": "Sacred product brief template copied to AGENT.md before init",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/features/product-brief-anti-amnesia.md",
+      "purpose": "Feature slice: AGENT.md + Product do-not-drift stamp",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/features/icon-factory.md",
+      "purpose": "Feature slice: Cycles/OptiX icon factory",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/adr/0006-blender-runtime.md",
+      "purpose": "ADR: Blender GPL runtime and optional OptiX",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "schemas/golden-path/icon-manifest.schema.json",
+      "purpose": "JSON Schema for icon-factory jobs (id, seed, camera, lighting)",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor/rules/product-brief.mdc",
+      "purpose": "Always-on rule: read AGENT.md before Golden Path About/donate",
+      "read_when": "session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "docs/features/template-gaps-build-plan-sync.md",
       "purpose": "Feature slice: Monday child template-gap BUILD_PLAN sync",
       "read_when": "reference",
@@ -3073,6 +3129,11 @@
       "guide": "modules/go/MODULE.md",
       "example": "examples/go",
       "activate_when": "optional stack; see docs/OPTIONAL_STACKS.md"
+    },
+    "blender": {
+      "guide": "modules/blender/MODULE.md",
+      "example": "examples/blender",
+      "activate_when": "optional Cycles/OptiX icon factory; see docs/OPTIONAL_STACKS.md"
     },
     "node": {
       "guide": "modules/node/MODULE.md",

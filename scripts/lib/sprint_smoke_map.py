@@ -39,6 +39,7 @@ WORDS: dict[str, tuple[str, ...]] = {
     "rust": ("rust", "cargo.toml"),
     "go": (" go", "golang", "/module"),
     "lightroom": ("lightroom", "lua", "lr*"),
+    "blender": ("blender", "cycles", "optix", "icon-factory"),
     "docs": (
         "docs/",
         "module.md",

@@ -8,10 +8,10 @@ After `scripts/init-project.sh --distribution-tier foss`:
 
 | Layer | Artifact | Status |
 |-------|----------|--------|
-| Rules | `.cursor/rules/*.mdc` | Shipped (16). `alwaysApply: true` is allowlisted in `scripts/lib/cursor_rule_audit.py`; glob-scoped rules must set `alwaysApply: false`. |
+| Rules | `.cursor/rules/*.mdc` | Shipped (18). `alwaysApply: true` is allowlisted in `scripts/lib/cursor_rule_audit.py`; glob-scoped rules must set `alwaysApply: false`. |
 | Commands | `.cursor/commands/*.md` | Shipped (33) |
 | Hooks | `.cursor/hooks.json` + `.cursor/hooks/` | Shipped |
-| Skills | `.cursor/skills/` (13) | Shipped |
+| Skills | `.cursor/skills/` (15) | Shipped |
 | Subagents | `.cursor/agents/` (3) | Shipped |
 | Modes | `docs/CURSOR_MODES.md` | Shipped |
 | Worktrees | `.cursor/worktrees.json` + OS setup scripts | Shipped |
@@ -126,6 +126,7 @@ Commands remain canonical UX. Skills wrap high-churn flows:
 | `linux-dev` | `docs/LINUX_DEV.md` |
 | `emulator` | `/emulator` |
 | `adr` | `/adr` |
+| `blender-icons` | `/feature` icon-factory / blender stack |
 ## Subagents
 
 | Agent | Role |

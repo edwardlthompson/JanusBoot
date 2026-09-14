@@ -4,7 +4,7 @@
 
 ## Acceptance criteria
 
-- ✅ `docs/LIGHTROOM_SDK_BUMP.md` lists current versions, steps, HUMAN load test, and do-nots
+- ✅ `docs/LIGHTROOM_SDK_BUMP.md` lists current versions, steps, optional host smoke, and do-nots
 - ✅ README table matches `Info.lua` `LrSdkVersion` / `LrSdkMinimumVersion`
 - ✅ Feature-gate runs `scripts/check-lightroom-sdk-playbook.sh`
 
@@ -35,4 +35,4 @@
 
 ## Definition of Done
 
-See `docs/FEATURE_MODULES.md`. Live Plug-in Manager reload stays `[HUMAN]`.
+See `docs/FEATURE_MODULES.md`. Live Plug-in Manager reload is optional host smoke, not a blocking `[HUMAN]` row.

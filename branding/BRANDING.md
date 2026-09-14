@@ -22,7 +22,7 @@ Official color stylesheet (generated): [`official-colors.css`](official-colors.c
 | `assets/logo-wordmark.svg` | Wordmark only |
 | `assets/logo-lockup.svg` | Mark + wordmark |
 | `assets/favicon.svg` | Browser tab |
-| `assets/app-icon-512.svg` | Export to store `icon.png` 512×512 (`[HUMAN]`/`[ADB]`) |
+| `assets/app-icon-512.svg` | Vector SoT; raster `icon.png` via `blender-icons` (`[AGENT]`/`[AUTO]`), not a HUMAN export |
 | `assets/readme-hero.svg` | README banner |
 | `assets/social-preview.svg` | GitHub / OG 1280×640 (upload PNG export in repo Settings → Social preview) |
 

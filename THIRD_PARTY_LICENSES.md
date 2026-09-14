@@ -33,3 +33,7 @@ this file or a generated `NOTICE` file in the distribution artifact.
 
 `[HUMAN]` must approve any dependency with copyleft licenses (GPL, AGPL) that
 may affect distribution. Document exceptions in `DECISION_LOG.md`.
+
+**Blender (optional stack):** GPL **runtime** only. The template does not vendor
+Blender or link `libblender`. See `docs/adr/0006-blender-runtime.md`. NVIDIA OptiX
+is a local optional backend, not a CI or FOSS production-path dependency.

@@ -8,6 +8,8 @@ You are a Senior Software Architect and Expert AI Coding Agent. Follow this temp
 
 **Purpose & Goals:** [INSERT DETAILED APP DESCRIPTION AND GOALS HERE]
 
+**Original brief:** After clone, copy `AGENT.md.example` → `AGENT.md` and paste this prompt **verbatim** **before** `init-project`. Init stamps `AGENTS.md` only.
+
 **Stakeholders:** Primary users, operators, and maintainers. Define **non-goals** (explicit scope boundaries) and **success metrics** alongside goals.
 
 **Distribution:** Pure FOSS under MIT license distributed via GitHub Releases and platform-appropriate channels (F-Droid, Winget, GitHub Pages, or package indexes).

@@ -19,6 +19,7 @@
 - ✅ Lightroom Classic (`modules/lightroom/MODULE.md`)
 - ✅ Rust (`modules/rust/MODULE.md`)
 - ✅ Go (`modules/go/MODULE.md`)
+- ✅ Blender icon factory (`modules/blender/MODULE.md`)
 
 ## Threat Model Checklist
 
@@ -31,6 +32,10 @@
 - ✅ `SECURITY.md` and private vulnerability reporting enabled
 
 ## Persistent Context
+
+<!-- product-brief-sync:begin -->
+_Template maintainer: no product AGENT.md. Children write AGENT.md before init._
+<!-- product-brief-sync:end -->
 
 ### Project Purpose
 
@@ -50,6 +55,7 @@ Golden Path Settings/About/Feedback are a route stack, not three booleans. Web H
 
 ## Session Retrospectives
 
+| 2026-09-13 | Lightroom #29 + icon QA | Plug-in Manager HUMAN replaced by Lua/SDK gates; blender-icons owns raster export | Do not re-open #29 as HUMAN; Adobe host is optional |
 | 2026-09-11 | v1.4.0 /ship | Monday child template-gap BUILD_PLAN sync; RP #107; patch/minor deps; leave CodeQL `@v4` | Plan-only gaps; Sacred stays HUMAN; no silent `/upgrade` apply |
 | 2026-09-11 | v1.3.0 /push | RP #106 admin-merged; tag+release live; CI green after TBT + instrumented soft skips | Lightroom (#29) stays HUMAN; do not use JUnit Assume on connectedAndroidTest |
 | 2026-09-10 | M58–M61 /build | Espresso 3.7 + agent DX; M58–M61 archived; KB-023 path spaces; Release Please #106 open | Do not fold Unreleased until /push+/ship; merge RP is HUMAN |

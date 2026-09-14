@@ -7,7 +7,7 @@
 5. **Reference mode:** `docs/FOR_AGENTS.md` + `TEMPLATE_INDEX.json`
 6. **Task board:** `BUILD_PLAN.md` (this template’s live board). Child products copy `BUILD_PLAN_TEMPLATE.md`. Status: 🔲 open · ✅ done · ❌ blocked
 7. **Parallel dispatch:** parallel-first BUILD_PLAN; `/build` automates HUMAN/ADB first, backlogs failures to `HUMAN_BACKLOG.md`, never halts on human labels — `scripts/build-sprint-status.sh --lane auto` (child playbook on product repos; Template Maintainer board on this template)
-8. **Living memory:** update `AGENT_MEMORY.md` only at milestone boundaries
+8. **Living memory:** update `AGENT_MEMORY.md` only at milestone boundaries. If `AGENT.md` exists, read it before any BUILD_PLAN sprint row (bootstrap never overwrites `AGENT.md`).
 
 > Legacy `.cursorrules` is deprecated. Use `.cursor/rules/*.mdc` and this file instead.
 
@@ -95,7 +95,7 @@ Do not mark a BUILD_PLAN feature row ✅ without tests or that justification. Co
 
 ## Session Protocol
 
-- On session start: read `START_HERE.md`, pick mode via `docs/CURSOR_MODES.md` (roles if your IDE uses other names), then `BUILD_PLAN.md` Sequential lane. If `CHANGELOG.md` `[Unreleased]` has list items, say so in one line. When `gh` is available, run `python3 scripts/agent-run.py sync-open-prs-build-plan -- --apply` before naming the next 🔲 `[AGENT]` row (or say the AGENT board is empty). After Cloud Agent work on another machine, run `/resume` (or bare `resume`) instead of reconstructing context by hand.
+- On session start: read `START_HERE.md`, pick mode via `docs/CURSOR_MODES.md` (roles if your IDE uses other names), then `BUILD_PLAN.md` Sequential lane. If `AGENT.md` exists, read it before any sprint row (do not substitute template About/donate). If `CHANGELOG.md` `[Unreleased]` has list items, say so in one line. When `gh` is available, run `python3 scripts/agent-run.py sync-open-prs-build-plan -- --apply` before naming the next 🔲 `[AGENT]` row (or say the AGENT board is empty). After Cloud Agent work on another machine, run `/resume` (or bare `resume`) instead of reconstructing context by hand.
 - If your tool has no slash commands, use `docs/help/*.md` (start with `docs/help/TOUR.md`)
 - When creating or significantly changing a file, state one sentence of why (see `docs/BEST_PRACTICES.md` and `/coach`)
 - On milestone end: update `AGENT_MEMORY.md`, append to `DECISION_LOG.md` or `docs/adr/`
@@ -135,7 +135,7 @@ Activate only the modules matching your stack. See `modules/*/MODULE.md`.
 Shipped in template (see `docs/CURSOR_INTEGRATIONS.md`):
 
 - **Hooks** — `.cursor/hooks.json` enforces destructive-ops + UTF-8 (fail-open; `/push` session override)
-- **Skills** — `.cursor/skills/` companions for `/gates`, `/scope`, `/fix`, hygiene, Sprint 0, features, canvas, `/update-deps`, `/best-of-n`, local models, `/emulator`, `/adr`
+- **Skills** — `.cursor/skills/` companions for `/gates`, `/scope`, `/fix`, hygiene, Sprint 0, features, canvas, `/update-deps`, `/best-of-n`, local models, `/emulator`, `/adr`, blender-icons
 - **Subagents (3)** — `.cursor/agents/` verifier, gate-fixer, explorer
 - **Local compute first** — `.cursor/rules/local-compute.mdc`: This Computer + parallel Task/worktrees/`/best-of-n`; RAM-capped parallel `feature-gate` stacks; optional `/emulator`; Linux DX in `docs/LINUX_DEV.md`
 - **Worktrees** — `.cursor/worktrees.json` + fail-soft OS setup (`/worktree`, `/best-of-n`)

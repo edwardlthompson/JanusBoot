@@ -5,9 +5,13 @@
 
 ## Overview
 
-**Product:** agent-project-bootstrap  
-**Purpose:** GitHub Template Repository that bootstraps FOSS projects with Cursor-ready agent routing, CI, and Golden Path examples.  
-**Users:** Humans and AI agents initializing or maintaining a child repo.
+<!-- product-brief-sync:begin -->
+_Template maintainer: no product AGENT.md. Children write AGENT.md before init._
+<!-- product-brief-sync:end -->
+
+**Product:** agent-project-bootstrap
+**Purpose:** GitHub Template Repository that bootstraps FOSS projects with Cursor-ready agent routing, CI, and Golden Path examples.
+**Users:** Humans and AI agents initializing or maintaining a child repo. Read `AGENT.md` on a child before Golden Path About/donate work.
 
 ## Functional Requirements & User Stories
 

@@ -1,8 +1,16 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 0 · AUTO 0 · HUMAN 1 · ADB 0 · **1 open**
+**Remaining:** AGENT 1 · AUTO 1 · HUMAN 0 · ADB 0 · **2 open**
 <!-- /remaining-tally -->
+
+### Product (do not drift)
+
+> Auto-managed from `AGENT.md` after init. Do not hand-edit inside markers. Read `AGENT.md` before any sprint row.
+
+<!-- product-brief-sync:begin -->
+_Template maintainer: no product AGENT.md. Children write AGENT.md before init._
+<!-- product-brief-sync:end -->
 
 Live board for **this template repo**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Child products use [`BUILD_PLAN_TEMPLATE.md`](BUILD_PLAN_TEMPLATE.md) (copied onto their `BUILD_PLAN.md` at init).
 
@@ -44,7 +52,8 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 > Auto-managed. Do not hand-edit rows inside the markers. Run `python3 scripts/agent-run.py sync-open-prs-build-plan -- --apply` (or `/resume` / `/dependabot`).
 
 <!-- open-prs-sync:begin -->
-_No open Dependabot or Release Please PRs._
+- 🔲 [AUTO] Merge Dependabot [#109](https://github.com/edwardlthompson/agent-project-bootstrap/pull/109) (chore(deps): Bump actions/setup-java from 5 to 6 in the github-actions group)
+- 🔲 [AGENT] Merge release [#108](https://github.com/edwardlthompson/agent-project-bootstrap/pull/108) (chore(main): release 1.4.1)
 <!-- open-prs-sync:end -->
 
 ### Template gaps (synced)
@@ -57,7 +66,7 @@ _No template gaps; .template-version matches upstream (or template maintainer N/
 
 ### Waiting on a person
 
-1. 🔲 [HUMAN] Lightroom Plug-in Manager load smoke (#29)
+_None._ Lightroom stub smoke is `feature-gate --stack lightroom` (Lua/SDK), not Plug-in Manager. Raster icons are `blender-icons` QA, not a HUMAN export.
 
 Done on this board: **v1.4.0** · **v1.3.0** · **M61** back/nav/gates · **M60** CI clarity · **M59** CI harden · **M58** ship CI + Espresso · **M57** Cursor + docs · **M56** desktop packaging · **M55** CI / security · **M54** catalog / Lightroom · **M53** Android distribution · **M52** UI / a11y / nav · **M51** CLI / API · **M50** chrome follow-through · **M49** Settings-only chrome · **M48** R8 + memory (#95 on `main`) · **M47** Cline + nav. Archive: `COMPLETED_TASKS.md`.
 

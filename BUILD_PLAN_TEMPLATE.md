@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 10 · AUTO 1 · HUMAN 8 · ADB 1 · **20 open**
+**Remaining:** AGENT 11 · AUTO 1 · HUMAN 8 · ADB 1 · **21 open**
 <!-- /remaining-tally -->
 
 Live board for a product repo. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).
@@ -32,19 +32,28 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 Copy this shape when you add sprints: `### Sprint N — title`, then numbered rows. Keep it this short.
 
+### Product (do not drift)
+
+> Auto-managed from `AGENT.md` after init. Do not hand-edit inside markers. Read `AGENT.md` before any sprint row.
+
+<!-- product-brief-sync:begin -->
+_Template maintainer: no product AGENT.md. Children write AGENT.md before init._
+<!-- product-brief-sync:end -->
+
 ### Sprint 0 — Customize
 
 <!-- parallel_exception: stack not selected until init -->
 
-1. 🔲 [AGENT] Run `scripts/init-project.sh` or `.ps1` (`--stack`; scripted: `--non-interactive --project-name --purpose`)
-2. 🔲 [AGENT] Fill `branding/product.json` (`mode: product`); sync tokens + README
-3. 🔲 [AGENT] Run `scripts/setup-github-repo.sh` (`gh` admin)
-4. 🔲 [AUTO] Sprint 0 sign-off on `main`: `validate-bootstrap --quick` · `feature-gate --stack <active>` · `check-github-ci --wait 300` (CI, Security Scan, CodeQL) · `check-license-compliance`
-5. 🔲 [HUMAN] Use this template on GitHub
-6. 🔲 [HUMAN] Pick FOSS vs Commercial (`init-project.sh --distribution-tier`)
-7. 🔲 [HUMAN] Fill `docs/INITIALIZATION_PROMPT.md`
-8. 🔲 [HUMAN] Pick Cursor mode (`docs/CURSOR_MODES.md`)
-9. 🔲 [HUMAN] Bookmark `docs/help/BATCH_COMMANDS.md` (`/bootstrap`)
+1. 🔲 [AGENT] Copy `AGENT.md.example` → `AGENT.md` and paste the original brief verbatim (before init)
+2. 🔲 [AGENT] Run `scripts/init-project.sh` or `.ps1` (`--stack`; scripted: `--non-interactive --project-name --purpose`)
+3. 🔲 [AGENT] Fill `branding/product.json` (`mode: product`); sync tokens + README
+4. 🔲 [AGENT] Run `scripts/setup-github-repo.sh` (`gh` admin)
+5. 🔲 [AUTO] Sprint 0 sign-off on `main`: `validate-bootstrap --quick` · `feature-gate --stack <active>` · `check-github-ci --wait 300` (CI, Security Scan, CodeQL) · `check-license-compliance`
+6. 🔲 [HUMAN] Use this template on GitHub
+7. 🔲 [HUMAN] Pick FOSS vs Commercial (`init-project.sh --distribution-tier`)
+8. 🔲 [HUMAN] Fill `docs/INITIALIZATION_PROMPT.md`
+9. 🔲 [HUMAN] Pick Cursor mode (`docs/CURSOR_MODES.md`)
+10. 🔲 [HUMAN] Bookmark `docs/help/BATCH_COMMANDS.md` (`/bootstrap`)
 
 ### Sprint 1 — Golden Path
 

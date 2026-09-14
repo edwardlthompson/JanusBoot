@@ -21,11 +21,13 @@ REQUIRED=(
   BUILD_PLAN.md
   BUILD_PLAN_TEMPLATE.md
   AGENTS.md
+  AGENT.md.example
   AGENT_MEMORY.md
   docs/START_HERE.md
   docs/CURSOR_MODES.md
   docs/INITIALIZATION_PROMPT.md
   .cursor/rules/cursor-modes.mdc
+  .cursor/rules/product-brief.mdc
   docs/DESIGN_GUIDE.md
   docs/WEB_PROJECT_LAYOUT.md
   docs/SECURITY_TRIAGE.md
@@ -166,6 +168,7 @@ if ! python3 scripts/lib/run_checks_parallel.py \
   check-template-version-sync.sh \
   validate-template-index.sh \
   check-project-card-index.sh \
+  check-agent-brief.sh \
   check-bootstrap-engine.sh \
   check-agent-adapters.sh \
   check-env.sh \

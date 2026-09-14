@@ -17,6 +17,20 @@
 
 ## Entries
 
+### 2026-09-13 — Lightroom #29 HUMAN smoke → agent gates
+- **Status:** Accepted
+- **Context:** Plug-in Manager load was the last open HUMAN row; Adobe Classic is not on CI or most agent machines. Raster icon export was still labeled HUMAN.
+- **Decision:** Golden Path Lightroom smoke is `verify-lightroom` + Lua lint + SDK playbook + tagset fuzz. `/build` closes #29 without Adobe. Store PNG export is `blender-icons` QA, not a HUMAN click.
+- **Alternatives considered:** Keep a blocking HUMAN Plug-in Manager row (rejected: generative agents already run the stub gates). Require NVIDIA driver HUMAN confirm for OptiX (rejected: env + `nvidia-smi`).
+- **Consequences:** `HUMAN_BACKLOG` Lightroom deferral cleared. Optional Adobe host click stays in the SDK playbook as non-blocking.
+
+### 2026-09-13 — AGENT.md anti-amnesia + Blender icon factory
+- **Status:** Accepted
+- **Context:** Long bootstraps forgot the original brief (fell back to template About/donate). Child 3D icon work needs Cycles/OptiX locally without GPU in CI.
+- **Decision:** Sacred `AGENT.md` (verbatim brief) never overwritten by init; BUILD_PLAN Product (do not drift) + `check-agent-brief`. Optional `blender` stack: GPL runtime, OptiX env-gated, machine QA instead of human review of 4000 frames.
+- **Alternatives considered:** Stuff the brief into `AGENTS.md` (rejected: init stamps that file). Require OptiX in CI (rejected: proprietary + no GitHub GPU).
+- **Consequences:** Copy `AGENT.md.example` before init. Keywords in the brief (e.g. camera/messages/tame/neon) must remain on BUILD_PLAN.
+
 ### 2026-09-11 — v1.4.0 /ship (template-gap BUILD_PLAN sync)
 - **Status:** Accepted
 - **Context:** Child repos needed Monday automation to list Canon/Mixed/Sacred/feature gaps on BUILD_PLAN without auto-applying Sacred overwrites.

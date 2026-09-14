@@ -2,6 +2,10 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## Waiting on a person — Lightroom #29 (2026-09-13)
+
+- ✅ [AUTO] Lightroom Plug-in Manager load smoke (#29) — Lua/SDK/tagset gates replace Adobe host click for the Golden Path stub
+
 ## v1.4.0 release (2026-09-11)
 
 - ✅ [AGENT] Merge release [#107](https://github.com/edwardlthompson/agent-project-bootstrap/pull/107) (chore(main): release 1.4.0)

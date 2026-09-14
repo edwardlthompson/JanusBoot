@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
 ## [1.5.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.4.0...v1.5.0) (2026-09-14)
 
 
@@ -18,8 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * **ci:** skip blender icon tests when the example is pruned ([1ac1e66](https://github.com/edwardlthompson/agent-project-bootstrap/commit/1ac1e66ac72ec7dfa61de0a2d2de70c70857d108))
 * **ci:** skip go-missing gate test when go example pruned ([0805ffe](https://github.com/edwardlthompson/agent-project-bootstrap/commit/0805ffea511e31b444f22a33386ef1177f7a4ad6))
-
-## [Unreleased]
 
 ## [1.4.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.3.0...v1.4.0) (2026-09-11)
 

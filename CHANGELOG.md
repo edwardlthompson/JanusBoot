@@ -8,17 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-* **dx:** Sacred `AGENT.md` brief + BUILD_PLAN Product (do not drift) anti-amnesia gate
-* **blender:** optional Cycles icon factory (CPU CI smoke; OptiX local)
-
-### Changed
-
-* **lightroom:** Plug-in Manager HUMAN smoke (#29) replaced by Lua/SDK gates; raster icons use blender-icons QA
-
 ## [1.4.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.3.0...v1.4.0) (2026-09-11)
-
 
 ### Added
 

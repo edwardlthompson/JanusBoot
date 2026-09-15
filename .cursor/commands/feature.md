@@ -2,7 +2,7 @@
 
 > Skill: `.cursor/skills/feature-vertical-slice/`
 
-Execute the active BUILD_PLAN feature row only (one feature per task). See @docs/FEATURE_MODULES.md.
+Execute the active BUILD_PLAN feature row only (one feature per task). See @docs/FEATURE_MODULES.md. View + i18n must meet @docs/ux-ui-guidelines.md (empty/error/loading, one primary CTA, a11y). Definition of Done is not “it renders.”
 
 When invoked from @.cursor/commands/build.md: execute all open rows for the active feature without stopping; no user prompts.
 

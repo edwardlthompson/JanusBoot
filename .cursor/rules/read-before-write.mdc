@@ -20,6 +20,7 @@ In every plan’s `### Critique` table, cover each item below as **Resolved** (m
 - Network timeouts
 - Race conditions
 - Unhandled exceptions
+- UI slices: empty/error/loading, keyboard/focus, contrast/tokens, one primary action, copy in i18n (or N/A)
 
 Format:
 

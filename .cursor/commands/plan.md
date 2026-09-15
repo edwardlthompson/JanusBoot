@@ -26,7 +26,8 @@ Rules:
 3. **No open questions in Critique** — resolve architectural choices in the plan before presenting. Ask the human only for `[HUMAN]` destructive-ops or facts undiscoverable from the codebase.
 4. **No bare “defer” / “monitor” / “optional later”** unless the resolution names a tracked follow-up (`BUILD_PLAN` row, `DECISION_LOG` entry, or dated issue) and states why it is safe to ship without it now.
 5. **Checklist minimum** (null/empty, timeouts, races, unhandled exceptions) — each row **Resolved** with mitigation or **N/A** with one-line why.
-6. **Single chosen approach** — use Critique to justify and harden the path, not to dump unresolved alternatives.
+6. **UI slices** — when the change touches a view, copy, nav, or form, also resolve (or N/A with why): empty/error/loading, keyboard/focus, contrast/tokens, one primary action, copy in i18n. Follow [`docs/ux-ui-guidelines.md`](../docs/ux-ui-guidelines.md).
+7. **Single chosen approach** — use Critique to justify and harden the path, not to dump unresolved alternatives.
 
 ```markdown
 ### Critique
@@ -35,6 +36,7 @@ Rules:
 |-------|------------|
 | Null/empty input at boundary | Validate with schema X; reject with typed error Y; test case Z |
 | Network timeout on fetch | AbortSignal 10s; offline mock path; user-visible retry in feature F |
+
 ```
 
 When drafting or extending **BUILD_PLAN.md** sprints, include mandatory **### Parallelization** (alongside ### Critique):
@@ -50,6 +52,7 @@ Before asking human approval of BUILD_PLAN changes (standalone `/plan` only), ru
 
 ```bash
 python3 scripts/agent-run.py check-build-plan-parallel
+
 ```
 
 Do not edit code until the user approves the plan **unless** autonomous `/build` invoked this command.

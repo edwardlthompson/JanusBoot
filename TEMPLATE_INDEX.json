@@ -20,6 +20,8 @@
     "allideas": "docs/help/ALLIDEAS.md",
     "upgrade": "docs/help/UPGRADE.md",
     "adr": "docs/help/ADR.md",
+    "ux_review": "docs/help/UX-REVIEW.md",
+    "ux_apply": "docs/help/UX-APPLY.md",
     "donations": "docs/help/DONATIONS.md",
     "batch_commands_print": "docs/help/batch-commands-print.html"
   },
@@ -391,6 +393,41 @@
     {
       "path": "docs/help/ADR.md",
       "purpose": "Tool-agnostic /adr recipe for other IDEs",
+      "read_when": "prompt_needed",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor/commands/ux-review.md",
+      "purpose": "Slash command: score shipped UI against construction law",
+      "read_when": "prompt_needed",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/help/UX-REVIEW.md",
+      "purpose": "Tool-agnostic /ux-review recipe for other IDEs",
+      "read_when": "prompt_needed",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor/commands/ux-apply.md",
+      "purpose": "Slash command: implement one UX-NNN inventory item",
+      "read_when": "prompt_needed",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "docs/help/UX-APPLY.md",
+      "purpose": "Tool-agnostic /ux-apply recipe for other IDEs",
+      "read_when": "prompt_needed",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor/skills/ux-review/SKILL.md",
+      "purpose": "Companion skill for /ux-review and /ux-apply",
       "read_when": "prompt_needed",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -1481,6 +1518,20 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/check-ux-inventory.sh",
+      "purpose": "Validate BUILD_PLAN UX inventory markers, ids, and statuses",
+      "read_when": "milestone_boundary",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/lib/ux_inventory.py",
+      "purpose": "Parse UX-NNN inventory blocks; reject forbidden Status words",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/refresh-build-plan-tally.sh",
       "purpose": "Rewrite remaining AGENT/AUTO/HUMAN/ADB counts on build plan files",
       "read_when": "milestone_boundary",
@@ -1756,6 +1807,13 @@
     {
       "path": "docs/DESIGN_GUIDE.md",
       "purpose": "Cross-stack design system, Settings chrome, i18n rules",
+      "read_when": "ui_work",
+      "update_when": "design_change",
+      "owner": "agent+human"
+    },
+    {
+      "path": "docs/ux-ui-guidelines.md",
+      "purpose": "UX/UI construction law for any view, copy, nav, or form",
       "read_when": "ui_work",
       "update_when": "design_change",
       "owner": "agent+human"
@@ -2986,6 +3044,13 @@
       "owner": "maintainer"
     },
     {
+      "path": "docs/adr/0007-ux-inventory.md",
+      "purpose": "ADR: construction law vs /ux-review vs UX inventory vs sprint rows",
+      "read_when": "reference",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "schemas/golden-path/icon-manifest.schema.json",
       "purpose": "JSON Schema for icon-factory jobs (id, seed, camera, lighting)",
       "read_when": "reference",
@@ -2997,6 +3062,13 @@
       "purpose": "Always-on rule: read AGENT.md before Golden Path About/donate",
       "read_when": "session_start",
       "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": ".cursor/rules/ux-ui.mdc",
+      "purpose": "Always-on UX/UI construction checklist (not review-only)",
+      "read_when": "ui_work",
+      "update_when": "design_change",
       "owner": "maintainer"
     },
     {

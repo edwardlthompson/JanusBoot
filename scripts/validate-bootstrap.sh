@@ -103,6 +103,8 @@ BATCH_COMMANDS=(
   feature fix init prune ci docs upgrade setup plan restore compact scope
   bootstrap verify build ship maintain coach tour ideas allideas
   codex-review update-deps best-of-n emulator
+  ux-review ux-apply ui-review ux-audit ui-audit a11y-check redesign compare-ui
+  update-guidelines
 )
 
 for cmd in "${BATCH_COMMANDS[@]}"; do
@@ -165,6 +167,7 @@ if ! python3 scripts/lib/run_checks_parallel.py \
   check-cursor-hooks.sh \
   check-build-plan-parallel.sh \
   check-build-plan-tally.sh \
+  check-ux-inventory.sh \
   check-template-version-sync.sh \
   validate-template-index.sh \
   check-project-card-index.sh \

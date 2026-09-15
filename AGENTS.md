@@ -76,6 +76,7 @@ Stack tests: web `npm test`; python `uv run pytest`; Android `./gradlew test`. A
 - Small, modular functions; keep files within token-optimal size
 - Read-before-write: inspect types/interfaces via `@filename` before editing
 - Cursor mode routing per `docs/CURSOR_MODES.md`; Plan for non-trivial tasks with resolved `### Critique` (Issue→Resolution baked into the plan body)
+- **UI construction:** follow [`docs/ux-ui-guidelines.md`](docs/ux-ui-guidelines.md) for any view, copy, nav, or form (always-on `.cursor/rules/ux-ui.mdc`). Tokens/chrome: [`docs/DESIGN_GUIDE.md`](docs/DESIGN_GUIDE.md). Prefer existing tokens/components; never invent a second visual system; never skip empty/error/loading; never sacrifice a11y for polish. Gaps you cannot fix in this slice: append a `UX-NNN` BUILD_PLAN inventory item immediately (`/ux-review` is the same law, not the first time it appears). `/ux-apply UX-NNN` implements one inventory item; `/build` does not auto-drain UX-NNN.
 
 ## Testing & Quality Enforcement
 
@@ -95,7 +96,7 @@ Do not mark a BUILD_PLAN feature row ✅ without tests or that justification. Co
 
 ## Session Protocol
 
-- On session start: read `START_HERE.md`, pick mode via `docs/CURSOR_MODES.md` (roles if your IDE uses other names), then `BUILD_PLAN.md` Sequential lane. If `AGENT.md` exists, read it before any sprint row (do not substitute template About/donate). If `CHANGELOG.md` `[Unreleased]` has list items, say so in one line. When `gh` is available, run `python3 scripts/agent-run.py sync-open-prs-build-plan -- --apply` before naming the next 🔲 `[AGENT]` row (or say the AGENT board is empty). After Cloud Agent work on another machine, run `/resume` (or bare `resume`) instead of reconstructing context by hand.
+- On session start: read `START_HERE.md`, pick mode via `docs/CURSOR_MODES.md` (roles if your IDE uses other names), then `BUILD_PLAN.md` Sequential lane. If you will change UI, also read `docs/ux-ui-guidelines.md` (construction) and `docs/DESIGN_GUIDE.md` (tokens/chrome). If `AGENT.md` exists, read it before any sprint row (do not substitute template About/donate). If `CHANGELOG.md` `[Unreleased]` has list items, say so in one line. When `gh` is available, run `python3 scripts/agent-run.py sync-open-prs-build-plan -- --apply` before naming the next 🔲 `[AGENT]` row (or say the AGENT board is empty). After Cloud Agent work on another machine, run `/resume` (or bare `resume`) instead of reconstructing context by hand.
 - If your tool has no slash commands, use `docs/help/*.md` (start with `docs/help/TOUR.md`)
 - When creating or significantly changing a file, state one sentence of why (see `docs/BEST_PRACTICES.md` and `/coach`)
 - On milestone end: update `AGENT_MEMORY.md`, append to `DECISION_LOG.md` or `docs/adr/`
@@ -135,7 +136,7 @@ Activate only the modules matching your stack. See `modules/*/MODULE.md`.
 Shipped in template (see `docs/CURSOR_INTEGRATIONS.md`):
 
 - **Hooks** — `.cursor/hooks.json` enforces destructive-ops + UTF-8 (fail-open; `/push` session override)
-- **Skills** — `.cursor/skills/` companions for `/gates`, `/scope`, `/fix`, hygiene, Sprint 0, features, canvas, `/update-deps`, `/best-of-n`, local models, `/emulator`, `/adr`, blender-icons
+- **Skills** — `.cursor/skills/` companions for `/gates`, `/scope`, `/fix`, hygiene, Sprint 0, features, canvas, `/update-deps`, `/best-of-n`, local models, `/emulator`, `/adr`, `/ux-review`, blender-icons
 - **Subagents (3)** — `.cursor/agents/` verifier, gate-fixer, explorer
 - **Local compute first** — `.cursor/rules/local-compute.mdc`: This Computer + parallel Task/worktrees/`/best-of-n`; RAM-capped parallel `feature-gate` stacks; optional `/emulator`; Linux DX in `docs/LINUX_DEV.md`
 - **Worktrees** — `.cursor/worktrees.json` + fail-soft OS setup (`/worktree`, `/best-of-n`)

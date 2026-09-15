@@ -1,0 +1,24 @@
+---
+description: UX/UI construction checklist — follow when shipping any view, copy, nav, or form
+alwaysApply: true
+---
+
+# UX/UI construction (not a review-only doc)
+
+When adding or changing UI, **implement** [`docs/ux-ui-guidelines.md`](../../docs/ux-ui-guidelines.md). Tokens, Settings-only chrome, and no-raw-hex: [`docs/DESIGN_GUIDE.md`](../../docs/DESIGN_GUIDE.md) and `design-system.mdc`. `/ux-review` uses this same law; it is not a second checklist.
+
+## Must do in the same slice
+
+- Users know where they are, what they can do, and what happens next
+- One primary button per view; secondary quieter; destructive separate
+- Visible labels (placeholder is not the label); copy in i18n (`t()` / `stringResource`)
+- Empty, error, and loading states with a named next action (honest empty, not fake data)
+- Keyboard + visible focus ring (never `outline: none` without a replacement)
+- Touch targets ≥ 44px; icon-only controls have accessible names
+- Existing tokens/components only — no new visual system, no AI-slop art, no raw hex
+- Accessibility is not optional polish (WCAG 2.2 AA)
+- Toasts confirm; errors stay in-place. No stacked modals. No blocking the app for a local save
+
+## Gaps
+
+If you cannot fix a violation in this slice, append a `UX-NNN` item to the BUILD_PLAN UX inventory **now** (status `planned` only — never backlog/deferred/later). `/build` does not auto-drain inventory; `/ux-apply UX-NNN` implements one item.

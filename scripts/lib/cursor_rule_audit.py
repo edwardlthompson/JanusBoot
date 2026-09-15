@@ -8,7 +8,7 @@ ALLOW = frozenset({
     "main", "core-directives", "cursor-modes", "batch-commands",
     "destructive-ops", "foss-compliance", "commercial-compliance",
     "windows-encoding", "local-compute", "local-deps", "read-before-write",
-    "feature-modules", "repo-hygiene", "product-brief",
+    "feature-modules", "repo-hygiene", "product-brief", "ux-ui",
 })
 TOGGLE = ("foss-compliance", "commercial-compliance")
 

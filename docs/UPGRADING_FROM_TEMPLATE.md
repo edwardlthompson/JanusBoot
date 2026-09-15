@@ -26,6 +26,7 @@ Read the upstream release notes at `github.com/edwardlthompson/agent-project-boo
 | `.cursor/commands/` | Copy all slash command files | AGENT | Canon |
 | `.cursor/rules/batch-commands.mdc` | Copy with other rules | AGENT | Canon |
 | `docs/help/BATCH_COMMANDS.md` | Copy human cheat sheet | AGENT | Canon |
+| `docs/ux-ui-guidelines.md` | Copy UX/UI construction law | AGENT | Canon |
 | `docs/BATCH_COMMANDS.md` | Copy agent registry | AGENT | Canon |
 | `CODE_REVIEW.md.example` | Copy audit template | AGENT | Canon |
 | `RELEASE_NOTES.md.example` | Copy release draft template | AGENT | Canon |

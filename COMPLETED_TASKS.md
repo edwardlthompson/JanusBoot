@@ -2,6 +2,20 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## M62 — UX/UI construction law (2026-09-15)
+
+- ✅ [AGENT] Write `docs/ux-ui-guidelines.md` as construction law (principles, visual language, interaction, copy, IA, forms, empty/error/permission states, WCAG 2.2 AA + record AAA, responsive/i18n, design-system hygiene, performance-as-UX, delight, extra guardrails). Voice: do this when shipping UI, not when reviewing.
+- ✅ [AGENT] Add always-on `.cursor/rules/ux-ui.mdc` with the **build checklist** (one primary button, empty/error/loading in-slice, native controls, labels, 44px, focus rings, no AI-slop, a11y not polish). Point at DESIGN_GUIDE / design-system.mdc for tokens; do not duplicate hex rules.
+- ✅ [AGENT] Wire AGENTS.md Code Style + Session Protocol; `bootstrap-lifecycle.sh --sync-adapters`. Cross-link DESIGN_GUIDE, FEATURE_MODULES, README, START_HERE, TOUR.
+- ✅ [AGENT] Wire `/plan` Critique, `docs/CURSOR_MODES.md`, `/feature`, feature-vertical-slice skill, and `docs/features/_template.md` (empty, error, loading, permission-denied if relevant, named primary CTA).
+- ✅ [AGENT] ADR-0007: construction law vs `/ux-review` vs Sequential sprint vs UX inventory (complete list, `/build` does not auto-drain UX-NNN).
+- ✅ [AGENT] UX inventory markers `<!-- ux-inventory:begin/end -->` on BUILD_PLAN.md and BUILD_PLAN_TEMPLATE.md; `scripts/lib/ux_inventory.py` + `check-ux-inventory.sh`; tests; validate-bootstrap `--quick`. Empty stub `_No UX inventory items._` Status only planned / in_progress / done.
+- ✅ [AGENT] `/ux-review` command + skill + `docs/help/UX-REVIEW.md` (same law; inspect real UI; write every change to inventory in the same turn; `--quick` / `--compare` / `--a11y` / scoped).
+- ✅ [AGENT] `/ux-apply` + aliases (`ui-review`, `ux-audit`, `ui-audit`) + wrappers (`a11y-check`, `redesign`, `compare-ui`, `update-guidelines`) + `docs/help/UX-APPLY.md`.
+- ✅ [AGENT] Batch-command registry: check-batch-commands ATOMIC, validate-bootstrap BATCH_COMMANDS, batch-commands.mdc, both BATCH_COMMANDS docs, batch-commands-print.json + `--write`. 40 atomic + 5 super.
+- ✅ [AGENT] TEMPLATE_INDEX + upgrade-policy Canon; CHANGELOG `[Unreleased]`.
+- ✅ [AUTO] `validate-bootstrap --quick` and `check-batch-commands` pass (gates after last AGENT row; then `smoke-sprint --require` before any next sprint).
+
 ## v1.5.0 release (2026-09-14)
 
 - ✅ [AUTO] Merge Dependabot [#109](https://github.com/edwardlthompson/agent-project-bootstrap/pull/109) (`actions/setup-java` 5→6)

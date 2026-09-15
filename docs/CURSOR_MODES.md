@@ -24,7 +24,7 @@ Every plan (Cursor Plan Mode, `/plan`, CreatePlan, BUILD_PLAN sprint drafts) mus
 | Plan body | Resolutions appear in todos/steps, not critique-only footnotes |
 | Decisions | Pick a single best approach; no open questions or unresolved option dumps |
 | Deferral | Bare “defer” / “monitor” forbidden unless a tracked follow-up and safety rationale are named |
-| Checklist minimum | Null/empty, timeouts, races, unhandled exceptions — each **Resolved** or **N/A** with why |
+| Checklist minimum | Null/empty, timeouts, races, unhandled exceptions — each **Resolved** or **N/A** with why. **UI slices** also: empty/error/loading, keyboard/focus, contrast/tokens, one primary action, copy in i18n ([`ux-ui-guidelines.md`](ux-ui-guidelines.md)) |
 | When to ask | Only `[HUMAN]` destructive-ops or facts undiscoverable from the codebase |
 See [`.cursor/commands/plan.md`](../.cursor/commands/plan.md) and [`.cursor/rules/read-before-write.mdc`](../.cursor/rules/read-before-write.mdc).
 

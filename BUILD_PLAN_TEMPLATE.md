@@ -95,6 +95,14 @@ _No open Dependabot or Release Please PRs._
 _No template gaps; .template-version matches upstream (or template maintainer N/A)._
 <!-- template-gaps-sync:end -->
 
+### UX & UI inventory
+
+Complete list from construction gaps and `/ux-review`. Status is only planned / in_progress / done. `/build` does not execute these until `/ux-apply UX-NNN` (or a Sequential row). Follow [`docs/ux-ui-guidelines.md`](docs/ux-ui-guidelines.md) when shipping UI.
+
+<!-- ux-inventory:begin -->
+_No UX inventory items._
+<!-- ux-inventory:end -->
+
 ---
 
 ## Ongoing Maintenance

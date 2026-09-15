@@ -32,7 +32,7 @@ Open the README for your stack under `examples/{stack}/`. If you have not chosen
 
 That folder is the runnable slice you copy for the next feature.
 
-Home chrome is **Settings-only**. Theme, About, and donate live in Settings/About — not in the header.
+Home chrome is **Settings-only**. Theme, About, and donate live in Settings/About — not in the header. Ship new screens to [`docs/ux-ui-guidelines.md`](../ux-ui-guidelines.md) (construction); `/ux-review` uses the same checklist.
 
 **Android note:** Release builds set `SOURCE_DATE_EPOCH` for reproducibility. Keep SDK path in gitignored `local.properties` (`sdk.dir=…`) — never commit machine paths. See [`modules/android/MODULE.md`](../../modules/android/MODULE.md).
 

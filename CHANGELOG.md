@@ -10,11 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.5.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.4.0...v1.5.0) (2026-09-14)
 
-
 ### Added
 
 * **bootstrap:** lock product brief and add Cycles icon factory ([7194eb0](https://github.com/edwardlthompson/agent-project-bootstrap/commit/7194eb0f905cb649a2729192742887f5ada2d8f7))
-
 
 ### Fixed
 

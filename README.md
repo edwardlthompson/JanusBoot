@@ -131,6 +131,7 @@ flowchart LR
 | Agent spec | `AGENTS.md` — overview, env, gates, test-first, security |
 | Multi-agent adapters | Cursor, Claude, Copilot, Windsurf, Gemini/Antigravity, Aider, Cline, Continue |
 | First-run tour | `/tour` and [`docs/help/TOUR.md`](docs/help/TOUR.md) |
+| UX/UI law | [`docs/ux-ui-guidelines.md`](docs/ux-ui-guidelines.md) (how we build UI); `/ux-review` checks the same bar |
 | Coach layer | [`docs/BEST_PRACTICES.md`](docs/BEST_PRACTICES.md), [`docs/FIRST_30_DAYS.md`](docs/FIRST_30_DAYS.md), `/coach` |
 | Readable gates | Plain-English feature-gate hints; `bash scripts/verify.sh` |
 | Spec-driven | `docs/spec.md`, `docs/plan.md`, `docs/features/_template.md` |
@@ -161,6 +162,7 @@ Shipped in the template (not generated): `docs/spec.md`, `docs/plan.md`, `docs/B
 **[docs/help/BATCH_COMMANDS.md](docs/help/BATCH_COMMANDS.md)** — shortcut recipes. In Cursor type `/`. In any other IDE, paste the matching `docs/help/` file. **Print:** open [`docs/help/batch-commands-print.html`](docs/help/batch-commands-print.html) in a browser and use Print.
 
 - `/tour` — 10-minute first-run walk (`docs/help/TOUR.md`)
+- `/ux-review` — score shipped UI against [`docs/ux-ui-guidelines.md`](docs/ux-ui-guidelines.md) (same law used while building)
 - `/bootstrap` — new project Sprint 0, then the tour
 - `/coach` — next action and the industry why
 - `/ideas` — ranked in-scope backlog (does not implement)

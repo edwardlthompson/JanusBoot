@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-09-15 — v1.6.0 /ship
+- **Status:** Accepted
+- **Context:** M62 UX construction law was on `main` as `feat`. First push (`f532e8b`) failed required CodeQL/Android assemble because `setup-android@v4` still asked for the obsolete SDK `tools` package. Release Please #110 opened for 1.6.0. Admin-merge of #110 created the GitHub Release, then RP GraphQL failed before dispatching `release.yml`, so SBOM assets were missing until a manual workflow_dispatch.
+- **Decision:** Ship **1.6.0**. Leave CodeQL `@v4` (no fake `vcodeql-bundle-*` pins). Fix CI with `packages: platform-tools`. Dispatch `release.yml` with `tag=v1.6.0` when RP post-merge GraphQL flakes.
+- **Alternatives considered:** Wait for a CodeQL rerun without a workflow change (rejected: assemble and CodeQL both hard-failed on `tools`). Apply Dependabot CodeQL “patches” from upd (rejected: bogus tags).
+- **Consequences:** Tag **v1.6.0**; construction law + `/ux-review` inventory in the template; `/build` still does not auto-drain UX-NNN.
+
 ### 2026-09-14 — Merge setup-java v6 (#109)
 - **Status:** Accepted
 - **Context:** Dependabot major `actions/setup-java` 5→6 was deferred at v1.5.0 `/ship` because `/update-deps` caps patch/minor. Workflows use `distribution: temurin` and `java-version` only (no `jdkFile` / Adopt).

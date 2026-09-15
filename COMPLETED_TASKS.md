@@ -2,6 +2,12 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## v1.6.0 release (2026-09-15)
+
+- ✅ [AGENT] Merge release [#110](https://github.com/edwardlthompson/agent-project-bootstrap/pull/110) (chore(main): release 1.6.0)
+- ✅ [AGENT] UX construction law + `/ux-review` inventory (M62)
+- ✅ [AUTO] `setup-android@v4` `packages: platform-tools` (cmdline-tools 20 dropped `tools`)
+
 ## M62 — UX/UI construction law (2026-09-15)
 
 - ✅ [AGENT] Write `docs/ux-ui-guidelines.md` as construction law (principles, visual language, interaction, copy, IA, forms, empty/error/permission states, WCAG 2.2 AA + record AAA, responsive/i18n, design-system hygiene, performance-as-UX, delight, extra guardrails). Voice: do this when shipping UI, not when reviewing.

@@ -203,6 +203,15 @@
 | **Cause** | Ephemeral runner FS + commit-msg / UTF-8 / clone path length on Windows |
 | **Fix** | Quarantine: re-run the failing job once via `gh run rerun <id> --failed`. If it fails twice, treat as real — capture `simulate-template-upgrade` log and open a BUILD_PLAN row. Do not remove the check from `required-checks.json`. |
 | **Prevention** | Keep upgrade-sim sacred files UTF-8; avoid writing under locked paths; see `docs/CI_REQUIRED_CHECKS.md` |
+### KB-026 — `setup-android@v4` default `tools` package is gone
+
+| Field | Detail |
+|-------|--------|
+| **Symptom** | CodeQL java-kotlin and Android assemble jobs fail: `sdkmanager` `Failed to find package 'tools'` (cmdline-tools 20.0) |
+| **Cause** | `android-actions/setup-android@v4` defaults to installing `tools platform-tools`. The legacy `tools` SDK package is not published for cmdline-tools 20 |
+| **Fix** | Pass `packages: platform-tools` on every `setup-android@v4` step (CI assemble + CodeQL). Do not install `tools` |
+| **Prevention** | New Android workflow jobs must set `packages` explicitly; do not rely on the action default |
+
 ### KB-025 — Blender icon tests must skip before importing `cli`
 
 | Field | Detail |

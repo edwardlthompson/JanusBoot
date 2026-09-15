@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.5.0...v1.6.0) (2026-09-15)
+
+
+### Added
+
+* **ux:** add construction law and /ux-review inventory ([f532e8b](https://github.com/edwardlthompson/agent-project-bootstrap/commit/f532e8bf486d8997a424ef90d9cbcc65208bb794))
+
+
+### Fixed
+
+* **ci:** skip obsolete Android SDK tools package ([edf6009](https://github.com/edwardlthompson/agent-project-bootstrap/commit/edf600916f2bda44fffcebca0512f4ff8fded9d9))
+
 ## [Unreleased]
 
 ## [1.5.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.4.0...v1.5.0) (2026-09-14)

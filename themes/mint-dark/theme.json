@@ -1,0 +1,40 @@
+{
+  "name": "Mint Dark",
+  "author": "JanusBoot",
+  "version": "1.0.0",
+  "schema_version": 1,
+  "appearance": "dark",
+  "layout": "row",
+  "colors": {
+    "text": "#E8EFEE",
+    "muted": "#9BB0AC",
+    "accent": "#92B372",
+    "danger": "#E35D4F",
+    "focus": "#7AAE6A"
+  },
+  "padding": 16,
+  "radius": 8,
+  "timeout_bar": true,
+  "background": {
+    "path": "background.boot.jpg",
+    "max_source_width": 3840,
+    "max_source_height": 2160,
+    "max_store_bytes": 2097152
+  },
+  "limits": {
+    "theme_warn_bytes": 4194304,
+    "theme_max_bytes": 12582912,
+    "icon_max_bytes": 131072,
+    "icon_sizes_px": [
+      64,
+      128,
+      256
+    ],
+    "max_custom_icons": 24,
+    "max_chrome_images": 8,
+    "allowed_formats": [
+      "png",
+      "jpeg"
+    ]
+  }
+}

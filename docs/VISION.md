@@ -16,19 +16,43 @@ from Windows.
 - **GUIs (later):** Linux and Windows talk only to `janusbootctl` and share the
   same JSON schemas.
 
-## Phase 0–2 (this deliverable)
+## Phase 0–2 (shipped)
 
 1. Schemas + ESP layout docs + fixtures (two fake OS entries).
 2. `janusbootctl`: `validate`, `get`, `set`, `backup`, `generate-limine`.
 3. Host QEMU+OVMF smoke (LOCAL lane): FAT image boots Limine with timeout,
    default, and wallpaper driven by JSON.
 
-## Phase 4 note — boot-time settings (minimum)
+## Phase 3 — Scanner
 
-If Limine cannot edit settings in-menu, JanusBoot still ships: change timeout,
-default, and theme from **OS tools** (`janusbootctl` / desktop GUIs), then
-regenerate `limine.conf` and write the ESP. Document that path; do not block
-Phases 3–8 waiting for a full in-boot settings UI.
+`janusbootctl scan` walks known EFI paths (Linux shim/GRUB/systemd-boot/Limine +
+Windows `bootmgfw.efi`) as pure heuristics. It never deletes foreign EFI files.
+Optional `--write` updates `entries.json` with `source: scanned`.
+
+## Phase 4 — Boot-time settings (minimum)
+
+Limine in-menu editing is limited (timeout/default may be conf-only). JanusBoot
+ships settings UX copy for OS tools:
+
+| Setting | Boot menu (if Limine allows) | Linux / Windows via `janusbootctl` |
+|---------|------------------------------|-------------------------------------|
+| Timeout | Prefer in-menu; else OS tools | `set timeout` → regenerate conf |
+| Default / last-used | Prefer in-menu; else OS tools | `set default` |
+| Theme pack | Validated packs only | `theme-apply` then regenerate |
+| Language / scan paths / mouse / hidden | OS tools first | settings.json keys |
+
+Document Limine limits on QEMU (LOCAL). Do not block Phases 5–8 waiting for a
+full in-boot settings UI — OS tools + regenerate is the supported path.
+
+## Phase 5–6 — Desktop GUIs
+
+Linux and Windows GUIs talk **only** to `janusbootctl` (same schemas). Windows
+requires elevation before ESP/NVRAM/BCD writes; dry-run first.
+
+## Phase 7–8 — Repair + polish
+
+Repair plans are dry-run JSON (`repair-plan`). Theme packs are data; `theme-apply`
+copies validated assets onto the ESP. EFI never executes theme code.
 
 ## Non-goals (v1)
 

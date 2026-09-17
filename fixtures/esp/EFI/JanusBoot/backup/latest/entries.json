@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "id": "windows-11",
+      "title": "Windows 11",
+      "subtitle": "Windows Boot Manager",
+      "type": "efi_chainload",
+      "path": "boot():/EFI/Microsoft/Boot/bootmgfw.efi",
+      "icon": "windows"
+    },
+    {
+      "id": "linux-mint",
+      "title": "Linux Mint",
+      "subtitle": "Cinnamon",
+      "type": "efi_chainload",
+      "path": "boot():/EFI/ubuntu/shimx64.efi",
+      "icon": "linux"
+    }
+  ]
+}

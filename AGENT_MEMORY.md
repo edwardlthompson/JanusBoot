@@ -34,7 +34,10 @@
 ## Persistent Context
 
 <!-- product-brief-sync:begin -->
-_Template maintainer: no product AGENT.md. Children write AGENT.md before init._
+> Read `AGENT.md` before any sprint row.
+
+**One-liner:** A UEFI-first graphical boot manager that feels like BURG, scans like rEFInd, can repair a broken OS path like Super GRUB, and stores one settings/theme contract on the ESP that you can change from the boot menu, from Linux, and from Windows.
+**Do not drift:** limine, uefi, janusbootctl, efi/janusboot, qemu, ovmf
 <!-- product-brief-sync:end -->
 
 ### Project Purpose

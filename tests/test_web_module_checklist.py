@@ -11,6 +11,8 @@ MODULE = ROOT / "modules/web/MODULE.md"
 
 class WebModuleChecklistTests(unittest.TestCase):
     def test_shipped_checklist_rows(self) -> None:
+        if not MODULE.is_file():
+            self.skipTest("web module pruned")
         text = MODULE.read_text(encoding="utf-8")
         self.assertIn("check-design-cohesion.sh", text)
         self.assertIn("check-lighthouse-floors.sh", text)

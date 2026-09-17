@@ -172,6 +172,8 @@ class LiveWebSmokeTests(unittest.TestCase):
         from sprint_smoke_probes import load_budget
         from sprint_smoke_web import probe_web
 
+        if not (ROOT / "examples" / "web" / "index.html").is_file():
+            self.skipTest("web example pruned")
         result = probe_web(ROOT, load_budget(ROOT))
         self.assertTrue(result.ok, result.detail)
         self.assertTrue(any("main.ts" in item for item in result.load_order))

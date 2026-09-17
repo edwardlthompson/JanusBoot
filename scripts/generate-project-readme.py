@@ -75,14 +75,22 @@ def render_list(items: list[str], *, ordered: bool = False) -> str:
     return "\n".join(f"- {item}" for item in items)
 
 
+STACK_BADGE_COLORS = {
+    "web": "646cff",
+    "python": "3776AB",
+    "android": "3DDC84",
+    "node": "339933",
+}
+
+
 def stack_badges(product: dict) -> str:
     stacks = product.get("stacks") or []
     primary = product["badge"]["primary"]
     secondary = product["badge"]["secondary"]
-    colors = [primary, secondary, "3DDC84", "3776AB", "646cff"]
+    fallback = [primary, secondary, "3DDC84", "3776AB", "646cff"]
     lines = []
     for i, stack in enumerate(stacks):
-        color = colors[i % len(colors)]
+        color = STACK_BADGE_COLORS.get(str(stack), fallback[i % len(fallback)])
         lines.append(
             f'  <img src="https://img.shields.io/badge/{stack}-stack-{color}'
             f'?style=flat-square" alt="{stack}" />'
@@ -155,6 +163,12 @@ def render_readme(root: Path, product: dict, *, for_preview: bool = False) -> st
         "{{url_agents}}": _rel_url("AGENTS.md", from_preview=for_preview),
         "{{url_tour}}": _rel_url("docs/help/TOUR.md", from_preview=for_preview),
         "{{ci_repo}}": str(urls.get("github_repo") or "OWNER/REPO"),
+        "{{pages_host}}": (
+            f"{str(urls.get('github_repo') or 'OWNER/REPO').split('/', 1)[0]}.github.io"
+        ),
+        "{{pages_name}}": (
+            str(urls.get("github_repo") or "OWNER/REPO").split("/", 1)[-1]
+        ),
         "{{license_name}}": "MIT License",
     }
     out = template

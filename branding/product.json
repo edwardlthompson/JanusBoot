@@ -1,23 +1,23 @@
 {
-  "mode": "template",
-  "name": "Golden Path",
-  "short_name": "GoldenPath",
-  "tagline": "FOSS apps with a clear path from idea to release",
-  "pitch": "Golden Path is the reference product identity shipped with agent-project-bootstrap: a privacy-respecting FOSS stack with design tokens, CI guardrails, and agent-ready sprints so you can go from template to a shippable app without reinventing the foundation.",
+  "mode": "product",
+  "name": "JanusBoot",
+  "short_name": "JanusBoot",
+  "tagline": "UEFI-first graphical boot manager (Limine + ESP settings + janusbootctl)",
+  "pitch": "JanusBoot is a UEFI-first graphical boot manager that feels like BURG, scans like rEFInd, and stores one settings/theme contract on the ESP that you can change from the boot menu, from Linux, and from Windows. Engine: Limine. CLI: janusbootctl. Layout: EFI/JanusBoot/.",
   "features": [
-    "Cross-stack design tokens with light, dark, and system themes",
-    "Labeled BUILD_PLAN sprints for humans, agents, and CI",
-    "Web PWA and Android FOSS golden-path stubs ready to prune or extend",
-    "Security defaults: Dependabot, CodeQL, gitleaks, and weekly triage docs",
-    "Replaceable branding kit — swap logos and colors when your identity is ready"
+    "Limine-backed UEFI boot UI with BURG-inspired themes and last-used timeout",
+    "Single ESP JSON contract for settings, entries, and themes",
+    "janusbootctl for validate, get/set, backup, and limine.conf generation",
+    "QEMU+OVMF first; Linux and Windows desktop tools talk only to the CLI",
+    "Repair and scanner flows planned without forking unmaintained bootloaders"
   ],
   "quick_start": [
-    "Clone the repo and run `./scripts/init-project.sh` (or `.\\scripts\\init-project.ps1` on Windows).",
-    "Open your coding agent and follow `docs/START_HERE.md`. First-time walk: `docs/help/TOUR.md` (Cursor: `/tour`).",
-    "Set `branding/product.json` `mode` to `product`, fill name/tagline/pitch, then run `python3 scripts/generate-project-readme.py`."
+    "Read AGENT.md and docs/JANUSBOOT_AGENT_LANES.md before any lane work.",
+    "Cloud lane owns schemas/CLI; Local lane owns Makefile/QEMU \u2014 see .cursor/janusboot-lane-lock.json.",
+    "After cloud merge into local/phase-0-2: make validate, make esp-image, make qemu."
   ],
-  "install": "Requirements depend on your active stack (Node 20+, Python 3.11+, Android SDK). See the active `modules/{stack}/MODULE.md` and `examples/{stack}/README.md`.",
-  "usage": "Use `/bootstrap` for Sprint 0, `/build` for features, and `/verify` before merge. Edit colors in `design-tokens/design-tokens.json` and logos in `branding/assets/`, then run `python3 scripts/sync-design-tokens.py`.",
+  "install": "Python 3.11+ with uv for examples/python (janusbootctl). Host tools for Local lane: qemu-system-x86_64, OVMF, dosfstools/mtools. See modules/python/MODULE.md and docs/qemu.md (Local).",
+  "usage": "Use /coach for the next BUILD_PLAN row. Cloud agents work only on cloud/*; local agents on local/*. Never edit the other lane\u2019s exclusive paths.",
   "urls": {
     "docs": "docs/START_HERE.md",
     "contributing": "CONTRIBUTING.md",
@@ -25,17 +25,15 @@
     "license": "LICENSE",
     "design": "docs/DESIGN_GUIDE.md",
     "branding": "branding/BRANDING.md",
-    "github_repo": "edwardlthompson/agent-project-bootstrap"
+    "github_repo": "edwardlthompson/JanusBoot"
   },
   "badge": {
-    "primary": "e94560",
-    "secondary": "4A5F82",
+    "primary": "2B4C7E",
+    "secondary": "C4A35A",
     "license": "2ea043",
     "foss": "656d76"
   },
   "stacks": [
-    "web",
-    "python",
-    "android"
+    "python"
   ]
 }

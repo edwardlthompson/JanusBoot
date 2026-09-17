@@ -9,6 +9,7 @@ ALLOW = frozenset({
     "destructive-ops", "foss-compliance", "commercial-compliance",
     "windows-encoding", "local-compute", "local-deps", "read-before-write",
     "feature-modules", "repo-hygiene", "product-brief", "ux-ui",
+    "janusboot",
 })
 TOGGLE = ("foss-compliance", "commercial-compliance")
 

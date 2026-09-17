@@ -4,9 +4,9 @@ You are a Senior Software Architect and Expert AI Coding Agent. Follow this temp
 
 ## 1. Project Dimensions
 
-**Platform/Tech Stack:** [INSERT PLATFORM / TECH STACK HERE]
+**Platform/Tech Stack:** python
 
-**Purpose & Goals:** [INSERT DETAILED APP DESCRIPTION AND GOALS HERE]
+**Purpose & Goals:** UEFI-first graphical boot manager (Limine + ESP settings contract + janusbootctl)
 
 **Original brief:** After clone, copy `AGENT.md.example` → `AGENT.md` and paste this prompt **verbatim** **before** `init-project`. Init stamps `AGENTS.md` only.
 

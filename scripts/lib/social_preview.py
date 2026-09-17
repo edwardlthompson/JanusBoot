@@ -20,6 +20,23 @@ def _hexes(tokens: dict) -> list[str]:
     ]
 
 
+def _web_active(root: Path) -> bool:
+    web = root / "examples" / "web"
+    if not web.is_dir():
+        return False
+    sel = root / ".cursor" / "stack-selection.json"
+    if not sel.is_file():
+        return True
+    try:
+        data = json.loads(sel.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return True
+    modules = data.get("active_modules")
+    if isinstance(modules, list):
+        return "web" in [str(m) for m in modules]
+    return str(data.get("stack") or "") == "web"
+
+
 def check_repo(root: Path) -> list[str]:
     errors: list[str] = []
     token_path = root / TOKENS
@@ -27,7 +44,6 @@ def check_repo(root: Path) -> list[str]:
         return [f"MISSING: {TOKENS.as_posix()}"]
     tokens = json.loads(token_path.read_text(encoding="utf-8"))
     asset = root / ASSET
-    public = root / PUBLIC
     if not asset.is_file():
         errors.append(f"MISSING: {ASSET.as_posix()}")
         return errors
@@ -37,6 +53,9 @@ def check_repo(root: Path) -> list[str]:
     for hex_color in _hexes(tokens):
         if hex_color.lower() not in text.lower():
             errors.append(f"{ASSET.as_posix()} missing token color {hex_color}")
+    if not _web_active(root):
+        return errors
+    public = root / PUBLIC
     if not public.is_file():
         errors.append(f"MISSING: {PUBLIC.as_posix()}")
     elif public.read_bytes() != asset.read_bytes():

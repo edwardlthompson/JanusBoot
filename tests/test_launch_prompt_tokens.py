@@ -9,7 +9,10 @@ ROOT = Path(__file__).resolve().parent.parent
 
 class LaunchPromptTokenTests(unittest.TestCase):
     def test_web_launch_buttons_use_tokens(self) -> None:
-        css = (ROOT / "examples/web/src/style.css").read_text(encoding="utf-8")
+        css_path = ROOT / "examples/web/src/style.css"
+        if not css_path.is_file():
+            self.skipTest("web example pruned")
+        css = css_path.read_text(encoding="utf-8")
         self.assertIn(".gp-launch-actions button", css)
         block_start = css.index(".gp-launch-actions button {")
         block = css[block_start : block_start + 400]

@@ -25,7 +25,10 @@ class TokenContrastTests(unittest.TestCase):
         from token_contrast import PAIRS
 
         self.assertIn(("onSurface", "surface", 4.5), PAIRS)
-        css = (ROOT / "examples/web/src/style.css").read_text(encoding="utf-8")
+        css_path = ROOT / "examples/web/src/style.css"
+        if not css_path.is_file():
+            self.skipTest("web example pruned")
+        css = css_path.read_text(encoding="utf-8")
         self.assertIn(".gp-settings-row select", css)
         self.assertIn("--gp-color-on-surface", css)
         self.assertIn("--gp-color-surface", css)

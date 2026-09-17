@@ -1,0 +1,45 @@
+---
+description: JanusBoot dual-lane isolation (LOCAL / CLOUD / Sequential)
+alwaysApply: true
+---
+
+# JanusBoot lane isolation
+
+Read `.cursor/janusboot-lane-lock.json` and `docs/JANUSBOOT_AGENT_LANES.md` before any edit.
+
+## Before every edit
+
+1. Identify your lane: `[CLOUD]` (`cloud/*` branch), `[LOCAL]` (`local/*` branch), or Sequential (orchestrator).
+2. If the target path is not owned by your lane in the lock file → **stop**. Do not “helpfully” edit the other lane’s files.
+3. Cloud agents never commit on `local/*` or `main`. Local agents never commit on `cloud/*`.
+4. Neither lane force-pushes the other’s branch.
+
+## Cloud lane
+
+- Work only on `cloud/<phase-slug>` (e.g. `cloud/phase-0-2`).
+- Own: `schema/`, `fixtures/esp/`, `themes/`, `docs/VISION.md`, `docs/spec.md`, `esp/`, `examples/python/`.
+- No `make qemu`, no writes under `third_party/` or `build/`, no `dd`, no real ESP.
+- Do not author the real `Makefile` (LOCAL exclusive). Document expected targets in cloud-owned docs instead.
+- Open PRs into `local/phase-*`, never directly into `main`.
+
+## Local lane
+
+- Work only on `local/<phase-slug>` (e.g. `local/phase-0-2`).
+- Own: `Makefile`, `third_party/`, `build/`, `docs/qemu.md`, host QEMU scripts.
+- Do not rewrite `schema/` or `examples/python/src/` while a cloud PR for that phase is open; merge cloud first.
+- If a schema bug blocks QEMU, open a `[CLOUD]` follow-up (or Sequential fix) — do not silently patch schemas on `local/*`.
+
+## Sequential only
+
+- `BUILD_PLAN.md`, `AGENT.md`, `AGENTS.md`, `.cursorrules`, `.cursor/rules/janusboot.mdc`, `docs/JANUSBOOT_AGENT_LANES.md`, `docs/PARALLEL_AGENT_SCOPES.md`, lane lock.
+- Only Sequential marks BUILD_PLAN rows ✅ after the owning lane’s acceptance checks.
+- Merge order: cloud → local → (human) main.
+
+## Product rules (from AGENT.md)
+
+- Product name **JanusBoot**; CLI **janusbootctl**; ESP **EFI/JanusBoot/**.
+- QEMU+OVMF for every boot change; never tell the user to `dd` blindly.
+- Generate Limine config; do not fork bootloaders or vendor BURG in v1.
+- Linux and Windows share schema; divergence fails CI.
+- Features behind flags: `repair`, `mouse`, `secureboot`.
+- User themes are data only; EFI does not run theme code.

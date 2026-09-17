@@ -1,0 +1,24 @@
+# JanusBoot — Cursor rules
+
+Sacred brief: `AGENT.md`. Lane isolation: `.cursor/rules/janusboot.mdc` + `.cursor/janusboot-lane-lock.json`.
+
+## Product
+
+- Product name is **JanusBoot**; CLI **janusbootctl**; ESP **EFI/JanusBoot/**.
+- QEMU+OVMF for every boot change; never tell the user to `dd` blindly.
+- Repair only touches ESP files we own + explicit backups + documented NVRAM/BCD with confirm/dry-run.
+- Generate Limine config; do not fork bootloaders in v1.
+- Linux and Windows share schema; divergence fails CI.
+- Features behind flags: `repair`, `mouse`, `secureboot`.
+- One PR per phase.
+- User themes are data: compile with `janusbootctl theme apply`; EFI does not run code or resize huge images.
+- Do not revive BURG as the core; Limine is the engine. Do not vendor BURG source.
+
+## Lanes
+
+- Before any edit, read the lane lock; if the path is not owned by your lane → stop.
+- Cloud: `cloud/*` only; no `make qemu`, no `third_party/` / `build/`, no `dd`, no real ESP.
+- Local: `local/*` only; no rewriting cloud schemas/CLI while a cloud PR is open.
+- Neither lane force-pushes the other’s branch.
+- Cloud PRs target `local/phase-*`, never `main` directly.
+- Only Sequential marks BUILD_PLAN rows ✅ after owning-lane acceptance.

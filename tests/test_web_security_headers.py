@@ -11,6 +11,8 @@ WEB = ROOT / "examples" / "web"
 
 class WebSecurityHeaderTests(unittest.TestCase):
     def test_index_meta_policies(self) -> None:
+        if not (WEB / "index.html").is_file():
+            self.skipTest("web example pruned")
         html = (WEB / "index.html").read_text(encoding="utf-8")
         self.assertIn('name="referrer"', html)
         self.assertIn("no-referrer", html)
@@ -19,6 +21,8 @@ class WebSecurityHeaderTests(unittest.TestCase):
         self.assertNotIn("Content-Security-Policy", html)
 
     def test_vite_preview_headers(self) -> None:
+        if not (WEB / "vite.config.ts").is_file():
+            self.skipTest("web example pruned")
         vite = (WEB / "vite.config.ts").read_text(encoding="utf-8")
         self.assertIn("injectCspMeta", vite)
         self.assertIn("Referrer-Policy", vite)

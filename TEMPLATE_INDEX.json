@@ -1,9 +1,9 @@
 {
   "template_version": "1.6.0",
   "project": {
-    "name": "agent-project-bootstrap",
-    "purpose": "GitHub Template for FOSS coding-agent projects",
-    "stack": "multi"
+    "name": "JanusBoot",
+    "purpose": "UEFI-first graphical boot manager (Limine + ESP settings contract + janusbootctl)",
+    "stack": "python"
   },
   "entry_points": {
     "bootstrap": "docs/START_HERE.md",
@@ -596,20 +596,6 @@
     {
       "path": "examples/python/justfile",
       "purpose": "Optional Python Golden Path just recipes",
-      "read_when": "stack_selection",
-      "update_when": "milestone_boundary",
-      "owner": "maintainer"
-    },
-    {
-      "path": "examples/web/justfile",
-      "purpose": "Optional Web Golden Path just recipes",
-      "read_when": "stack_selection",
-      "update_when": "milestone_boundary",
-      "owner": "maintainer"
-    },
-    {
-      "path": "examples/android/justfile",
-      "purpose": "Optional Android Golden Path just recipes",
       "read_when": "stack_selection",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -1616,20 +1602,6 @@
       "owner": "maintainer"
     },
     {
-      "path": "modules/node/MODULE.md",
-      "purpose": "Node.js API module guide (Hono Golden Path)",
-      "read_when": "milestone_boundary",
-      "update_when": "milestone_boundary",
-      "owner": "maintainer"
-    },
-    {
-      "path": "examples/node/",
-      "purpose": "Hono + TypeScript + Vitest API stub",
-      "read_when": "milestone_boundary",
-      "update_when": "milestone_boundary",
-      "owner": "maintainer"
-    },
-    {
       "path": "action.yml",
       "purpose": "Composite GitHub Action wrapping validate-bootstrap --quick",
       "read_when": "milestone_boundary",
@@ -1696,48 +1668,6 @@
       "path": ".release-please-manifest.json",
       "purpose": "Release Please version manifest",
       "read_when": "milestone_boundary",
-      "update_when": "milestone_boundary",
-      "owner": "maintainer"
-    },
-    {
-      "path": "examples/lightroom/Info.lua",
-      "purpose": "Lightroom plugin Info.lua stub",
-      "read_when": "stack_selection",
-      "update_when": "milestone_boundary",
-      "owner": "maintainer"
-    },
-    {
-      "path": "examples/lightroom/README.md",
-      "purpose": "Lightroom SDK version and compliance notes",
-      "read_when": "stack_selection",
-      "update_when": "milestone_boundary",
-      "owner": "maintainer"
-    },
-    {
-      "path": "modules/rust/MODULE.md",
-      "purpose": "Optional Rust module guide",
-      "read_when": "stack_selection",
-      "update_when": "milestone_boundary",
-      "owner": "maintainer"
-    },
-    {
-      "path": "examples/rust/Cargo.toml",
-      "purpose": "Rust hello-world stub manifest",
-      "read_when": "stack_selection",
-      "update_when": "milestone_boundary",
-      "owner": "maintainer"
-    },
-    {
-      "path": "modules/go/MODULE.md",
-      "purpose": "Optional Go module guide",
-      "read_when": "stack_selection",
-      "update_when": "milestone_boundary",
-      "owner": "maintainer"
-    },
-    {
-      "path": "examples/go/go.mod",
-      "purpose": "Go hello-world stub module",
-      "read_when": "stack_selection",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
     },
@@ -1824,27 +1754,6 @@
       "read_when": "web_hosting",
       "update_when": "layout_change",
       "owner": "agent+human"
-    },
-    {
-      "path": "examples/web/src/panelDialog.ts",
-      "purpose": "Modal a11y: role=dialog, focus trap, Escape, focus restore",
-      "read_when": "ui_work",
-      "update_when": "milestone_boundary",
-      "owner": "agent"
-    },
-    {
-      "path": "examples/web/src/appBootstrap.ts",
-      "purpose": "Web composition root: theme, donations, update check, SW register",
-      "read_when": "ui_work",
-      "update_when": "milestone_boundary",
-      "owner": "agent"
-    },
-    {
-      "path": "examples/web/public/sw.js",
-      "purpose": "PWA service worker; CACHE_NAME stamped from package version at build",
-      "read_when": "web_hosting",
-      "update_when": "milestone_boundary",
-      "owner": "agent"
     },
     {
       "path": ".cursor/rules/design-system.mdc",
@@ -2680,13 +2589,6 @@
       "owner": "maintainer"
     },
     {
-      "path": "examples/lightroom/.luacheckrc",
-      "purpose": "luacheck std + import global for Lightroom Classic Lua",
-      "read_when": "lightroom_quality_gate",
-      "update_when": "lightroom_tooling_change",
-      "owner": "maintainer"
-    },
-    {
       "path": "scripts/check-action-workflows.sh",
       "purpose": "Gate: offline actionlint + zizmor on GitHub workflows",
       "read_when": "milestone_boundary",
@@ -2953,13 +2855,6 @@
       "owner": "maintainer"
     },
     {
-      "path": "examples/android/app/proguard-rules.pro",
-      "purpose": "Narrow release R8 keep attributes (no package-wide keeps)",
-      "read_when": "android_release",
-      "update_when": "milestone_boundary",
-      "owner": "maintainer"
-    },
-    {
       "path": "scripts/sync-open-prs-build-plan.sh",
       "purpose": "Mirror open Dependabot/Release Please PRs into BUILD_PLAN managed block",
       "read_when": "session_start",
@@ -3172,45 +3067,10 @@
     }
   ],
   "modules": {
-    "android": {
-      "guide": "modules/android/MODULE.md",
-      "example": "examples/android",
-      "activate_when": "stack includes Android or F-Droid"
-    },
-    "web": {
-      "guide": "modules/web/MODULE.md",
-      "example": "examples/web",
-      "activate_when": "stack includes PWA, web, or static site"
-    },
     "python": {
       "guide": "modules/python/MODULE.md",
       "example": "examples/python",
       "activate_when": "stack includes Python application"
-    },
-    "lightroom": {
-      "guide": "modules/lightroom/MODULE.md",
-      "example": "examples/lightroom",
-      "activate_when": "stack includes Adobe Lightroom Classic plugin"
-    },
-    "rust": {
-      "guide": "modules/rust/MODULE.md",
-      "example": "examples/rust",
-      "activate_when": "optional stack; see docs/OPTIONAL_STACKS.md"
-    },
-    "go": {
-      "guide": "modules/go/MODULE.md",
-      "example": "examples/go",
-      "activate_when": "optional stack; see docs/OPTIONAL_STACKS.md"
-    },
-    "blender": {
-      "guide": "modules/blender/MODULE.md",
-      "example": "examples/blender",
-      "activate_when": "optional Cycles/OptiX icon factory; see docs/OPTIONAL_STACKS.md"
-    },
-    "node": {
-      "guide": "modules/node/MODULE.md",
-      "example": "examples/node",
-      "activate_when": "stack includes Node.js HTTP API"
     }
   },
   "roadmap": {

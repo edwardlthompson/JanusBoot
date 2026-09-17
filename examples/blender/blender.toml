@@ -1,3 +1,0 @@
-# Marker for discover_stacks / feature-gate --stack blender
-name = "golden-path-blender"
-engine = "cycles"

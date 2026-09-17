@@ -14,11 +14,10 @@
 ## Project Overview & Architecture
 
 <!-- bootstrap-project-card -->
-**Product:** agent-project-bootstrap
-**Purpose:** GitHub Template for FOSS coding-agent projects
-**Stack:** multi
+**Product:** JanusBoot
+**Purpose:** UEFI-first graphical boot manager (Limine + ESP settings contract + janusbootctl)
+**Stack:** python
 <!-- /bootstrap-project-card -->
-
 This repository is a **GitHub Template** for FOSS projects with coding agents (Cursor, Windsurf, Antigravity, Claude Code, Copilot, Gemini CLI, Aider, Cline). Child repos start from **Use this template**, then `scripts/init-project.sh` (or `.ps1`). Edit `AGENTS.md`, then `bash scripts/bootstrap-lifecycle.sh --sync-adapters`.
 
 - **Composition:** stack modules (`modules/{stack}/`) + Golden Path examples (`examples/{stack}/`) + agent routing

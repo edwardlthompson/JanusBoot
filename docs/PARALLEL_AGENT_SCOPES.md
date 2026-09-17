@@ -46,12 +46,30 @@ When working on **This Computer**, treat parallel agents + worktrees as the defa
 
 Override gate worker count with `BOOTSTRAP_CHECK_JOBS` (see `scripts/lib/run_checks_parallel.py`). On Linux, also apply [`LINUX_DEV.md`](LINUX_DEV.md) (direnv, caches, inotify, worktrees).
 
+## JanusBoot dual lanes (Phase 0–2+)
+
+> Product isolation for JanusBoot. Details: [`JANUSBOOT_AGENT_LANES.md`](JANUSBOOT_AGENT_LANES.md) · lock: [`.cursor/janusboot-lane-lock.json`](../.cursor/janusboot-lane-lock.json).
+
+| Lane | Branch | Exclusive scope |
+|------|--------|-----------------|
+| CLOUD | `cloud/<phase-slug>` | `schema/**`, `fixtures/esp/**`, `themes/**`, `docs/VISION.md`, `docs/spec.md`, `esp/**`, `examples/python/**` |
+| LOCAL | `local/<phase-slug>` | `Makefile`, `third_party/**`, `build/**`, `*.img`, `docs/qemu.md`, `scripts/janusboot-qemu*` |
+| Sequential | orchestrator only | `BUILD_PLAN.md`, `COMPLETED_TASKS.md`, `AGENT.md`, `AGENTS.md`, `.cursorrules`, `.cursor/rules/janusboot.mdc`, `docs/JANUSBOOT_AGENT_LANES.md`, this file, `bootstrap.config.json` |
+
+Rules:
+
+1. One lane per agent; never edit the other lane’s exclusive paths
+2. Cloud PRs target `local/phase-*`, never `main`
+3. Local merges cloud before `make qemu` / ESP image work
+4. Neither lane force-pushes the other’s branch
+5. Reuse `check-parallel-scope.sh` / worktrees for same-machine parallel; Cloud isolation is **branch + path lock**
+
 ## Sprint 1 (child repo) defaults
 
 | Stack | Isolated scope |
 |-------|----------------|
 | web | `examples/web/**` |
-| python | `examples/python/**` |
+| python | `examples/python/**` (JanusBoot: CLOUD lane owns this tree for Phase 0–2) |
 | android | `examples/android/**` |
 | node | `examples/node/**` |
 | multi | One scope per stack row; no overlap |

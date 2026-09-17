@@ -5,7 +5,7 @@ description = "JanusBoot ESP settings CLI — validate, get/set, backup, generat
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "jsonschema>=4.23.0",
+    "jsonschema>=4.26.0",
     "pillow>=10.0.0",
 ]
 
@@ -20,9 +20,9 @@ dev = [
     "pytest>=8.3.0",
     "pytest-cov>=6.0.0",
     "pytest-xdist>=3.8.0",
-    "ruff>=0.16.7",
+    "ruff>=0.16.8",
     "pyright>=1.1.414",
-    "types-jsonschema>=4.23.0",
+    "types-jsonschema>=4.26.0",
 ]
 
 [build-system]

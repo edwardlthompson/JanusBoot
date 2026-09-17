@@ -67,6 +67,7 @@ Anything else is refused. FOSS UX references (ideas only): USBImager, Etcher, Fe
 - Why full USB write tests are not in default CI: requires physical removable media and elevation
 - Command (Cloud): `uv run pytest examples/python/tests/test_usb_media.py`
 - Command (Local): `make usb-smoke` (removable-only; fails closed; dry-run by default)
+- Gate fallback: `python3 scripts/agent-run.py feature-gate --stack python`
 
 ## Definition of Done
 

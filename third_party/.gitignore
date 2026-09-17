@@ -1,0 +1,8 @@
+# Limine UEFI binaries downloaded by `make deps` (not vendored in git).
+limine/
+*.tar.gz
+*.tar.xz
+*.tar.bz2
+*.zip
+*.sig
+*.img

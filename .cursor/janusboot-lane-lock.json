@@ -1,6 +1,6 @@
 {
-  "phase": "3-8",
-  "cloud_branch": "cloud/phase-3-8",
+  "phase": "must-gaps-v1",
+  "cloud_branch": "cloud/must-gaps-v1",
   "local_branch": "local/phase-0-2",
   "cloud_paths": [
     "schema/",
@@ -15,14 +15,21 @@
     "Makefile",
     "third_party/",
     "build/",
-    "docs/qemu.md"
+    "docs/qemu.md",
+    "docs/nvram-repair-local.md",
+    "scripts/janusboot-qemu*",
+    "scripts/janusboot-scan-esp.sh",
+    "scripts/janusboot-smoke*"
   ],
   "sequential_paths": [
     "BUILD_PLAN.md",
+    "COMPLETED_TASKS.md",
     "AGENT.md",
     "AGENTS.md",
     ".cursorrules",
     ".cursor/rules/janusboot.mdc",
-    "docs/JANUSBOOT_AGENT_LANES.md"
+    ".cursor/janusboot-lane-lock.json",
+    "docs/JANUSBOOT_AGENT_LANES.md",
+    "docs/PARALLEL_AGENT_SCOPES.md"
   ]
 }

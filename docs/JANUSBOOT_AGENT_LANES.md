@@ -10,11 +10,16 @@ Isolation for dual-lane Phase 0–2 work. Full contract: `.cursor/janusboot-lane
 | `[CLOUD]` | Cursor Cloud Agent | `cloud/<phase-slug>` | Text/code/tests only; no host firmware, no real disks |
 | Sequential | LOCAL orchestrator chat | (edits lock + board) | Schema locks, BUILD_PLAN, merge order, lane contract files |
 
-## Phase 0–2 branches
+## Active branches (Must gaps v1)
+
+- Cloud: `cloud/must-gaps-v1` (prior: `cloud/phase-3-8`, `cloud/phase-0-2`)
+- Local: `local/phase-0-2`
+- Merge order: cloud PR → `local/phase-0-2` → (human) `main`. Never cloud → `main` directly.
+
+## Phase 0–2 branches (archived)
 
 - Cloud: `cloud/phase-0-2`
 - Local: `local/phase-0-2`
-- Merge order: cloud PR → `local/phase-0-2` → (human) `main`. Never cloud → `main` directly.
 
 ## Path ownership (hard)
 

@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 34 · LOCAL 9 · CLOUD 25 · AUTO 0 · HUMAN 4 · ADB 0 · **38 open**
+**Remaining:** AGENT 33 · LOCAL 8 · CLOUD 25 · AUTO 0 · HUMAN 4 · ADB 0 · **37 open**
 <!-- /remaining-tally -->
 
 **Progress (not zero):** Sprint 0 ✅ archived · Phase 0–2 ✅ archived · Template upgrade 1.6.0→1.8.0 ✅ archived · Phase 3–8 stubs ✅ archived · **Must gaps + Nice-later + Bootable USB 🔲 open**. The “Remaining” line counts only 🔲/❌ — Phase stubs shipped CLI/schema/QEMU depth, not brief-complete Must (v1). Archive: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Gap analysis tip: `f1a191d`.
@@ -137,7 +137,7 @@ Close the gap between Phase 3–8 **stubs** and AGENT.md **Must (v1)**. Severity
 
 ### Sequential
 
-1. 🔲 [AGENT][LOCAL] Lock scopes for Must gaps: one PR stream per lane; Sequential owns board flips only after acceptance — scope: BUILD_PLAN.md
+1. ✅ [AGENT][LOCAL] Lock scopes for Must gaps: one PR stream per lane; Sequential owns board flips only after acceptance — scope: BUILD_PLAN.md
 
 ### Parallel — CLOUD
 

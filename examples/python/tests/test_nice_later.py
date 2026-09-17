@@ -94,7 +94,15 @@ def test_linux_gui_usb_helpers(tmp_path: Path) -> None:
     mocks = tmp_path / "m.json"
     mocks.write_text(
         json.dumps(
-            [{"path": "/dev/sdb", "size_bytes": 1000, "model": "M", "removable": True, "tran": "usb"}]
+            [
+                {
+                    "path": "/dev/sdb",
+                    "size_bytes": 1000,
+                    "model": "M",
+                    "removable": True,
+                    "tran": "usb",
+                }
+            ]
         ),
         encoding="utf-8",
     )

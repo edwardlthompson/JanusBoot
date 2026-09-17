@@ -58,6 +58,7 @@ Cline is the first-run agent in Cursor: GitHub sign-in, FREE models, no API keys
 ## Session Retrospectives
 
 | 2026-09-16 | Template catch-up 1.8.0 | Applied Canon UPG-01…42 + Mixed merge toward parent 1.8.0; Sacred/GP skipped | Do not overwrite AGENTS.md product card or examples/python janusbootctl |
+| 2026-09-17 | Phase 3–8 ship | scan/repair/theme CLI + LOCAL Makefile; release 1.0.0; board archived | Prefer cloud/* for schema/CLI; local owns Makefile/QEMU |
 | 2026-09-17 | Sprint 0 sign-off | Canonical gates green on `74cf63e`; CI gates pruned stacks; About lego + upgrade-sim skip on child; archive Sprint 0 | Do not run template upgrade-sim as a hard gate on product children; Release Please needs Actions “create PRs” permission (non-blocking for Sprint 0) |
 | 2026-09-16 | Phase 0–2 integrate | Merged `cloud/phase-0-2` → `local/phase-0-2`; `make validate` + `esp-image` OK; pytest 21; feature-gate python pass; `make qemu` blocked on apt qemu/ovmf | Do not push to bootstrap template origin; create JanusBoot product remote before main merge |
 | 2026-09-15 | v1.6.0 /ship | RP #110; construction law + `/ux-review`; `setup-android` `platform-tools` only | Do not install SDK `tools`; dispatch `release.yml` if RP GraphQL flakes after tag |

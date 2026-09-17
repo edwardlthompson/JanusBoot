@@ -578,7 +578,8 @@ jobs:
         run: bash scripts/simulate-template-upgrade.sh
       - name: Skip on product child repos
         if: steps.mode.outputs.repo_mode != 'template'
-        run: echo "SKIP: upgrade-sim is template-maintainer only (child product repos use /upgrade gap plan)."
+        run: |
+          echo "SKIP: upgrade-sim is template-maintainer only (child product repos use /upgrade gap plan)."
 
   upgrade-simulation-windows:
     name: Template Upgrade Simulation (Windows)
@@ -609,7 +610,8 @@ jobs:
       - name: Skip on product child repos
         if: steps.mode.outputs.repo_mode != 'template'
         shell: bash
-        run: echo "SKIP: upgrade-sim is template-maintainer only (child product repos use /upgrade gap plan)."
+        run: |
+          echo "SKIP: upgrade-sim is template-maintainer only (child product repos use /upgrade gap plan)."
 
   template-update-check:
     name: Template Update Check

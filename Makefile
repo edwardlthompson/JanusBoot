@@ -50,7 +50,8 @@ QEMU_SMOKE_TIMEOUT ?= 30
 QEMU_SMOKE_LOG := $(BUILD)/qemu-smoke.log
 
 .PHONY: help deps check-host limine esp-image qemu qemu-smoke smoke-all validate test clean \
-	scan scan-live repair-plan _require-cloud _require-qemu _require-ovmf _require-fat-tools
+	scan scan-live scan-live-deep repair-plan repair-apply-smoke nvram-backup \
+	qemu-boot-ui-smoke install-esp-smoke _require-cloud _require-qemu _require-ovmf _require-fat-tools
 
 help:
 	@echo "JanusBoot LOCAL targets:"
@@ -59,10 +60,15 @@ help:
 	@echo "  make test        pytest via uv in examples/python (needs cloud merge)"
 	@echo "  make scan        Heuristic EFI scan on fixtures/esp (print JSON)"
 	@echo "  make scan-live   Scan ESP_ROOT (default /boot/efi) via janusboot-scan-esp.sh"
+	@echo "  make scan-live-deep  Deep recursive scan (fixtures or ESP_ROOT)"
 	@echo "  make repair-plan Dry-run repair plan JSON"
+	@echo "  make repair-apply-smoke  Dry-run repair-apply on fixtures (+ docs confirm)"
+	@echo "  make nvram-backup  Backup settings + host efibootmgr dump (if present)"
+	@echo "  make install-esp-smoke  install --confirm onto build/esp-root then esp-image"
 	@echo "  make esp-image   Build FAT ESP image under build/ (needs cloud merge)"
 	@echo "  make qemu        Interactive GUI boot (GTK display)"
 	@echo "  make qemu-smoke  Headless QEMU boot smoke (no GUI; timeout $(QEMU_SMOKE_TIMEOUT)s)"
+	@echo "  make qemu-boot-ui-smoke  Assert wallpaper/icons on image + qemu-smoke"
 	@echo "  make smoke-all   Deps→install prompt→validate→test→esp-image→qemu-smoke (→ build/smoke.log)"
 	@echo "  make clean       Remove build/ and downloaded Limine tree"
 	@echo ""
@@ -211,8 +217,47 @@ scan: _require-cloud
 scan-live: _require-cloud
 	@bash scripts/janusboot-scan-esp.sh "$(ESP_ROOT)"
 
+# Deep recursive walk (Must gap). Default fixtures; set SCAN_ROOT=/boot/efi for host read-only.
+SCAN_ROOT ?= $(FIXTURES_ESP)
+scan-live-deep: _require-cloud
+	@echo "scan-live-deep: SCAN_ROOT=$(SCAN_ROOT) (read-only print; never deletes)"
+	@cd "$(PYTHON_DIR)" && $(UV) run janusbootctl --esp "../../$(SCAN_ROOT)" scan --root "../../$(SCAN_ROOT)"
+
 repair-plan: _require-cloud
 	@cd "$(PYTHON_DIR)" && $(UV) run janusbootctl --esp "../../$(FIXTURES_ESP)" repair-plan
+
+# Dry-run only on fixtures. Real NVRAM/efibootmgr apply needs HUMAN confirm on lab VM.
+repair-apply-smoke: _require-cloud
+	@echo "repair-apply-smoke: dry-run on fixtures (see docs/qemu.md + docs/nvram-repair-local.md)"
+	@cd "$(PYTHON_DIR)" && $(UV) run janusbootctl --esp "../../$(FIXTURES_ESP)" repair-apply --kind janus --dry-run
+	@echo "PASS: repair-apply dry-run (no host NVRAM write)"
+
+# Wire host efibootmgr -v into Cloud backup --with-nvram API (writes under build/, not fixtures).
+nvram-backup: _require-cloud
+	@mkdir -p "$(BUILD)/nvram-esp"
+	@rm -rf "$(BUILD)/nvram-esp/EFI"
+	@cp -a "$(FIXTURES_ESP)/EFI" "$(BUILD)/nvram-esp/EFI"
+	@dump="$(BUILD)/efibootmgr.dump.txt"; \
+	: > "$$dump"; \
+	if command -v efibootmgr >/dev/null 2>&1; then \
+	  efibootmgr -v > "$$dump" 2>&1 || printf '%s\n' "# efibootmgr failed (no privs?)" > "$$dump"; \
+	else \
+	  printf '%s\n' "# efibootmgr not installed — placeholder dump" > "$$dump"; \
+	fi; \
+	cd "$(PYTHON_DIR)" && $(UV) run janusbootctl --esp "../../$(BUILD)/nvram-esp" backup --with-nvram \
+		--nvram-text "$$(cat "$$dump")"
+	@echo "PASS: nvram-backup → $(BUILD)/nvram-esp/EFI/JanusBoot/backup/ (see docs/nvram-repair-local.md)"
+
+# Install Limine EFI + limine.conf onto build/esp-root (QEMU image tree), not a real disk.
+INSTALL_ESP_ROOT := $(BUILD)/esp-root
+install-esp-smoke: limine _require-cloud
+	@mkdir -p "$(INSTALL_ESP_ROOT)/EFI/JanusBoot"
+	@cp -a "$(FIXTURES_ESP)/EFI/JanusBoot/." "$(INSTALL_ESP_ROOT)/EFI/JanusBoot/"
+	@cd "$(PYTHON_DIR)" && $(UV) run janusbootctl --esp "../../$(INSTALL_ESP_ROOT)" \
+		install --efi "../../$(LIMINE_EFI)" --confirm
+	@test -f "$(INSTALL_ESP_ROOT)/EFI/JanusBoot/BOOTX64.EFI"
+	@test -f "$(INSTALL_ESP_ROOT)/EFI/JanusBoot/limine.conf"
+	@echo "PASS: install-esp-smoke → $(INSTALL_ESP_ROOT) (QEMU tree only; never dd)"
 
 test:
 	@if [ ! -f "$(PYTHON_DIR)/pyproject.toml" ]; then \
@@ -301,6 +346,15 @@ qemu-smoke: esp-image _require-qemu _require-ovmf
 	fi; \
 	echo "FAIL: QEMU exited early ($$rc) without boot markers. See $(QEMU_SMOKE_LOG)"; \
 	exit 1
+
+# Assert boot-UI assets (wallpaper + theme icons) landed on FAT image, then qemu-smoke.
+qemu-boot-ui-smoke: esp-image qemu-smoke
+	@export MTOOLS_SKIP_CHECK=1; \
+	$(MCOPY) -i "$(ESP_IMG)" -n ::/EFI/JanusBoot/themes/high-contrast/background.boot.jpg "$(BUILD)/ui-wallpaper.jpg" && \
+	$(MCOPY) -i "$(ESP_IMG)" -n ::/EFI/JanusBoot/icons/windows.png "$(BUILD)/ui-windows.png" && \
+	test -s "$(BUILD)/ui-wallpaper.jpg" && test -s "$(BUILD)/ui-windows.png"
+	@grep -Eiq 'wallpaper:|janusboot:last-used|timeout:' "$(LIMINE_CONF)"
+	@echo "PASS: qemu-boot-ui-smoke (wallpaper + icons + limine markers + qemu-smoke)"
 
 clean:
 	@rm -rf "$(BUILD)" "$(LIMINE_DIR)"

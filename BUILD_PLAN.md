@@ -1,10 +1,10 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 33 · LOCAL 8 · CLOUD 25 · AUTO 0 · HUMAN 4 · ADB 0 · **37 open**
+**Remaining:** AGENT 16 · LOCAL 3 · CLOUD 13 · AUTO 0 · HUMAN 4 · ADB 0 · **20 open**
 <!-- /remaining-tally -->
 
-**Progress (not zero):** Sprint 0 ✅ archived · Phase 0–2 ✅ archived · Template upgrade 1.6.0→1.8.0 ✅ archived · Phase 3–8 stubs ✅ archived · **Must gaps + Nice-later + Bootable USB 🔲 open**. The “Remaining” line counts only 🔲/❌ — Phase stubs shipped CLI/schema/QEMU depth, not brief-complete Must (v1). Archive: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Gap analysis tip: `f1a191d`.
+**Progress (not zero):** Sprint 0 ✅ archived · Phase 0–2 ✅ archived · Template upgrade 1.6.0→1.8.0 ✅ archived · Phase 3–8 stubs ✅ archived · **Must gaps AGENT ✅ (HUMAN open) · Nice-later + Bootable USB 🔲 open**. The “Remaining” line counts only 🔲/❌ — Phase stubs shipped CLI/schema/QEMU depth, not brief-complete Must (v1). Archive: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Gap analysis tip: `f1a191d`.
 
 Live board for **JanusBoot**. Lane contract: [`docs/JANUSBOOT_AGENT_LANES.md`](docs/JANUSBOOT_AGENT_LANES.md) · lock: [`.cursor/janusboot-lane-lock.json`](.cursor/janusboot-lane-lock.json).
 
@@ -79,7 +79,7 @@ _No cloud agent items._
 | **Phase 0–2 — Contracts + QEMU smoke** | ✅ Done (archived) | [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md) — *Sprint / Phase 0–2 — Contracts + QEMU smoke (2026-09-17)* |
 | **Template upgrade 1.6.0 → 1.8.0** | ✅ Done (archived) | [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md) — *Template upgrade 1.6.0 → 1.8.0 (2026-09-17)* |
 | **Phase 3–8 — Scanner through Polish** | ✅ Stub depth archived | [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md) — *Sprint / Phase 3–8 (2026-09-17)* — **not** brief-complete Must (v1) |
-| **Must gaps (v1 depth)** | 🔲 Open | Sprint below |
+| **Must gaps (v1 depth)** | ✅ AGENT done · 🔲 HUMAN | Sprint below · HUMAN_BACKLOG |
 | **Nice-later + Bootable USB** | 🔲 Open | Sprint below · [`docs/features/bootable-usb.md`](docs/features/bootable-usb.md) |
 
 > **Sprint / Phase 0–2** archived in COMPLETED_TASKS.md @ `a337d62`.
@@ -88,7 +88,7 @@ _No cloud agent items._
 
 Agents **do** flip 🔲 → ✅ on this file as work lands. Status uses emoji markers (✅/🔲), not GitHub `- [ ]` checkboxes. Live tip: `.cursor/worktrees/local-phase-0-2` on `local/phase-0-2` (keep root `BUILD_PLAN.md` in sync for the IDE).
 
-Next open work: **Must gaps (v1 depth)** then **Nice-later + Bootable USB**. Do not mark gaps ✅ until acceptance checks pass. `v1.0.0` ≠ brief-complete Must (v1).
+Next open work: Must gaps **HUMAN** sign-offs (backlogged), then **Nice-later + Bootable USB**. Do not mark gaps ✅ until acceptance checks pass. `v1.0.0` ≠ brief-complete Must (v1).
 
 ### Waiting on a person
 
@@ -141,26 +141,26 @@ Close the gap between Phase 3–8 **stubs** and AGENT.md **Must (v1)**. Severity
 
 ### Parallel — CLOUD
 
-2. 🔲 [AGENT][CLOUD] **blocker** Boot UI cards path: Limine-facing assets + conf for large icons, timeout bar, last-used highlight, More…, empty-disk calm copy; document honest floor if Limine cannot do full BURG cards — scope: themes/
-3. 🔲 [AGENT][CLOUD] **important** Deep scan: os-prober-style / recursive ESP walk beyond fixed heuristics; Windows-host scan plan + tests; never delete foreign EFI — scope: examples/python/
-4. 🔲 [AGENT][CLOUD] **blocker** Repair apply + undo + repair_history: execute plans with confirm/dry-run; ESP-owned files only; unit tests — scope: examples/python/
-5. 🔲 [AGENT][CLOUD] **blocker** Super GRUB-like one-shot: pick vmlinuz+initrd → one-shot Limine entry (userspace CLI) + tests — scope: examples/python/
-6. 🔲 [AGENT][CLOUD] **important** Backup NVRAM dump + settings before changes (API + fixtures; host dump wired by Local) — scope: examples/python/
-7. 🔲 [AGENT][CLOUD] **blocker** Linux GUI (Mint-friendly): real app (not subprocess façade only); entries/icons/default/timeout/theme/install via janusbootctl only — scope: examples/python/
-8. 🔲 [AGENT][CLOUD] **blocker** Windows GUI + elevation warnings: same ops as Linux; never silent ESP/NVRAM/BCD write; docs ↔ code — scope: docs/spec.md
-9. 🔲 [AGENT][CLOUD] **important** Theme pipeline real depth: resize/compress, hashes, atomic themes/.next/, last-good; desktop 1080p/4K preview (not metadata-only) — scope: examples/python/
-10. 🔲 [AGENT][CLOUD] **important** Built-in theme assets: 2–3 packs with real PNG/JPEG + icons/ fallbacks; wallpaper path resolves in fixtures — scope: fixtures/esp/
-11. 🔲 [AGENT][CLOUD] **important** In-boot settings gear or ship OS-tools floor with Linux/Windows GUIs covering timeout/default/theme (Phase 4 escape hatch OK only once GUIs exist) — scope: docs/VISION.md
-12. 🔲 [AGENT][CLOUD] **important** janusbootctl install (EFI binary + conf to ESP layout) + NVRAM entry planner (dry-run first) — scope: esp/
-13. 🔲 [AGENT][CLOUD] **polish** Linux/Windows schema divergence CI gate (fail when consumers disagree) — scope: schema/
+2. ✅ [AGENT][CLOUD] **blocker** Boot UI cards path: Limine-facing assets + conf for large icons, timeout bar, last-used highlight, More…, empty-disk calm copy; document honest floor if Limine cannot do full BURG cards — scope: themes/
+3. ✅ [AGENT][CLOUD] **important** Deep scan: os-prober-style / recursive ESP walk beyond fixed heuristics; Windows-host scan plan + tests; never delete foreign EFI — scope: examples/python/
+4. ✅ [AGENT][CLOUD] **blocker** Repair apply + undo + repair_history: execute plans with confirm/dry-run; ESP-owned files only; unit tests — scope: examples/python/
+5. ✅ [AGENT][CLOUD] **blocker** Super GRUB-like one-shot: pick vmlinuz+initrd → one-shot Limine entry (userspace CLI) + tests — scope: examples/python/
+6. ✅ [AGENT][CLOUD] **important** Backup NVRAM dump + settings before changes (API + fixtures; host dump wired by Local) — scope: examples/python/
+7. ✅ [AGENT][CLOUD] **blocker** Linux GUI (Mint-friendly): real app (not subprocess façade only); entries/icons/default/timeout/theme/install via janusbootctl only — scope: examples/python/
+8. ✅ [AGENT][CLOUD] **blocker** Windows GUI + elevation warnings: same ops as Linux; never silent ESP/NVRAM/BCD write; docs ↔ code — scope: docs/spec.md
+9. ✅ [AGENT][CLOUD] **important** Theme pipeline real depth: resize/compress, hashes, atomic themes/.next/, last-good; desktop 1080p/4K preview (not metadata-only) — scope: examples/python/
+10. ✅ [AGENT][CLOUD] **important** Built-in theme assets: 2–3 packs with real PNG/JPEG + icons/ fallbacks; wallpaper path resolves in fixtures — scope: fixtures/esp/
+11. ✅ [AGENT][CLOUD] **important** In-boot settings gear or ship OS-tools floor with Linux/Windows GUIs covering timeout/default/theme (Phase 4 escape hatch OK only once GUIs exist) — scope: docs/VISION.md
+12. ✅ [AGENT][CLOUD] **important** janusbootctl install (EFI binary + conf to ESP layout) + NVRAM entry planner (dry-run first) — scope: esp/
+13. ✅ [AGENT][CLOUD] **polish** Linux/Windows schema divergence CI gate (fail when consumers disagree) — scope: schema/
 
 ### Parallel — LOCAL
 
-14. 🔲 [AGENT][LOCAL] **blocker** QEMU smoke for boot-UI assets (icons/wallpaper/timeout) after Cloud lands — scope: Makefile
-15. 🔲 [AGENT][LOCAL] **important** Live scan smoke (make scan-live / host ESP read-only) for deep-scan behavior — scope: Makefile
-16. 🔲 [AGENT][LOCAL] **blocker** Repair apply host smoke: efibootmgr/NVRAM dry-run on lab VM only; document confirm — scope: docs/qemu.md
-17. 🔲 [AGENT][LOCAL] **important** Wire real NVRAM dump into backup path (Cloud API + Local host tool) — scope: docs/nvram-repair-local.md
-18. 🔲 [AGENT][LOCAL] **important** Install-to-ESP smoke on QEMU ESP image (not real disk) — scope: build/
+14. ✅ [AGENT][LOCAL] **blocker** QEMU smoke for boot-UI assets (icons/wallpaper/timeout) after Cloud lands — scope: Makefile
+15. ✅ [AGENT][LOCAL] **important** Live scan smoke (make scan-live / host ESP read-only) for deep-scan behavior — scope: Makefile
+16. ✅ [AGENT][LOCAL] **blocker** Repair apply host smoke: efibootmgr/NVRAM dry-run on lab VM only; document confirm — scope: docs/qemu.md
+17. ✅ [AGENT][LOCAL] **important** Wire real NVRAM dump into backup path (Cloud API + Local host tool) — scope: docs/nvram-repair-local.md
+18. ✅ [AGENT][LOCAL] **important** Install-to-ESP smoke on QEMU ESP image (not real disk) — scope: build/
 
 ### HUMAN
 

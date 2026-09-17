@@ -173,4 +173,16 @@ make qemu
 
 Expect two cards (Windows 11 + Linux Mint) from fixtures, timeout bar, high-contrast-capable theme path.
 
+## Must-gap LOCAL smokes
+
+```bash
+make qemu-boot-ui-smoke   # wallpaper + icons on FAT image + qemu-smoke
+make scan-live-deep       # recursive EFI walk (SCAN_ROOT=fixtures/esp by default)
+make repair-apply-smoke   # dry-run repair-apply (no NVRAM write)
+make nvram-backup         # efibootmgr dump → Cloud backup API under build/
+make install-esp-smoke    # install EFI+conf onto build/esp-root (not a real disk)
+```
+
+Repair NVRAM apply outside QEMU remains `[HUMAN]` — see `docs/nvram-repair-local.md`.
+
 Secure Boot: document only unless keys exist. OVMF ships `OVMF_CODE_4M.secboot.fd`; JanusBoot does **not** fake signed boot in v1. If shim/keys are present on the host, note the path in a local scratch file — do not commit secrets. Feature flag: `secureboot`.

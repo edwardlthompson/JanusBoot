@@ -1,18 +1,33 @@
-# NVRAM / repair on VM ESP (LOCAL Phase 7)
+# NVRAM / repair on VM ESP (LOCAL Must gaps)
 
-Generated QEMU images live under `build/` (gitignored). Dry-run first:
+Cloud API: `janusbootctl backup --with-nvram` writes `EFI/JanusBoot/backup/nvram-<stamp>/`
+(`meta.json` + `dump.txt`). LOCAL fills `dump.txt` from the host tool.
+
+## Dry-run first (fixtures / build tree)
 
 ```bash
 make repair-plan
-# uv run janusbootctl --esp fixtures/esp repair-plan --kind nvram
+make repair-apply-smoke    # repair-apply --dry-run on fixtures
+make nvram-backup          # efibootmgr -v → build/nvram-esp backup (never real ESP)
 ```
 
-On a real or VM ESP (human confirm only):
+## Lab VM only (HUMAN confirm)
+
+On a disposable QEMU/VM ESP — **never** production laptops without explicit approval:
 
 ```bash
-# Example — adjust disk/part; never run blindly:
+# 1) Dump + backup
+make nvram-backup
+# or: efibootmgr -v | tee /tmp/nvram.txt
+#     uv run janusbootctl --esp /path/to/esp backup --with-nvram --nvram-text "$(cat /tmp/nvram.txt)"
+
+# 2) Show plan
+uv run janusbootctl --esp /path/to/esp repair-plan --kind nvram
+
+# 3) Apply NVRAM only after confirm (example — adjust disk/part):
 # efibootmgr -c -d /dev/diskX -p N -l '\\EFI\\JanusBoot\\BOOTX64.EFI' -L JanusBoot
 ```
 
-Restore JanusBoot JSON from `EFI/JanusBoot/backup/latest/` only after
+Restore JanusBoot JSON from `EFI/JanusBoot/backup/<stamp>/` only after
 `repair-plan --kind janus` shows `restore_file` and the user confirms.
+`repair-undo --confirm` uses `settings.repair_history[].undo_backup`.

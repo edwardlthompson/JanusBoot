@@ -203,3 +203,5 @@ jobs:
           [ -f sbom-rust.cyclonedx.json ] && FILES+=(sbom-rust.cyclonedx.json)
           [ -f sbom-go.cyclonedx.json ] && FILES+=(sbom-go.cyclonedx.json)
           gh release upload "$TAG" "${FILES[@]}" --clobber
+
+# Registered for workflow_dispatch on product remote

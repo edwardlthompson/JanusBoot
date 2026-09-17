@@ -29,3 +29,5 @@ jobs:
           sarif_file: results.sarif
       - name: Classify SARIF
         run: python3 scripts/lib/scorecard_sarif.py results.sarif
+
+# Registered for workflow_dispatch on product remote

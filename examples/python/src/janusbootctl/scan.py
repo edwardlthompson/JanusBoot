@@ -1,4 +1,4 @@
-"""Pure ESP/boot path heuristics (Phase 3). Never deletes foreign EFI files."""
+"""ESP/boot discovery: heuristics + recursive walk. Never deletes foreign EFI."""
 
 from __future__ import annotations
 
@@ -7,7 +7,6 @@ import re
 from pathlib import Path
 from typing import Any
 
-# Relative to an ESP root (or a synthetic tree used in tests).
 LINUX_EFI_CANDIDATES: tuple[str, ...] = (
     "EFI/ubuntu/shimx64.efi",
     "EFI/ubuntu/grubx64.efi",
@@ -19,10 +18,10 @@ LINUX_EFI_CANDIDATES: tuple[str, ...] = (
     "EFI/systemd/systemd-bootx64.efi",
     "EFI/Limine/BOOTX64.EFI",
     "EFI/limine/BOOTX64.EFI",
+    "EFI/JanusBoot/BOOTX64.EFI",
 )
 
 WINDOWS_BOOTMGFW = "EFI/Microsoft/Boot/bootmgfw.efi"
-
 _ID_SAFE = re.compile(r"[^a-z0-9]+")
 
 
@@ -34,66 +33,118 @@ def _slug(title: str, path: str) -> str:
 
 def classify_efi_path(rel: str) -> tuple[str, str, str]:
     """Return (type, title, icon) for a relative EFI path."""
-    norm = rel.replace("\\", "/")
-    lower = norm.lower()
+    lower = rel.replace("\\", "/").lower()
     if lower.endswith("bootmgfw.efi") or "/microsoft/boot/" in lower:
         return "efi_chainload", "Windows Boot Manager", "windows"
     if "shim" in lower or "grub" in lower or "/ubuntu/" in lower or "/debian/" in lower:
         return "efi_chainload", "Linux", "linux"
     if "systemd-boot" in lower:
         return "efi_chainload", "systemd-boot", "linux"
-    if "limine" in lower:
+    if "limine" in lower or "/janusboot/" in lower:
         return "efi_chainload", "Limine", "linux"
     if lower.endswith("bootx64.efi"):
         return "efi_chainload", "UEFI default", "firmware"
-    return "efi_chainload", Path(norm).stem, "linux"
+    return "efi_chainload", Path(rel).stem[:64], "linux"
 
 
-def discover_candidates(esp_root: Path) -> list[dict[str, Any]]:
-    """Walk known heuristic paths under esp_root; never mutate the tree."""
+def _row(rel: str) -> dict[str, Any]:
+    key = rel.replace("\\", "/")
+    entry_type, title, icon = classify_efi_path(key)
+    return {
+        "id": _slug(title, key),
+        "title": title[:64],
+        "subtitle": key[:128],
+        "type": entry_type,
+        "path": f"boot():/{key}",
+        "icon": icon,
+        "source": "scanned",
+    }
+
+
+def discover_heuristic(esp_root: Path) -> list[dict[str, Any]]:
+    """Fixed known paths (rEFInd-style short list)."""
     root = esp_root.resolve()
     found: list[dict[str, Any]] = []
     seen: set[str] = set()
-
-    ordered = (WINDOWS_BOOTMGFW, *LINUX_EFI_CANDIDATES)
-    for rel in ordered:
-        candidate = root / Path(rel)
-        if not candidate.is_file():
-            continue
+    for rel in (WINDOWS_BOOTMGFW, *LINUX_EFI_CANDIDATES):
         key = rel.replace("\\", "/")
-        if key in seen:
+        if key in seen or not (root / Path(rel)).is_file():
             continue
         seen.add(key)
-        entry_type, title, icon = classify_efi_path(key)
-        found.append(
-            {
-                "id": _slug(title, key),
-                "title": title[:64],
-                "subtitle": key[:128],
-                "type": entry_type,
-                "path": f"boot():/{key}",
-                "icon": icon,
-                "source": "scanned",
-            }
-        )
+        found.append(_row(key))
     return found
 
 
+def discover_recursive(esp_root: Path, *, max_files: int = 256) -> list[dict[str, Any]]:
+    """Recursive ESP walk for *.efi under EFI/ (never mutates)."""
+    root = esp_root.resolve()
+    efi = root / "EFI"
+    if not efi.is_dir():
+        return []
+    found: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for path in sorted({*efi.rglob("*.efi"), *efi.rglob("*.EFI")}):
+        if len(found) >= max_files or not path.is_file():
+            continue
+        try:
+            rel = path.relative_to(root).as_posix()
+        except ValueError:
+            continue
+        if rel not in seen:
+            seen.add(rel)
+            found.append(_row(rel))
+    return found
+
+
+def discover_candidates(esp_root: Path, *, deep: bool = True) -> list[dict[str, Any]]:
+    """Merge heuristics with optional recursive walk; stable unique by path."""
+    by_path: dict[str, dict[str, Any]] = {}
+    for row in discover_heuristic(esp_root):
+        by_path[str(row["path"])] = row
+    if deep:
+        for row in discover_recursive(esp_root):
+            by_path.setdefault(str(row["path"]), row)
+    return list(by_path.values())
+
+
+def empty_disk_entries() -> list[dict[str, Any]]:
+    """Calm empty-disk actions (not panic)."""
+    return [
+        {
+            "id": "empty-scan",
+            "title": "Scan again",
+            "subtitle": "No OS loaders found on this ESP",
+            "type": "tool",
+            "path": "boot():/EFI/JanusBoot/BOOTX64.EFI",
+            "icon": "gear",
+            "source": "manual",
+        },
+        {
+            "id": "empty-firmware",
+            "title": "Firmware setup",
+            "subtitle": "Open UEFI settings",
+            "type": "firmware",
+            "path": "boot():/EFI/BOOT/BOOTX64.EFI",
+            "icon": "firmware",
+            "source": "manual",
+            "hidden": False,
+        },
+    ]
+
+
 def entries_document(discovered: list[dict[str, Any]]) -> dict[str, Any]:
-    """Build an entries.json document from discovered rows (manual fields stripped)."""
+    """Build entries.json from discovered rows; empty → calm placeholders."""
+    rows = discovered or empty_disk_entries()
     entries: list[dict[str, Any]] = []
-    for row in discovered:
+    for row in rows:
         item = {
             "id": row["id"],
             "title": row["title"],
             "type": row["type"],
             "path": row["path"],
         }
-        if row.get("subtitle"):
-            item["subtitle"] = row["subtitle"]
-        if row.get("icon"):
-            item["icon"] = row["icon"]
-        if row.get("source"):
-            item["source"] = row["source"]
+        for key in ("subtitle", "icon", "source", "hidden"):
+            if key in row and row[key] is not None:
+                item[key] = row[key]
         entries.append(item)
     return {"schema_version": 1, "entries": entries}

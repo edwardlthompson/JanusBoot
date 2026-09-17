@@ -11,55 +11,53 @@ from Windows.
   bootloaders or vendor BURG.
 - **Contract on ESP:** `EFI/JanusBoot/` — `settings.json`, `entries.json`,
   themes, icons, backups.
-- **Userspace:** `janusbootctl` validates, gets/sets, backs up, applies themes
-  (later), and generates Limine config.
-- **GUIs (later):** Linux and Windows talk only to `janusbootctl` and share the
-  same JSON schemas.
+- **Userspace:** `janusbootctl` validates, gets/sets, backs up (incl. NVRAM dump
+  folder), applies themes, installs EFI+conf, and generates Limine config.
+- **GUIs:** Linux (Mint-friendly Tk) and Windows (elevation-gated Tk) talk only
+  to `janusbootctl` and share the same JSON schemas (`schema/parity.manifest.json`).
 
-## Phase 0–2 (shipped)
+## Boot UI cards — honest Limine floor
 
-1. Schemas + ESP layout docs + fixtures (two fake OS entries).
-2. `janusbootctl`: `validate`, `get`, `set`, `backup`, `generate-limine`.
-3. Host QEMU+OVMF smoke (LOCAL lane): FAT image boots Limine with timeout,
-   default, and wallpaper driven by JSON.
+See `themes/BOOT_UI.md`. Limine gives wallpaper + timeout + list/submenu entries
+(More… for hidden). True BURG card grids are not Limine’s model; OS tools cover
+reorder/icons/timeout/theme. Empty disk emits calm Scan again / Firmware rows.
 
-## Phase 3 — Scanner
+## In-boot settings vs OS-tools floor (Phase 4 escape hatch — accepted)
 
-`janusbootctl scan` walks known EFI paths (Linux shim/GRUB/systemd-boot/Limine +
-Windows `bootmgfw.efi`) as pure heuristics. It never deletes foreign EFI files.
-Optional `--write` updates `entries.json` with `source: scanned`.
+Limine in-menu editing cannot CRUD `settings.json`. **Must (v1) ships the OS-tools
+floor:** Linux + Windows GUIs + CLI cover timeout, default/last-used, and theme.
+QEMU documents the floor in `docs/qemu.md`. Do not block releases waiting for a
+full in-boot gear menu.
 
-## Phase 4 — Boot-time settings (minimum)
+## Scanner
 
-Limine in-menu editing is limited (timeout/default may be conf-only). JanusBoot
-ships settings UX copy for OS tools:
+Deep scan: heuristics + recursive `EFI/**/*.efi` walk + optional Linux
+`/boot` vmlinuz pairs (`scan_host`). Windows host plan is documented dry-run.
+Never delete foreign EFI files.
 
-| Setting | Boot menu (if Limine allows) | Linux / Windows via `janusbootctl` |
-|---------|------------------------------|-------------------------------------|
-| Timeout | Prefer in-menu; else OS tools | `set timeout` → regenerate conf |
-| Default / last-used | Prefer in-menu; else OS tools | `set default` |
-| Theme pack | Validated packs only | `theme-apply` then regenerate |
-| Language / scan paths / mouse / hidden | OS tools first | settings.json keys |
+## Repair
 
-Document Limine limits on QEMU (LOCAL). Do not block Phases 5–8 waiting for a
-full in-boot settings UI — OS tools + regenerate is the supported path.
+`repair-plan` / `repair-apply` / `repair-undo` with confirm or dry-run. Owned
+paths under `EFI/JanusBoot/` (+ conservative bootmgfw from our backup). History
+in `settings.repair_history`. NVRAM create stays LOCAL (`efibootmgr`).
 
-## Phase 5–6 — Desktop GUIs
+## One-shot rescue
 
-Linux and Windows GUIs talk **only** to `janusbootctl` (same schemas). Windows
-requires elevation before ESP/NVRAM/BCD writes; dry-run first.
+`janusbootctl oneshot <vmlinuz> [--initrd]` writes a temporary linux entry
+(userspace), then regenerate Limine conf.
 
-## Phase 7–8 — Repair + polish
+## Themes
 
-Repair plans are dry-run JSON (`repair-plan`). Theme packs are data; `theme-apply`
-copies validated assets onto the ESP. EFI never executes theme code.
+Built-in packs: `high-contrast`, `mint-dark`, `elegant-dark` with real
+JPEG/PNG + icons. Apply uses `themes/.next/` → live + `last-good/`; preview
+renders 1080p/4K PNG (not metadata-only).
+
+## Install
+
+`janusbootctl install [--efi BOOTX64.EFI] --dry-run|--confirm` plus
+`--plan-nvram` for BootOrder planner.
 
 ## Non-goals (v1)
 
 No BURG core, no hostile Windows Boot Manager replacement, no theme scripts in
 EFI, no network phone-home from EFI, no fake Secure Boot signing without keys.
-
-## Expected host targets (LOCAL owns Makefile)
-
-Cloud documents intent only — see `docs/limine-gen.md`. LOCAL implements
-`validate`, `esp-image`, `qemu`, and test wrappers.

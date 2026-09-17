@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "jsonschema>=4.23.0",
+    "pillow>=10.0.0",
 ]
 
 [project.scripts]
@@ -51,9 +52,14 @@ addopts = "-n auto --cov=janusbootctl --cov=hello --cov-report=term-missing --co
 
 [tool.coverage.run]
 source = ["janusbootctl", "hello"]
+omit = ["*/janusbootctl/__main__.py", "*/janusbootctl/gui_tk.py"]
 
 [tool.coverage.report]
 fail_under = 90
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+]
 
 [tool.pyright]
 include = ["src"]

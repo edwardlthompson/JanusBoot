@@ -29,31 +29,24 @@ settings contract editable from EFI, Linux, and Windows.
 | FR-4 | As the build I generate Limine conf from JSON | Golden `limine.conf` matches fixtures (timeout, default, two entries, wallpaper) |
 | FR-5 | As LOCAL I smoke two fake entries in QEMU | After cloud merge: `make qemu` shows Windows 11 + Linux Mint |
 
-## Phase 3+ CLI surface
+## Phase 3+ / Must-gap CLI surface
 
 | Command | Role |
 |---------|------|
-| `scan` | Heuristic EFI discovery → entries JSON (`source: scanned`) |
-| `repair-plan` | Dry-run repair steps (Janus files, bootmgfw backup, NVRAM) |
-| `theme-preview` / `theme-apply` | Validate + copy theme packs (data only) |
+| `scan [--shallow]` | Heuristic + recursive EFI discovery → entries JSON |
+| `repair-plan` / `repair-apply` / `repair-undo` | Plan + confirm/dry-run apply + history undo |
+| `oneshot` | Super GRUB-like vmlinuz(+initrd) temporary linux entry |
+| `backup [--with-nvram]` | Settings/entries backup + NVRAM dump folder |
+| `theme-preview` / `theme-apply` | Raster preview + atomic `.next`/`last-good` apply |
+| `install [--dry-run\|--confirm] [--plan-nvram]` | EFI binary + limine.conf + NVRAM planner |
+| `gui linux` / `gui windows` | Desktop surfaces (Windows blocks writes unless elevated) |
 
-## Windows GUI structure (Phase 6 — mocks)
+## Windows GUI (Must)
 
-C# / WinUI 3 outline (docs-only until Windows host work):
+Tk elevation-gated GUI in `janusbootctl.windows_gui` (same ops as Linux). Never
+silent ESP/NVRAM/BCD write — dry-run first; admin required for mutating commands.
+WinUI outline remains a future packaging option; Must ships the Tk surface + CLI.
 
-```
-src/JanusBoot.WinUI/
-  App.xaml
-  Views/EntriesView.xaml       # list/reorder; binds to janusbootctl get/scan
-  Views/SettingsView.xaml      # timeout/default/theme via CLI
-  Views/RepairView.xaml        # shows repair-plan JSON; confirm before apply
-  Services/JanusBootCtlClient.cs  # ProcessStartInfo → janusbootctl.exe
-  Services/Elevation.cs           # require admin; never silent ESP write
-  Mocks/FakeEsp/                  # fixtures mirrored for designer
-```
-
-Elevation + BCD/`bootmgfw` dry-run stay LOCAL on a Windows host (`third_party/`
-notes). Cloud ships this structure + mocks only.
 
 ## Non-Functional Constraints
 
@@ -80,9 +73,10 @@ flowchart LR
 
 | File | Role |
 |------|------|
-| `schema/settings.schema.json` | Timeout, default, theme, flags, wallpaper |
+| `schema/settings.schema.json` | Timeout, default, theme, flags, wallpaper, repair_history |
 | `schema/entries.schema.json` | Boot entry list (id, title, path, type) |
 | `schema/theme.schema.json` | Theme pack metadata + size/path limits |
+| `schema/parity.manifest.json` | Linux/Windows/CLI consumer parity gate |
 
 ## Test-first rule
 

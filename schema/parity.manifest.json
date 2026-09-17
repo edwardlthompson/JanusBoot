@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "consumers": ["linux_gui", "windows_gui", "cli"],
+  "shared_settings_keys": [
+    "timeout",
+    "default",
+    "theme",
+    "wallpaper",
+    "last_boot",
+    "features"
+  ],
+  "note": "CI fails when Linux/Windows/CLI diverge from schema/parity.manifest.json"
+}

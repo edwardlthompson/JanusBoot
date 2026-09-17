@@ -129,7 +129,7 @@ Cline is the first-run agent in Cursor: GitHub sign-in, FREE models, no API keys
 ## Template Provenance
 
 - **Source template:** `edwardlthompson/agent-project-bootstrap` (self-maintained)
-- **Template version:** `1.0.0` (see `.template-version`)
+- **Template version:** `1.1.0` (see `.template-version`)
 - **Last update check:** See `.template-update.json`
 
 ### Retrospective — 2026-09-10 (M61)

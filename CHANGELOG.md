@@ -8,6 +8,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0](https://github.com/edwardlthompson/JanusBoot/compare/v1.0.0...v1.1.0) (2026-09-17)
+
+
+### Added
+
+* **janusbootctl:** deepen Must-gap scan, repair, themes, GUIs, install ([1b6a02b](https://github.com/edwardlthompson/JanusBoot/commit/1b6a02b273f948412f40837f548da33921058919))
+* **janusbootctl:** nice-later stubs and removable-only bootable USB ([346597d](https://github.com/edwardlthompson/JanusBoot/commit/346597da5b584c602d7b6891086d0b6fa242913f))
+* **local:** Debian .deb packaging and guest QEMU GUI smoke ([85df085](https://github.com/edwardlthompson/JanusBoot/commit/85df0856c0cbc4d64d6db8c8a64b8b84a36f0c7e))
+* **local:** Must-gap QEMU/UI/scan/repair/install smokes ([d95c710](https://github.com/edwardlthompson/JanusBoot/commit/d95c7104e392fcf9de2f35490a27dbd1aefda987))
+
+
+### Fixed
+
+* **ci:** unittest JanusBoot host tests and index smoke scripts ([f7c0917](https://github.com/edwardlthompson/JanusBoot/commit/f7c0917a59dd0694f60a8b8fafe5d3003158bf31))
+
 ## [1.0.0](https://github.com/edwardlthompson/JanusBoot/compare/v1.8.0...v1.0.0) (2026-09-17)
 
 

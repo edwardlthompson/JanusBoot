@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+* **template:** catch-up Canon/Mixed from agent-project-bootstrap 1.6.0 → 1.8.0 (venues, cost diet, validate `--agent`)
+
 ### Fixed
 
 * **ci:** skip pruned stacks, About lego, and upgrade-sim on child product repos

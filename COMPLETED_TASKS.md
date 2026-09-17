@@ -2,6 +2,13 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## Template upgrade 1.6.0 → 1.8.0 (2026-09-16)
+
+- ✅ [AGENT] Canon UPG-01…42 — copy commands/rules/scripts/docs from parent v1.8.0
+- ✅ [AGENT] Mixed UPG-43…70 — merge; keep JanusBoot board, branding, COMPLETED_TASKS history, janusbootctl
+- ❌ [HUMAN] Sacred UPG-71…77 — skipped—product (AGENTS.md card / examples stacks)
+- ❌ Golden UPG-78…79 — skipped (boot-manager; no About/crash Golden Path replace)
+
 ## Sprint 0 — Customize (JanusBoot, 2026-09-17)
 
 - ✅ [AGENT][LOCAL] Copy `AGENT.md.example` → `AGENT.md` and paste the original brief verbatim (before init)

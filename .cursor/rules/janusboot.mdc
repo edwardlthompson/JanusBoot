@@ -1,6 +1,27 @@
 ---
 description: JanusBoot dual-lane isolation (LOCAL / CLOUD / Sequential)
-alwaysApply: true
+alwaysApply: false
+globs:
+  - schema/**
+  - fixtures/esp/**
+  - themes/**
+  - docs/VISION.md
+  - docs/spec.md
+  - docs/qemu.md
+  - docs/JANUSBOOT_AGENT_LANES.md
+  - docs/PARALLEL_AGENT_SCOPES.md
+  - esp/**
+  - examples/python/**
+  - Makefile
+  - third_party/**
+  - build/**
+  - BUILD_PLAN.md
+  - AGENT.md
+  - AGENTS.md
+  - .cursorrules
+  - .cursor/rules/janusboot.mdc
+  - .cursor/janusboot-lane-lock.json
+  - scripts/janusboot-*
 ---
 
 # JanusBoot lane isolation

@@ -7,7 +7,7 @@
 
 | Layer | Technology | Version | Notes |
 |-------|-----------|---------|-------|
-| Platform | Multi-stack template (Web, Python, Android, Node, optional Lightroom/Blender/Rust/Go) | 1.6.0 | Template maintainer repo |
+| Platform | Multi-stack template (Web, Python, Android, Node, optional Lightroom/Blender/Rust/Go) | 1.8.0 | Child catch-up from agent-project-bootstrap |
 | License | MIT | - | Pure FOSS |
 | Distribution | GitHub Releases + GitHub Pages demo | - | F-Droid/Winget stubs for child repos |
 ## Active Modules
@@ -57,6 +57,7 @@ Cline is the first-run agent in Cursor: GitHub sign-in, FREE models, no API keys
 
 ## Session Retrospectives
 
+| 2026-09-16 | Template catch-up 1.8.0 | Applied Canon UPG-01…42 + Mixed merge toward parent 1.8.0; Sacred/GP skipped | Do not overwrite AGENTS.md product card or examples/python janusbootctl |
 | 2026-09-17 | Sprint 0 sign-off | Canonical gates green on `74cf63e`; CI gates pruned stacks; About lego + upgrade-sim skip on child; archive Sprint 0 | Do not run template upgrade-sim as a hard gate on product children; Release Please needs Actions “create PRs” permission (non-blocking for Sprint 0) |
 | 2026-09-16 | Phase 0–2 integrate | Merged `cloud/phase-0-2` → `local/phase-0-2`; `make validate` + `esp-image` OK; pytest 21; feature-gate python pass; `make qemu` blocked on apt qemu/ovmf | Do not push to bootstrap template origin; create JanusBoot product remote before main merge |
 | 2026-09-15 | v1.6.0 /ship | RP #110; construction law + `/ux-review`; `setup-android` `platform-tools` only | Do not install SDK `tools`; dispatch `release.yml` if RP GraphQL flakes after tag |
@@ -126,7 +127,7 @@ Cline is the first-run agent in Cursor: GitHub sign-in, FREE models, no API keys
 ## Template Provenance
 
 - **Source template:** `edwardlthompson/agent-project-bootstrap` (self-maintained)
-- **Template version:** `1.6.0` (see `.template-version`)
+- **Template version:** `1.8.0` (see `.template-version`)
 - **Last update check:** See `.template-update.json`
 
 ### Retrospective — 2026-09-10 (M61)

@@ -17,6 +17,14 @@
 
 ## Entries
 
+### 2026-09-16 — Template catch-up 1.6.0 → 1.8.0
+- **Status:** Accepted
+- **Context:** Parent agent-project-bootstrap shipped 1.7.0 (LOCAL/CLOUD venues) and 1.8.0 (cost diet / brevity). JanusBoot boarded UPG-01…79.
+- **Decision:** Apply Canon copies and Mixed merges; keep JanusBoot BUILD_PLAN product rows, README branding, COMPLETED_TASKS history, and Sacred `examples/python` / AGENTS.md product card. Skip Golden Path About/crash stubs.
+- **Alternatives considered:** Blind overwrite of Sacred examples (rejected). Mass-apply parent README (rejected: product branding).
+- **Consequences:** `.template-version` → 1.8.0; ADR-0008/0009 present; Sacred UPG-71…77 remain human/product-gated.
+
+
 ### 2026-09-16 — Phase 0–2 cloud→local integration
 - **Status:** Accepted
 - **Context:** Dual-lane Phase 0–2 finished on `cloud/phase-0-2` (schemas + janusbootctl) and `local/phase-0-2` (Makefile + qemu docs). Origin still points at the bootstrap template.

@@ -52,7 +52,12 @@ addopts = "-n auto --cov=janusbootctl --cov=hello --cov-report=term-missing --co
 
 [tool.coverage.run]
 source = ["janusbootctl", "hello"]
-omit = ["*/janusbootctl/__main__.py", "*/janusbootctl/gui_tk.py"]
+omit = [
+    "*/janusbootctl/__main__.py",
+    "*/janusbootctl/gui_tk.py",
+    "*/janusbootctl/gui_usb.py",
+    "*/janusbootctl/gui_windows_tk.py",
+]
 
 [tool.coverage.report]
 fail_under = 90

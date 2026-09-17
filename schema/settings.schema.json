@@ -88,8 +88,39 @@
       "required": ["repair", "mouse", "secureboot"],
       "properties": {
         "repair": { "type": "boolean" },
-        "mouse": { "type": "boolean" },
+        "mouse": {
+          "type": "boolean",
+          "description": "Boot UI mouse pointer when loader supports it (off by default)."
+        },
         "secureboot": { "type": "boolean" }
+      }
+    },
+    "reduce_motion": {
+      "type": "boolean",
+      "description": "Skip decorative fades; prefer instant transitions."
+    },
+    "fast_boot": {
+      "type": "boolean",
+      "description": "Omit wallpaper/background for faster menu paint."
+    },
+    "settings_pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Optional gate for boot-UI theme/settings changes (hash only).",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "salt": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 64,
+          "pattern": "^[0-9a-f]+$"
+        },
+        "hash": {
+          "type": "string",
+          "minLength": 64,
+          "maxLength": 64,
+          "pattern": "^[0-9a-f]+$"
+        }
       }
     }
   }

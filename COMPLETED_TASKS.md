@@ -2,6 +2,27 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## Sprint — Nice-later + Bootable USB (2026-09-17)
+
+AGENT/LOCAL/CLOUD archived @ `42ae6da` (worktree tip may advance). HUMAN rows remain open (see HUMAN_BACKLOG.md).
+
+- ✅ [AGENT][LOCAL] Keep board pointers honest as Cloud/Local USB and Must rows land — scope: BUILD_PLAN.md
+- ✅ [AGENT][CLOUD] **nice** Mouse support behind mouse feature flag (boot UI + settings) — scope: schema/
+- ✅ [AGENT][CLOUD] **nice** Theme zip shop (browse/import validated packs; no network phone-home from EFI) — scope: examples/python/
+- ✅ [AGENT][CLOUD] **nice** HiDPI native resolution path (4K scale beyond 1080p preview) — scope: examples/python/
+- ✅ [AGENT][CLOUD] **nice** btrfs / Timeshift cards (detect + calm entry; no hostile unlock) — scope: examples/python/
+- ✅ [AGENT][CLOUD] **nice** Settings PIN (optional gate for boot UI theme/settings changes) — scope: schema/
+- ✅ [AGENT][CLOUD] **nice** ARM64 UEFI target (after x86_64 Must) — scope: docs/VISION.md
+- ✅ [AGENT][CLOUD] **nice** Icon atlas at theme apply (one read for EFI) — scope: examples/python/
+- ✅ [AGENT][CLOUD] **nice** Reduce-motion / fast-boot (no background) setting — scope: schema/
+- ✅ [AGENT][CLOUD] **must-new** Rescue ISO contents: run / repair / reinstall JanusBoot + common OS boot help; layout + checksum manifest docs — scope: docs/spec.md
+- ✅ [AGENT][CLOUD] **must-new** Device classification: removable-only allowlist; refuse internal/system disks; unit tests — scope: examples/python/
+- ✅ [AGENT][CLOUD] **must-new** Dry-run / preview planner: show path, size, model, ISO+checksum; no write — scope: examples/python/
+- ✅ [AGENT][CLOUD] **must-new** GUI Bootable USB flow: empty state, confirm step, one primary CTA; Linux + Windows panels call CLI only — scope: examples/python/
+- ✅ [AGENT][CLOUD] **must-new** Elevation docs: Linux polkit/sudo vs Windows UAC; userspace tool allowlist — scope: docs/features/bootable-usb.md
+- ✅ [AGENT][LOCAL] **must-new** Removable-only USB write smoke (make usb-smoke or equiv.); fail closed if non-removable — scope: Makefile
+- ✅ [AGENT][LOCAL] **must-new** Post-write verify path on disposable stick; never document blind dd to internal disks — scope: docs/qemu.md
+
 
 ## Sprint — Must gaps (v1 depth) (2026-09-17)
 

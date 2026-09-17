@@ -4,13 +4,13 @@
 
 ## Acceptance criteria
 
-- 🔲 User-visible behavior: From Linux/Windows GUI, user picks a **JanusBoot rescue ISO** (run / repair / reinstall JanusBoot + common OS boot help), sees **only removable** targets, confirms a clear device preview, then writes the image (or dry-runs)
-- 🔲 Named primary CTA (one per view): **Write to USB** (destructive); secondary **Preview / dry-run**; never a silent write
-- 🔲 Empty state: No removable media → explain why empty + “Insert a USB stick and refresh”
-- 🔲 Error / loading: Permission denied (elevation), target disappeared, write verify failed, non-removable refused — each with an in-place next action
-- 🔲 Offline/error behavior: ISO missing → link to download/build docs; never fall back to writing an arbitrary disk image without checksum
-- 🔲 Accessibility: Keyboard focus order through device list → preview → confirm; screen-reader names include device path, size, model; destructive confirm is a separate step
-- 🔲 i18n: keys under `bootableUsb.*` (Linux GUI + Windows GUI string tables)
+- ✅ User-visible behavior: From Linux/Windows GUI, user picks a **JanusBoot rescue ISO** (run / repair / reinstall JanusBoot + common OS boot help), sees **only removable** targets, confirms a clear device preview, then writes the image (or dry-runs)
+- ✅ Named primary CTA (one per view): **Write to USB** (destructive); secondary **Preview / dry-run**; never a silent write
+- ✅ Empty state: No removable media → explain why empty + “Insert a USB stick and refresh”
+- ✅ Error / loading: Permission denied (elevation), target disappeared, write verify failed, non-removable refused — each with an in-place next action
+- ✅ Offline/error behavior: ISO missing → link to download/build docs; never fall back to writing an arbitrary disk image without checksum
+- ✅ Accessibility: Keyboard focus order through device list → preview → confirm; screen-reader names include device path, size, model; destructive confirm is a separate step
+- ✅ i18n: keys under `bootableUsb.*` (Linux GUI + Windows GUI string tables)
 
 ## Hard safety rules (non-negotiable)
 
@@ -22,13 +22,21 @@
 6. Prefer **userspace** tools with explicit allowlists; document Linux (polkit/sudo) vs Windows (UAC) elevation separately.
 7. No blind `dd` instructions in end-user docs; QEMU/image smoke for CI, real USB only on `[LOCAL]` with a disposable stick + `[HUMAN]` confirm.
 
+## Elevation + tool allowlist
+
+| Host | Elevation | Notes |
+|------|-----------|-------|
+| Linux | polkit (`pkexec`) or sudo **only** for the write helper | Listing removable disks is userspace (`/sys/block/*/removable`). Preview needs no root. |
+| Windows | UAC elevation for raw disk write | GUI shows elevation warning; dry-run/list do not require admin. |
+**Userspace allowlist** (`WRITE_TOOL_ALLOWLIST` in `usb_media.py`): `dd`, `cp`, `pv`, `usbimager`.
+Anything else is refused. FOSS UX references (ideas only): USBImager, Etcher, Fedora Media Writer, Popsicle, Ventoy — do not vendor their code.
+
 ## Lane split
 
 | Lane | Owns |
 |------|------|
 | `[CLOUD]` | Rescue ISO contents/layout docs, dry-run planner, device classification logic + unit tests, GUI picker UX (mock devices), checksum manifest |
 | `[LOCAL]` | Real USB write smoke on **removable-only** hardware; Makefile/docs for host tools; never run destructive write in Cloud |
-
 ## Smoke scenario
 
 1. _Given_ GUI (or `janusbootctl usb preview`) with a known rescue ISO and zero removable disks
@@ -43,11 +51,11 @@
 | Layer | Path |
 |-------|------|
 | Logic | `examples/python/src/janusbootctl/usb_media.py` (classify, plan, dry-run) |
-| View | Linux GUI panel + Windows GUI panel (Bootable USB) |
-| Tests | `examples/python/tests/test_usb_media.py` (classification + refuse system disks) |
-| Wiring | CLI subcommands + GUI ≤10 lines each |
-| Docs | this file · `docs/spec.md` pointer · ISO layout under `docs/` or `esp/` as designed |
-
+| Host probe | `examples/python/src/janusbootctl/usb_host.py` (sysfs removable-only) |
+| View | Linux/Windows GUI Bootable USB tab (`gui_tk.py`) — CLI only |
+| Tests | `examples/python/tests/test_usb_media.py` |
+| Wiring | `janusbootctl usb …` + GUI ≤10 lines each |
+| Docs | this file · `docs/rescue-iso.md` · `docs/qemu.md` USB verify |
 ## Tests
 
 - Automated: yes — classification / allowlist / dry-run planner unit tests (Cloud)
@@ -57,8 +65,8 @@
 ## Fallback validation
 
 - Why full USB write tests are not in default CI: requires physical removable media and elevation
-- Command (Cloud): `uv run pytest examples/python/tests/test_usb_media.py` (when present) or `bash scripts/feature-gate.sh --stack python`
-- Command (Local): named Makefile target e.g. `make usb-smoke` (removable-only; fails closed); interim `bash scripts/janusboot-smoke-all.sh`
+- Command (Cloud): `uv run pytest examples/python/tests/test_usb_media.py`
+- Command (Local): `make usb-smoke` (removable-only; fails closed; dry-run by default)
 
 ## Definition of Done
 
@@ -74,8 +82,6 @@ See `docs/FEATURE_MODULES.md` and BUILD_PLAN Sprint — Nice-later + Bootable US
 | [Popsicle](https://github.com/pop-os/popsicle) | MIT | Multi-device flash UX; clear progress |
 | [Ventoy](https://github.com/ventoy/Ventoy) | GPL-3.0 | Multi-ISO USB *ideas* only — evaluate carefully before any approach copy |
 | Ubuntu/`usb-creator`, Linux Mint USB tools | GPL | Distro “make bootable USB” IA |
-| ddrescue GUIs (e.g. community front-ends) | varies | Progress / verify patterns — check license before any code reuse |
-
 Prefer MIT/Apache/GPL-compatible approaches documented as references. JanusBoot ships its own planner + allowlist; wrap or shell out to host tools only behind an allowlist.
 
 ## Notes

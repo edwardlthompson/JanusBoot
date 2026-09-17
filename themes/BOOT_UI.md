@@ -14,6 +14,9 @@ JanusBoot aims for BURG-like **OS cards** (large icon + title + subtitle). Engin
 | More… | Hidden entries emitted under `/More…` submenu (`hidden: true` in entries.json) |
 | Empty disk | Calm synthetic entries: Scan again (tool), Repair tools, Firmware setup |
 | Mouse | Feature flag `mouse` only; not required for v1 |
+When `features.mouse` is **true**, `generate-limine` emits `# janusboot:mouse=on`. Limine may
+still ignore pointer input; OS tools expose the same flag via `janusbootctl set features.mouse true`.
+Default fixtures keep mouse **off**.
 
 ## Honest gap vs BURG cards
 
@@ -25,10 +28,17 @@ card compositor. JanusBoot therefore:
 3. Puts full card editing (reorder, icons, timeout, theme) in **Linux/Windows GUIs** via
    `janusbootctl` so Must (v1) is not blocked on in-boot WYSIWYG cards.
 
+## Reduce-motion / fast-boot
+
+| Setting | Effect in `limine.conf` |
+|---------|-------------------------|
+| `reduce_motion` | `# janusboot:reduce-motion=on` (loader/UI should skip fades) |
+| `fast_boot` | Omits `wallpaper:` line for faster menu paint |
 ## Generated conf markers
 
 `janusbootctl generate-limine` writes:
 
 - `# janusboot:last-used=<id>` comment for operators
+- `# janusboot:mouse=on|off`, `# janusboot:reduce-motion=…`, `# janusboot:fast-boot=…`
 - `/More…` directory for hidden recovery/memtest/firmware rows
 - Empty-disk calm titles when `entries` is empty after scan

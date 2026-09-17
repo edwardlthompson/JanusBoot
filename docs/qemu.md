@@ -13,14 +13,12 @@ Host checklist for Phase 0–2. **QEMU only** — never write the ESP image to a
 | `mcopy` / `mmd` (mtools) | Present | OK |
 | `uv` | Present | Needed for `make validate` / `make test` / `generate-limine` |
 | `fixtures/esp` + `janusbootctl` | On `local/phase-0-2` after cloud merge | OK |
-
 After packages are installed on Mint/Ubuntu noble, firmware paths are:
 
 | Variable | Path |
 |----------|------|
 | `OVMF_CODE` | `/usr/share/OVMF/OVMF_CODE_4M.fd` |
 | `OVMF_VARS` | `/usr/share/OVMF/OVMF_VARS_4M.fd` |
-
 Also shipped by the same package (do not use for Secure Boot smoke unless intentional):
 
 - `/usr/share/OVMF/OVMF_CODE_4M.secboot.fd`
@@ -30,6 +28,7 @@ Override if needed:
 
 ```bash
 make qemu OVMF_CODE=/path/to/OVMF_CODE.fd OVMF_VARS=/path/to/OVMF_VARS.fd
+
 ```
 
 ## Install (Mint / Ubuntu)
@@ -39,6 +38,7 @@ Preferred (dry-run first, then apply **in a real terminal** so sudo can prompt):
 ```bash
 scripts/janusboot-host-deps.sh
 scripts/janusboot-host-deps.sh --apply
+
 ```
 
 `--apply` privilege order:
@@ -54,6 +54,7 @@ Manual:
 ```bash
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install -y qemu-system-x86 ovmf dosfstools mtools curl
+
 ```
 
 ### Other distros (hints)
@@ -63,7 +64,6 @@ sudo DEBIAN_FRONTEND=noninteractive apt install -y qemu-system-x86 ovmf dosfstoo
 | Fedora | `qemu-system-x86 edk2-ovmf dosfstools mtools` | `/usr/share/edk2/ovmf/OVMF_CODE.fd` |
 | Arch | `qemu-system-x86 edk2-ovmf dosfstools mtools` | `/usr/share/edk2-ovmf/x64/OVMF_CODE.fd` |
 | openSUSE | `qemu-x86 ovmf dosfstools mtools` | under `/usr/share/qemu/` |
-
 Run `make deps` after install; it prints FOUND/MISSING for each tool.
 
 ## Makefile targets
@@ -78,7 +78,6 @@ Run `make deps` after install; it prints FOUND/MISSING for each tool.
 | `make qemu-smoke` | **Headless** `-display none`, timeout (default 30s), serial → `build/qemu-smoke.log` |
 | `make smoke-all` | Deps check → prompt install → validate → test → esp-image → qemu-smoke; log → `build/smoke.log` |
 | `make clean` | Remove `build/` and `third_party/limine/` |
-
 Scripted full chain (deps install attempt + validate + test + esp-image + qemu-smoke):
 
 ```bash
@@ -87,6 +86,7 @@ make smoke-all
 scripts/janusboot-smoke-all.sh
 # thinner (no build/smoke.log tee):
 scripts/janusboot-qemu-smoke.sh
+
 ```
 
 Limine pin URL:
@@ -103,12 +103,12 @@ Bump `LIMINE_VERSION` in the root `Makefile` when upgrading; keep this doc in sy
 |------|---------|---------|-------------|
 | Interactive | `make qemu` | GTK window | Human visual check of two fake entries / timeout |
 | Smoke / CI / agent | `make qemu-smoke` or `scripts/janusboot-qemu-smoke.sh` | none | No GUI session; pass if QEMU runs until timeout or serial shows boot markers |
-
 Override smoke duration:
 
 ```bash
 make qemu-smoke QEMU_SMOKE_TIMEOUT=40
 scripts/janusboot-qemu-smoke.sh --timeout 40
+
 ```
 
 ## ESP image layout (expected)
@@ -122,6 +122,7 @@ build/esp.img  (FAT32, label JANUSBOOT)
   EFI/JanusBoot/settings.json
   EFI/JanusBoot/entries.json
   …themes / other fixture files…
+
 ```
 
 ## Safety
@@ -144,10 +145,10 @@ make test
 make esp-image
 make qemu-smoke    # agent / headless
 # make qemu        # interactive GUI when you want to watch the menu
+
 ```
 
 Expect two fake boot entries driven by JSON (timeout/default from `settings.json`). For interactive runs, close the QEMU window or Ctrl-C when done.
-
 
 ## Limine in-menu limits (Phase 4 LOCAL)
 
@@ -160,7 +161,6 @@ Confirmed against Limine **v12.9.0** in QEMU (this host):
 | Theme / wallpaper | Wallpaper path in conf | `theme-apply` + regenerate |
 | Live edit of settings JSON | **Not** available in-menu | OS tools only (VISION Phase 4) |
 | Mouse | Limine may ignore | Feature flag `mouse` (off by default) |
-
 Do not block desktop GUIs waiting for full in-boot settings. OS tools + regenerate is supported.
 
 ## Visual check + Secure Boot (Phase 8 LOCAL)
@@ -169,6 +169,7 @@ Interactive visual check:
 
 ```bash
 make qemu
+
 ```
 
 Expect two cards (Windows 11 + Linux Mint) from fixtures, timeout bar, high-contrast-capable theme path.
@@ -181,8 +182,34 @@ make scan-live-deep       # recursive EFI walk (SCAN_ROOT=fixtures/esp by defaul
 make repair-apply-smoke   # dry-run repair-apply (no NVRAM write)
 make nvram-backup         # efibootmgr dump → Cloud backup API under build/
 make install-esp-smoke    # install EFI+conf onto build/esp-root (not a real disk)
+
 ```
 
 Repair NVRAM apply outside QEMU remains `[HUMAN]` — see `docs/nvram-repair-local.md`.
 
 Secure Boot: document only unless keys exist. OVMF ships `OVMF_CODE_4M.secboot.fd`; JanusBoot does **not** fake signed boot in v1. If shim/keys are present on the host, note the path in a local scratch file — do not commit secrets. Feature flag: `secureboot`.
+
+## Bootable USB (LOCAL) — removable only
+
+```bash
+make usb-smoke          # classifier unit tests + dry-run planner (default)
+
+```
+
+**Never** document `dd` of a JanusBoot image onto an internal HDD/SSD/NVMe. The
+planner refuses non-removable / system-looking devices. GUI and CLI default to
+**Preview / dry-run**.
+
+### Post-write verify (disposable stick only)
+
+After `[HUMAN]` approves a real write on a **removable** stick:
+
+1. Confirm path, size, model/vendor in the plan JSON (`janusbootctl usb write --confirm …`).
+2. Write via an allowlisted tool only (`dd`/`cp`/`pv`/`usbimager`).
+3. Verify: re-hash the ISO; compare the first 1 MiB and last 1 MiB on the device
+   to the ISO (or tool-native verify). Fail closed if mismatch.
+4. If no disposable stick is present, leave the HUMAN backlog item open — do not
+   substitute an internal disk.
+
+Elevation: Linux polkit/sudo for the write helper only; Windows UAC for raw disk
+access. Listing removable media stays userspace.

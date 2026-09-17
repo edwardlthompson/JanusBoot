@@ -61,3 +61,17 @@ renders 1080p/4K PNG (not metadata-only).
 
 No BURG core, no hostile Windows Boot Manager replacement, no theme scripts in
 EFI, no network phone-home from EFI, no fake Secure Boot signing without keys.
+
+## ARM64 UEFI (nice-later, after x86_64 Must)
+
+v1 ships **UEFI x86_64** only (QEMU+OVMF `BOOTX64.EFI`). ARM64 is explicitly deferred:
+
+| Topic | Plan |
+|-------|------|
+| Loader | Limine aarch64 EFI (`BOOTAA64.EFI`) when Must x86_64 is stable |
+| QEMU | `qemu-system-aarch64` + AA64 edk2 firmware (separate LOCAL makefile target) |
+| Schema | Same `settings.json` / `entries.json`; no arch fork of the contract |
+| ESP path | Still `EFI/JanusBoot/`; EFI binary name differs by arch |
+| CI | Do not block x86_64 releases on ARM64 smoke |
+Do not pretend ARM64 boots work until a LOCAL AA64 smoke exists. Document host
+firmware packages per distro when that work starts.

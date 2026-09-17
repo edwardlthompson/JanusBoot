@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* **janusbootctl:** nice-later (mouse flag markers, theme-shop, HiDPI presets, snapshot cards, PIN, icon atlas, reduce-motion/fast-boot) + removable-only Bootable USB planner/GUI/`make usb-smoke`
+
 ### Changed
 
 * **template:** catch-up Canon/Mixed from agent-project-bootstrap 1.6.0 → 1.8.0 (venues, cost diet, validate `--agent`)

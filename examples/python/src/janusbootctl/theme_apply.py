@@ -7,6 +7,8 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from janusbootctl.hidpi import resolve_preview_size, scale_factor_for
+from janusbootctl.icon_atlas import write_icon_atlas
 from janusbootctl.theme_image import compile_background, render_preview
 from janusbootctl.validate import ValidationError, validate_theme
 
@@ -25,15 +27,20 @@ def preview_theme(
     out: Path | None = None,
     width: int = 1920,
     height: int = 1080,
+    preset: str | None = None,
 ) -> dict[str, Any]:
-    """Validate + optional raster preview (1080p/4K)."""
+    """Validate + optional raster preview (1080p/1440p/4K)."""
     validate_theme(theme_json, schemas=schemas)
     data = load_theme(theme_json)
+    w, h = resolve_preview_size(preset, width=width, height=height)
     result: dict[str, Any] = {
         "id": data.get("id") or theme_json.parent.name,
         "name": data.get("name") or theme_json.parent.name,
         "background": data.get("background"),
         "valid": True,
+        "width": w,
+        "height": h,
+        "scale": scale_factor_for(w, h),
     }
     if out is not None:
         bg = None
@@ -42,7 +49,7 @@ def preview_theme(
             candidate = theme_json.parent / bg_meta["path"]
             if candidate.is_file():
                 bg = candidate
-        result["preview"] = str(render_preview(data, bg, out, width=width, height=height))
+        result["preview"] = str(render_preview(data, bg, out, width=w, height=h))
     return result
 
 
@@ -92,6 +99,7 @@ def apply_theme_to_esp(
     icons_src = theme_dir / "icons"
     if icons_src.is_dir():
         shutil.copytree(icons_src, staging / "icons")
+    write_icon_atlas(staging / "icons", dry_run=False)
 
     if live.exists():
         if last_good.exists():

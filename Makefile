@@ -51,7 +51,8 @@ QEMU_SMOKE_LOG := $(BUILD)/qemu-smoke.log
 
 .PHONY: help deps check-host limine esp-image qemu qemu-smoke smoke-all validate test clean \
 	scan scan-live scan-live-deep repair-plan repair-apply-smoke nvram-backup \
-	qemu-boot-ui-smoke install-esp-smoke _require-cloud _require-qemu _require-ovmf _require-fat-tools
+	qemu-boot-ui-smoke install-esp-smoke usb-smoke \
+	_require-cloud _require-qemu _require-ovmf _require-fat-tools
 
 help:
 	@echo "JanusBoot LOCAL targets:"
@@ -65,6 +66,7 @@ help:
 	@echo "  make repair-apply-smoke  Dry-run repair-apply on fixtures (+ docs confirm)"
 	@echo "  make nvram-backup  Backup settings + host efibootmgr dump (if present)"
 	@echo "  make install-esp-smoke  install --confirm onto build/esp-root then esp-image"
+	@echo "  make usb-smoke   Removable-only USB classifier + dry-run (fail closed)"
 	@echo "  make esp-image   Build FAT ESP image under build/ (needs cloud merge)"
 	@echo "  make qemu        Interactive GUI boot (GTK display)"
 	@echo "  make qemu-smoke  Headless QEMU boot smoke (no GUI; timeout $(QEMU_SMOKE_TIMEOUT)s)"
@@ -80,6 +82,9 @@ help:
 
 smoke-all:
 	@bash scripts/janusboot-smoke-all.sh --timeout "$(QEMU_SMOKE_TIMEOUT)"
+
+usb-smoke:
+	@bash scripts/janusboot-usb-smoke.sh
 
 deps: check-host limine
 	@echo "deps: OK (Limine $(LIMINE_TAG) → $(LIMINE_EFI))"

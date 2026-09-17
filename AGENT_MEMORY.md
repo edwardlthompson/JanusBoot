@@ -140,3 +140,8 @@ Cline is the first-run agent in Cursor: GitHub sign-in, FREE models, no API keys
 - Folded Unreleased; pushing main for Release Please #106.
 - UnifiedPush ntfy E2E + BroadcastReceiver discovery; HUMAN/ADB waiting automation.
 - About lego: Rust CARGO_PKG_VERSION; Python test_about_parity split.
+
+## Retrospective
+
+| 2026-09-16 | Nice-later + Bootable USB | Removable-only USB planner + nice stubs; make usb-smoke dry-run; HUMAN stick/ISO scope | Never write internal disks; HUMAN_BACKLOG |
+

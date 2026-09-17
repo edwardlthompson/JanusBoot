@@ -57,6 +57,44 @@ def install_dry_run_via_cli(esp: Path) -> CliResult:
     return run_janusbootctl(["install", "--dry-run"], esp=esp)
 
 
+def usb_list_via_cli(*, mock_json: Path | None = None) -> CliResult:
+    args = ["usb", "list"]
+    if mock_json is not None:
+        args.extend(["--mock-json", str(mock_json)])
+    return run_janusbootctl(args)
+
+
+def usb_preview_via_cli(
+    iso: Path,
+    *,
+    device: str,
+    size_bytes: int,
+    model: str,
+    vendor: str = "mock",
+    removable: bool = True,
+    tran: str = "usb",
+) -> CliResult:
+    args = [
+        "usb",
+        "preview",
+        "--iso",
+        str(iso),
+        "--device",
+        device,
+        "--size-bytes",
+        str(size_bytes),
+        "--model",
+        model,
+        "--vendor",
+        vendor,
+        "--tran",
+        tran,
+    ]
+    if removable:
+        args.append("--removable")
+    return run_janusbootctl(args)
+
+
 def launch_linux_gui(esp: Path) -> None:
     from janusbootctl.gui_tk import launch_linux_gui as _launch
 

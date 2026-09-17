@@ -1,10 +1,10 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 16 · LOCAL 3 · CLOUD 13 · AUTO 0 · HUMAN 4 · ADB 0 · **20 open**
+**Remaining:** AGENT 1 · LOCAL 1 · CLOUD 0 · AUTO 0 · HUMAN 4 · ADB 0 · **5 open**
 <!-- /remaining-tally -->
 
-**Progress (not zero):** Sprint 0 ✅ archived · Phase 0–2 ✅ archived · Template upgrade 1.6.0→1.8.0 ✅ archived · Phase 3–8 stubs ✅ archived · **Must gaps AGENT ✅ (HUMAN open) · Nice-later + Bootable USB 🔲 open**. The “Remaining” line counts only 🔲/❌ — Phase stubs shipped CLI/schema/QEMU depth, not brief-complete Must (v1). Archive: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Gap analysis tip: `f1a191d`.
+**Progress (not zero):** Sprint 0 ✅ archived · Phase 0–2 ✅ archived · Template upgrade 1.6.0→1.8.0 ✅ archived · Phase 3–8 stubs ✅ archived · Must gaps AGENT ✅ (HUMAN open) · **Nice-later + Bootable USB AGENT ✅ (HUMAN open)**. The “Remaining” line counts only 🔲/❌ — Phase stubs shipped CLI/schema/QEMU depth, not brief-complete Must (v1). Archive: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Gap analysis tip: `f1a191d`.
 
 Live board for **JanusBoot**. Lane contract: [`docs/JANUSBOOT_AGENT_LANES.md`](docs/JANUSBOOT_AGENT_LANES.md) · lock: [`.cursor/janusboot-lane-lock.json`](.cursor/janusboot-lane-lock.json).
 
@@ -18,7 +18,6 @@ Live board for **JanusBoot**. Lane contract: [`docs/JANUSBOOT_AGENT_LANES.md`](d
 |-------|-----|---------|
 | `[LOCAL]` | This Computer / local Agent | Host tools, QEMU+OVMF, workspace bind, real ESP later, or merges integration |
 | `[CLOUD]` | Cursor Cloud Agent | Text/code/tests only on an isolated `cloud/*` branch; no host firmware, no real disks |
-
 **State:** 🔲 open · ✅ done · ❌ blocked — reason
 
 Format: `🔲 [AGENT][CLOUD] Short task — scope: path/` or `🔲 [AGENT][LOCAL] Short task — scope: path/`. Sequential first. Parallel scopes: [`docs/PARALLEL_AGENT_SCOPES.md`](docs/PARALLEL_AGENT_SCOPES.md). `/build` tries HUMAN/ADB after automation; failures go to `HUMAN_BACKLOG.md`.
@@ -80,15 +79,15 @@ _No cloud agent items._
 | **Template upgrade 1.6.0 → 1.8.0** | ✅ Done (archived) | [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md) — *Template upgrade 1.6.0 → 1.8.0 (2026-09-17)* |
 | **Phase 3–8 — Scanner through Polish** | ✅ Stub depth archived | [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md) — *Sprint / Phase 3–8 (2026-09-17)* — **not** brief-complete Must (v1) |
 | **Must gaps (v1 depth)** | ✅ AGENT archived · 🔲 HUMAN | [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md) · HUMAN_BACKLOG |
-| **Nice-later + Bootable USB** | 🔲 Open | Sprint below · [`docs/features/bootable-usb.md`](docs/features/bootable-usb.md) |
-
+| **Nice-later + Bootable USB** | ✅ AGENT archived · 🔲 HUMAN | [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md) · HUMAN_BACKLOG |
 > **Sprint / Phase 0–2** archived in COMPLETED_TASKS.md @ `a337d62`.
 > **Sprint — Template upgrade 1.6.0 → 1.8.0** archived in COMPLETED_TASKS.md @ `a337d62`.
 > **Sprint / Phase 3–8** archived in COMPLETED_TASKS.md @ `837199b` (stubs).
+> **Sprint — Nice-later + Bootable USB** AGENT archived in COMPLETED_TASKS.md @ `42ae6da`.
 
 Agents **do** flip 🔲 → ✅ on this file as work lands. Status uses emoji markers (✅/🔲), not GitHub `- [ ]` checkboxes. Live tip: `.cursor/worktrees/local-phase-0-2` on `local/phase-0-2` (keep root `BUILD_PLAN.md` in sync for the IDE).
 
-Next open work: Must gaps **HUMAN** sign-offs (backlogged), then **Nice-later + Bootable USB**. Do not mark gaps ✅ until acceptance checks pass. `v1.0.0` ≠ brief-complete Must (v1).
+Next open work: Must gaps **HUMAN** + Nice-later USB **HUMAN** (disposable stick + ISO scope) — see HUMAN_BACKLOG.md. `v1.0.0` ≠ brief-complete Must (v1).
 
 ### Waiting on a person
 
@@ -108,7 +107,7 @@ Open for new sprints (see rows below): disposable USB for write smoke; Windows G
 > Auto-managed on product repos too. Do not hand-edit rows inside the markers.
 
 <!-- open-prs-sync:begin -->
-_No open Dependabot or Release Please PRs._
+- 🔲 [AGENT][LOCAL] Merge release [#2](https://github.com/edwardlthompson/JanusBoot/pull/2) (chore(main): release 1.1.0) — scope: .
 <!-- open-prs-sync:end -->
 
 ### Template gaps (synced)
@@ -146,42 +145,15 @@ _No UX inventory items._
 
 ## Sprint — Nice-later + Bootable USB
 
-<!-- parallel_exception: numbered Parallel CLOUD/LOCAL lists (not markdown tables); USB sprint not started -->
+<!-- parallel_exception: numbered Parallel CLOUD/LOCAL lists (not markdown tables); AGENT archived -->
 
-Nice items from AGENT.md brief plus new **Bootable USB / rescue ISO** feature. Spec: [`docs/features/bootable-usb.md`](docs/features/bootable-usb.md). Steal UX/security ideas from FOSS writers only (USBImager, Etcher, Fedora Media Writer, Popsicle, Ventoy ideas, Mint/usb-creator) — do not vendor proprietary code.
-
-### Sequential
-
-21. 🔲 [AGENT][LOCAL] Keep board pointers honest as Cloud/Local USB and Must rows land — scope: BUILD_PLAN.md
-
-### Parallel — CLOUD (nice-later)
-
-22. 🔲 [AGENT][CLOUD] **nice** Mouse support behind mouse feature flag (boot UI + settings) — scope: schema/
-23. 🔲 [AGENT][CLOUD] **nice** Theme zip shop (browse/import validated packs; no network phone-home from EFI) — scope: examples/python/
-24. 🔲 [AGENT][CLOUD] **nice** HiDPI native resolution path (4K scale beyond 1080p preview) — scope: examples/python/
-25. 🔲 [AGENT][CLOUD] **nice** btrfs / Timeshift cards (detect + calm entry; no hostile unlock) — scope: examples/python/
-26. 🔲 [AGENT][CLOUD] **nice** Settings PIN (optional gate for boot UI theme/settings changes) — scope: schema/
-27. 🔲 [AGENT][CLOUD] **nice** ARM64 UEFI target (after x86_64 Must) — scope: docs/VISION.md
-28. 🔲 [AGENT][CLOUD] **nice** Icon atlas at theme apply (one read for EFI) — scope: examples/python/
-29. 🔲 [AGENT][CLOUD] **nice** Reduce-motion / fast-boot (no background) setting — scope: schema/
-
-### Parallel — CLOUD (bootable USB)
-
-30. 🔲 [AGENT][CLOUD] **must-new** Rescue ISO contents: run / repair / reinstall JanusBoot + common OS boot help; layout + checksum manifest docs — scope: docs/spec.md
-31. 🔲 [AGENT][CLOUD] **must-new** Device classification: removable-only allowlist; refuse internal/system disks; unit tests — scope: examples/python/
-32. 🔲 [AGENT][CLOUD] **must-new** Dry-run / preview planner: show path, size, model, ISO+checksum; no write — scope: examples/python/
-33. 🔲 [AGENT][CLOUD] **must-new** GUI Bootable USB flow: empty state, confirm step, one primary CTA; Linux + Windows panels call CLI only — scope: examples/python/
-34. 🔲 [AGENT][CLOUD] **must-new** Elevation docs: Linux polkit/sudo vs Windows UAC; userspace tool allowlist — scope: docs/features/bootable-usb.md
-
-### Parallel — LOCAL (bootable USB)
-
-35. 🔲 [AGENT][LOCAL] **must-new** Removable-only USB write smoke (make usb-smoke or equiv.); fail closed if non-removable — scope: Makefile
-36. 🔲 [AGENT][LOCAL] **must-new** Post-write verify path on disposable stick; never document blind dd to internal disks — scope: docs/qemu.md
+> **Nice-later + Bootable USB** AGENT/LOCAL/CLOUD archived in COMPLETED_TASKS.md @ `42ae6da`. HUMAN sign-offs remain below.
 
 ### HUMAN
 
 37. 🔲 [HUMAN] Provide disposable USB stick and approve first real write smoke (Local)
 38. 🔲 [HUMAN] Confirm rescue ISO common OS boot help scope (what is in vs out of v1 ISO)
+
 
 ---
 
@@ -205,3 +177,4 @@ Older sprints: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).
 | Sprint / Phase 0–2 — Contracts + QEMU smoke | 2026-09-17 | `COMPLETED_TASKS.md` |
 | Sprint — Template upgrade 1.6.0 → 1.8.0 | 2026-09-17 | `COMPLETED_TASKS.md` |
 | Sprint / Phase 3–8 — Scanner through Polish (stubs) | 2026-09-17 | `COMPLETED_TASKS.md` |
+| Sprint — Nice-later + Bootable USB | 2026-09-17 | `COMPLETED_TASKS.md` |

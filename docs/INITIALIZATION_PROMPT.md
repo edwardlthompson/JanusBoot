@@ -6,13 +6,24 @@ You are a Senior Software Architect and Expert AI Coding Agent. Follow this temp
 
 **Platform/Tech Stack:** python
 
-**Purpose & Goals:** UEFI-first graphical boot manager (Limine + ESP settings contract + janusbootctl)
+**Purpose & Goals:** UEFI-first graphical boot manager (Limine + ESP settings + janusbootctl)
 
-**Original brief:** After clone, copy `AGENT.md.example` → `AGENT.md` and paste this prompt **verbatim** **before** `init-project`. Init stamps `AGENTS.md` only.
+**Original brief (sacred):** Read [`AGENT.md`](../AGENT.md) before any sprint row. One-liner: A UEFI-first graphical boot manager that feels like BURG, scans like rEFInd, can repair a broken OS path like Super GRUB, and stores one settings/theme contract on the ESP that you can change from the boot menu, from Linux, and from Windows. Product **JanusBoot**; CLI **janusbootctl**; ESP **EFI/JanusBoot/**; engine **Limine** (do not fork bootloaders / vendor BURG in v1). Repo: https://github.com/edwardlthompson/JanusBoot. Distribution tier: **foss** (MIT).
 
 **Stakeholders:** Primary users, operators, and maintainers. Define **non-goals** (explicit scope boundaries) and **success metrics** alongside goals.
 
 **Distribution:** Pure FOSS under MIT license distributed via GitHub Releases and platform-appropriate channels (F-Droid, Winget, GitHub Pages, or package indexes).
+
+<!-- janusboot-init-prompt:product -->
+### JanusBoot product (stamped)
+
+- **Name:** JanusBoot · **CLI:** janusbootctl · **ESP:** `EFI/JanusBoot/`
+- **Lanes:** [`docs/JANUSBOOT_AGENT_LANES.md`](JANUSBOOT_AGENT_LANES.md) · lock [`.cursor/janusboot-lane-lock.json`](../.cursor/janusboot-lane-lock.json)
+- **Local smoke:** `make smoke-all` · `scripts/janusboot-smoke-all.sh`
+- **Product remote:** `scripts/janusboot-product-remote.sh` · GitHub settings: `scripts/setup-github-repo.sh`
+- **HUMAN leftovers checklist:** `scripts/janusboot-human-checklist.sh`
+<!-- /janusboot-init-prompt:product -->
+
 
 ## 1a. Explain the Why
 
@@ -278,15 +289,16 @@ When a build, test, or CI job fails and root cause is unclear:
 ```bash
 scripts/init-project.sh \
   --non-interactive \
-  --stack web \
-  --project-name "My App" \
-  --purpose "Offline-first notes" \
+  --stack python \
+  --project-name "JanusBoot" \
+  --purpose "UEFI-first graphical boot manager (Limine + ESP settings + janusbootctl)" \
   --interval weekly \
-  --codeowner myuser
-
+  --codeowner edwardlthompson \
+  --distribution-tier foss \
+  --prune --prune-optional
 ```
 
-PowerShell: `pwsh scripts/init-project.ps1 -NonInteractive -Stack web -ProjectName "My App" -ProjectPurpose "Offline-first notes"`. Add `-Prune` to remove unused stacks; `-KeepOptional` (default) retains rust/go/lightroom, `-PruneOptional` removes them too. `--license MIT|Apache-2.0` selects the child LICENSE (template default MIT). Preflight requires `git` and Python; `--skip-preflight` skips, `--strict-preflight` fails if stack tools are missing. See `scripts/init-project.sh --help`.
+PowerShell: `pwsh scripts/init-project.ps1 -NonInteractive -Stack python -ProjectName "JanusBoot" -ProjectPurpose "UEFI-first graphical boot manager (Limine + ESP settings + janusbootctl)" -DistributionTier foss`. Add `-Prune` to remove unused stacks; `-KeepOptional` (default) retains rust/go/lightroom, `-PruneOptional` removes them too. `--license MIT|Apache-2.0` selects the child LICENSE (template default MIT). Preflight requires `git` and Python; `--skip-preflight` skips, `--strict-preflight` fails if stack tools are missing. See `scripts/init-project.sh --help`.
 
 1. Confirm understanding of the specified Platform, Stack, Purpose, and FOSS distribution pipelines. Explain the why as you go (Section 1a).
 1a. Pick Cursor mode per `docs/CURSOR_MODES.md` (Ask to explore, Plan for architecture, Agent for approved execution).

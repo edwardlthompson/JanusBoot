@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 12 · AUTO 1 · HUMAN 3 · ADB 0 · **16 open**
+**Remaining:** AGENT 12 · AUTO 1 · HUMAN 0 · ADB 0 · **13 open**
 <!-- /remaining-tally -->
 
 Live board for **JanusBoot**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Lane contract: [`docs/JANUSBOOT_AGENT_LANES.md`](docs/JANUSBOOT_AGENT_LANES.md) · lock: [`.cursor/janusboot-lane-lock.json`](.cursor/janusboot-lane-lock.json).
@@ -58,9 +58,9 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 5. 🔲 [AUTO] Sprint 0 sign-off on `main`: `validate-bootstrap --quick` · `feature-gate --stack python` · `check-github-ci --wait 300` · `check-license-compliance`
 6. ✅ [HUMAN][LOCAL] Create/confirm GitHub product repo (not the bootstrap template remote) — https://github.com/edwardlthompson/JanusBoot ; origin retargeted; bootstrap kept as remote `bootstrap`
 7. ✅ [HUMAN][LOCAL] Pick FOSS vs Commercial (`--distribution-tier foss`, MIT)
-8. 🔲 [HUMAN] Fill `docs/INITIALIZATION_PROMPT.md`
-9. 🔲 [HUMAN] Pick Cursor mode (`docs/CURSOR_MODES.md`)
-10. 🔲 [HUMAN] Bookmark `docs/help/BATCH_COMMANDS.md` (`/bootstrap`)
+8. ✅ [HUMAN] Fill `docs/INITIALIZATION_PROMPT.md` — stamped from `AGENT.md` + `branding/product.json` via `scripts/janusboot-fill-init-prompt.sh` (one-command: `scripts/janusboot-human-checklist.sh --apply`)
+9. ✅ [HUMAN] Pick Cursor mode (`docs/CURSOR_MODES.md`) — documented; default **Agent** for approved BUILD_PLAN execution (Ask/Plan/Debug per router). IDE mode toggle cannot be automated; re-check: `scripts/janusboot-human-checklist.sh`
+10. ✅ [HUMAN] Bookmark `docs/help/BATCH_COMMANDS.md` (`/bootstrap`) — docs pointer + `/` Agent chat shortcuts. Editor pin is optional IDE UI; covered by `scripts/janusboot-human-checklist.sh`
 
 ### Sprint / Phase 0–2 — Contracts + QEMU smoke
 
@@ -164,9 +164,12 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ### Waiting on a person
 
+_None blocking for Sprint 0 / Phase 0–2 process._ Optional IDE: pin `docs/help/BATCH_COMMANDS.md`; set Cursor mode in the UI. Optional GitHub: Actions bot approval + `AUTOMERGE_TOKEN` (notes from `setup-github-repo.sh`). Re-check: `scripts/janusboot-human-checklist.sh`.
+
 - ~~`[HUMAN]` Host password / apt install qemu+ovmf~~ → done (`qemu-system-x86` + `ovmf` installed; note: Cursor aptrepo GPG can break bare `apt update` — install packages directly or fix `NO_PUBKEY 42A1772E62E492D6`)
 - ~~`[HUMAN]` Create JanusBoot product GitHub remote~~ → done (`edwardlthompson/JanusBoot`; origin retargeted; bootstrap remote kept)
 - ~~`[HUMAN]` Approve `local/phase-0-2` → `main` after `qemu-smoke` PASS~~ → done (`make smoke-all` PASS; ff merge to `main`)
+- ~~`[HUMAN]` Fill INITIALIZATION_PROMPT / pick mode / bookmark BATCH_COMMANDS~~ → done (fill script + checklist; IDE pin/mode remain optional)
 
 ### Open PRs (synced)
 

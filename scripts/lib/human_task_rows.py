@@ -22,6 +22,15 @@ def automate_use_template(root: Path, cfg: dict) -> AttemptResult:
 
 
 def automate_init_placeholders(root: Path, cfg: dict) -> AttemptResult:
+    # Prefer product stamp (idempotent) over re-running full init-project.
+    fill = root / "scripts/janusboot-fill-init-prompt.sh"
+    if fill.is_file():
+        code, tail = run_cmd(root, ["bash", str(fill)])
+        if code == 0:
+            return AttemptResult(
+                0, "janusboot-fill-init-prompt", "Filled INITIALIZATION_PROMPT via janusboot-fill-init-prompt", False
+            )
+        return AttemptResult(1, "janusboot-fill-init-prompt", tail or f"fill-init exit {code}", True)
     script = root / "scripts/init-project.sh"
     if not script.is_file():
         return AttemptResult(1, "init-project", "scripts/init-project.sh missing", True)

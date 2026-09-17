@@ -56,7 +56,7 @@ from human_task_waiting_gh import (
 
 HUMAN_RULES: list[tuple[re.Pattern[str], str, object]] = [
     (re.compile(r"Use this template", re.I), "human", automate_use_template),
-    (re.compile(r"Fill placeholders.*INITIALIZATION_PROMPT", re.I), "human", automate_init_placeholders),
+    (re.compile(r"Fill(?: placeholders)?.*INITIALIZATION_PROMPT", re.I), "human", automate_init_placeholders),
     (re.compile(r"Pick Cursor mode", re.I), "human", lambda r, c: automate_informational(r, c, "cursor-mode")),
     (re.compile(r"Bookmark.*BATCH_COMMANDS", re.I), "human", lambda r, c: automate_informational(r, c, "bookmark-commands")),
     (re.compile(r"Fill stack-local config|app-update\.json", re.I), "human", automate_stack_config),

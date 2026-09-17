@@ -65,6 +65,7 @@ help:
 	@echo ""
 	@echo "Full scripted smoke: scripts/janusboot-smoke-all.sh  (or janusboot-qemu-smoke.sh)"
 	@echo "Host packages:      scripts/janusboot-host-deps.sh [--apply]  (sudo TTY or pkexec)"
+	@echo "HUMAN process:      scripts/janusboot-human-checklist.sh [--apply]"
 	@echo "Never write ESP images to a real disk with dd. See docs/qemu.md."
 
 smoke-all:

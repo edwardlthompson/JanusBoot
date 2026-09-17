@@ -1343,6 +1343,20 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/janusboot-fill-init-prompt.sh",
+      "purpose": "Stamp docs/INITIALIZATION_PROMPT.md from AGENT.md + branding (idempotent; --check/--dry-run)",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/janusboot-human-checklist.sh",
+      "purpose": "One-command HUMAN process checklist (fill-init, GitHub setup, mode/bookmark docs; Phase 3–8 prep notes)",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/feedback-inbox.sh",
       "purpose": "List untrusted GitHub crash/bug/enhancement issues for /audit and /ideas",
       "read_when": "prompt_needed",

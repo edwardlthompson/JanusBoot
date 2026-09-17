@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+* **template:** catch-up Canon/Mixed from agent-project-bootstrap 1.6.0 → 1.8.0 (venues, cost diet, validate `--agent`)
+
+### Fixed
+
+* **ci:** skip pruned stacks, About lego, and upgrade-sim on child product repos
+
 ## [1.0.0](https://github.com/edwardlthompson/JanusBoot/compare/v1.8.0...v1.0.0) (2026-09-17)
 
 
@@ -198,16 +208,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Miscellaneous
 
 * **release:** prepare v1.0.0 release ([6e037a2](https://github.com/edwardlthompson/JanusBoot/commit/6e037a237aaa62c9b6c4514264ca527437056e21))
-
-## [Unreleased]
-
-### Changed
-
-* **template:** catch-up Canon/Mixed from agent-project-bootstrap 1.6.0 → 1.8.0 (venues, cost diet, validate `--agent`)
-
-### Fixed
-
-* **ci:** skip pruned stacks, About lego, and upgrade-sim on child product repos
 
 ## [1.6.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.5.0...v1.6.0) (2026-09-15)
 

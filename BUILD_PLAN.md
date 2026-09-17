@@ -4,7 +4,9 @@
 **Remaining:** AGENT 12 · AUTO 0 · HUMAN 0 · ADB 0 · **12 open**
 <!-- /remaining-tally -->
 
-Live board for **JanusBoot**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Lane contract: [`docs/JANUSBOOT_AGENT_LANES.md`](docs/JANUSBOOT_AGENT_LANES.md) · lock: [`.cursor/janusboot-lane-lock.json`](.cursor/janusboot-lane-lock.json).
+**Progress (not zero):** Sprint 0 ✅ done (archived) · Phase 0–2 ✅ **15/15** rows done · **12** Phase 3–8 stubs still open. The “Remaining” line counts only 🔲/❌ — it does **not** mean nothing shipped. Archive: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).
+
+Live board for **JanusBoot**. Lane contract: [`docs/JANUSBOOT_AGENT_LANES.md`](docs/JANUSBOOT_AGENT_LANES.md) · lock: [`.cursor/janusboot-lane-lock.json`](.cursor/janusboot-lane-lock.json).
 
 **Who:** `AGENT` code · `HUMAN` person · `ADB` device · `AUTO` CI/scripts
 
@@ -46,6 +48,17 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 **One-liner:** A UEFI-first graphical boot manager that feels like BURG, scans like rEFInd, can repair a broken OS path like Super GRUB, and stores one settings/theme contract on the ESP that you can change from the boot menu, from Linux, and from Windows.
 **Do not drift:** limine, uefi, janusbootctl, efi/janusboot, qemu, ovmf
 <!-- product-brief-sync:end -->
+
+### Completed so far (visible progress)
+
+| Milestone | Status | Where to look |
+|-----------|--------|---------------|
+| **Sprint 0 — Customize** | ✅ Done (archived off this board) | [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md) — section *Sprint 0 — Customize (JanusBoot, 2026-09-17)* |
+| **Phase 0–2 — Contracts + QEMU smoke** | ✅ Done (all rows below) | Orchestrator + Cloud + Local lanes — every row ✅; `make smoke-all` PASS |
+
+Agents **do** flip 🔲 → ✅ on this file as work lands. Status uses emoji markers (✅/🔲), not GitHub `- [ ]` checkboxes. If your IDE still shows Sprint 0 open with “30 remaining,” you are on a **stale path** (repo root leftover while the live checkout is `.cursor/worktrees/local-phase-0-2` on `main` / `local/phase-0-2` @ `41c13f0`+). Open the worktree copy or pull `origin/main`.
+
+Next open work starts at **Phase 3** stubs.
 
 ### Sprint / Phase 0–2 — Contracts + QEMU smoke
 

@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 12 · AUTO 1 · HUMAN 0 · ADB 0 · **13 open**
+**Remaining:** AGENT 12 · AUTO 0 · HUMAN 0 · ADB 0 · **12 open**
 <!-- /remaining-tally -->
 
 Live board for **JanusBoot**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Lane contract: [`docs/JANUSBOOT_AGENT_LANES.md`](docs/JANUSBOOT_AGENT_LANES.md) · lock: [`.cursor/janusboot-lane-lock.json`](.cursor/janusboot-lane-lock.json).
@@ -46,21 +46,6 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 **One-liner:** A UEFI-first graphical boot manager that feels like BURG, scans like rEFInd, can repair a broken OS path like Super GRUB, and stores one settings/theme contract on the ESP that you can change from the boot menu, from Linux, and from Windows.
 **Do not drift:** limine, uefi, janusbootctl, efi/janusboot, qemu, ovmf
 <!-- product-brief-sync:end -->
-
-### Sprint 0 — Customize
-
-<!-- parallel_exception: stack not selected until init -->
-
-1. ✅ [AGENT][LOCAL] Copy `AGENT.md.example` → `AGENT.md` and paste the original brief verbatim (before init)
-2. ✅ [AGENT][LOCAL] Run `scripts/init-project.sh` (`--stack python --non-interactive --prune --prune-optional`)
-3. ✅ [AGENT][LOCAL] Fill `branding/product.json` (`mode: product`); sync tokens + README
-4. ✅ [AGENT][LOCAL] Run `scripts/setup-github-repo.sh` (`gh` admin) when a JanusBoot remote exists — applied to `edwardlthompson/JanusBoot` (Dependabot alerts, private reporting, branch protection, Discussions)
-5. 🔲 [AUTO] Sprint 0 sign-off on `main`: `validate-bootstrap --quick` · `feature-gate --stack python` · `check-github-ci --wait 300` · `check-license-compliance`
-6. ✅ [HUMAN][LOCAL] Create/confirm GitHub product repo (not the bootstrap template remote) — https://github.com/edwardlthompson/JanusBoot ; origin retargeted; bootstrap kept as remote `bootstrap`
-7. ✅ [HUMAN][LOCAL] Pick FOSS vs Commercial (`--distribution-tier foss`, MIT)
-8. ✅ [HUMAN] Fill `docs/INITIALIZATION_PROMPT.md` — stamped from `AGENT.md` + `branding/product.json` via `scripts/janusboot-fill-init-prompt.sh` (one-command: `scripts/janusboot-human-checklist.sh --apply`)
-9. ✅ [HUMAN] Pick Cursor mode (`docs/CURSOR_MODES.md`) — documented; default **Agent** for approved BUILD_PLAN execution (Ask/Plan/Debug per router). IDE mode toggle cannot be automated; re-check: `scripts/janusboot-human-checklist.sh`
-10. ✅ [HUMAN] Bookmark `docs/help/BATCH_COMMANDS.md` (`/bootstrap`) — docs pointer + `/` Agent chat shortcuts. Editor pin is optional IDE UI; covered by `scripts/janusboot-human-checklist.sh`
 
 ### Sprint / Phase 0–2 — Contracts + QEMU smoke
 

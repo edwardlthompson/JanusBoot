@@ -2,6 +2,19 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## Sprint 0 — Customize (JanusBoot, 2026-09-17)
+
+- ✅ [AGENT][LOCAL] Copy `AGENT.md.example` → `AGENT.md` and paste the original brief verbatim (before init)
+- ✅ [AGENT][LOCAL] Run `scripts/init-project.sh` (`--stack python --non-interactive --prune --prune-optional`)
+- ✅ [AGENT][LOCAL] Fill `branding/product.json` (`mode: product`); sync tokens + README
+- ✅ [AGENT][LOCAL] Run `scripts/setup-github-repo.sh` on `edwardlthompson/JanusBoot`
+- ✅ [AUTO] Sprint 0 sign-off on `main` (`74cf63e`): `validate-bootstrap --quick` · `feature-gate --stack python` · `check-github-ci --wait 300` · `check-license-compliance` — [CI](https://github.com/edwardlthompson/JanusBoot/actions/runs/35171424214) · Security Scan · CodeQL green (pruned-stack CI gating + About skip + child upgrade-sim no-op)
+- ✅ [HUMAN][LOCAL] Create/confirm GitHub product repo — https://github.com/edwardlthompson/JanusBoot
+- ✅ [HUMAN][LOCAL] Pick FOSS (`--distribution-tier foss`, MIT)
+- ✅ [HUMAN] Fill `docs/INITIALIZATION_PROMPT.md` (via `janusboot-fill-init-prompt.sh`)
+- ✅ [HUMAN] Pick Cursor mode (default Agent; router for Ask/Plan/Debug)
+- ✅ [HUMAN] Bookmark `docs/help/BATCH_COMMANDS.md` (`/bootstrap`)
+
 ## v1.6.0 release (2026-09-15)
 
 - ✅ [AGENT] Merge release [#110](https://github.com/edwardlthompson/agent-project-bootstrap/pull/110) (chore(main): release 1.6.0)

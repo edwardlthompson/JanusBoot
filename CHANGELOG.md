@@ -8,20 +8,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-* **janusbootctl:** host dry-run checklist + `make host-dry-run` / `scripts/janusboot-host-dry-run.sh` (read-only ESP scan; refuses writes) — `docs/host-dry-run.md`
-* **janusbootctl:** Debian `.deb` packaging + guest QEMU VM smoke (`make deb` / `make vm-smoke` / `make vm-gui`); GUI `--smoke` without host install
-* **janusbootctl:** nice-later (mouse flag markers, theme-shop, HiDPI presets, snapshot cards, PIN, icon atlas, reduce-motion/fast-boot) + removable-only Bootable USB planner/GUI/`make usb-smoke`
-
-### Changed
-
-* **template:** catch-up Canon/Mixed from agent-project-bootstrap 1.6.0 → 1.8.0 (venues, cost diet, validate `--agent`)
-
-### Fixed
-
-* **ci:** skip pruned stacks, About lego, and upgrade-sim on child product repos
-
 ## [1.0.0](https://github.com/edwardlthompson/JanusBoot/compare/v1.8.0...v1.0.0) (2026-09-17)
 
 

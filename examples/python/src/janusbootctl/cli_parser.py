@@ -35,7 +35,9 @@ def build_parser() -> argparse.ArgumentParser:
     scan_p = sub.add_parser("scan", help="Discover EFI loaders")
     scan_p.add_argument("--root", type=Path, default=None, help="ESP root to scan")
     scan_p.add_argument("--write", action="store_true", help="Write entries.json")
-    scan_p.add_argument("--shallow", action="store_true", help="Heuristics only (no recursive walk)")
+    scan_p.add_argument(
+        "--shallow", action="store_true", help="Heuristics only (no recursive walk)"
+    )
     repair_p = sub.add_parser("repair-plan", help="Print dry-run repair plan JSON")
     repair_p.add_argument("--kind", choices=("janus", "bootmgfw", "nvram", "all"), default="all")
     repair_a = sub.add_parser("repair-apply", help="Apply repair plans (confirm/dry-run)")

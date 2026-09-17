@@ -71,7 +71,9 @@ def launch_linux_gui(esp: Path) -> None:
     ttk.Button(frm, text="Apply timeout", command=on_timeout).grid(row=2, column=2, sticky="e")
     ttk.Label(frm, text="Theme pack dir").grid(row=3, column=0, sticky="w", pady=(8, 0))
     ttk.Entry(frm, textvariable=theme_var, width=40).grid(row=3, column=1, sticky="we", pady=(8, 0))
-    ttk.Button(frm, text="Apply theme", command=on_theme).grid(row=3, column=2, sticky="e", pady=(8, 0))
+    ttk.Button(frm, text="Apply theme", command=on_theme).grid(
+        row=3, column=2, sticky="e", pady=(8, 0)
+    )
     btns = ttk.Frame(frm)
     btns.grid(row=4, column=0, columnspan=3, sticky="we", pady=12)
     ttk.Button(btns, text="Refresh", command=refresh).pack(side=tk.LEFT)
@@ -97,7 +99,9 @@ def launch_windows_gui(esp: Path) -> None:
     tk.Label(frm, text=state.warning, wraplength=480, fg="darkred", justify=tk.LEFT).pack(
         anchor="w", pady=(0, 8)
     )
-    elev = tk.StringVar(value="Elevated: yes" if state.elevated else "Elevated: NO — writes blocked")
+    elev = tk.StringVar(
+        value="Elevated: yes" if state.elevated else "Elevated: NO — writes blocked"
+    )
     ttk.Label(frm, textvariable=elev).pack(anchor="w")
     listbox = tk.Listbox(frm, height=12, width=64)
     listbox.pack(fill=tk.BOTH, expand=True, pady=8)

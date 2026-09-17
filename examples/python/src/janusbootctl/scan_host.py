@@ -18,7 +18,11 @@ def discover_linux_kernels(boot_root: Path, *, max_pairs: int = 32) -> list[dict
             break
         stem = kernel.name
         initrd = None
-        for pattern in (f"initrd.img-{stem.removeprefix('vmlinuz-')}", "initrd.img", "initramfs.img"):
+        for pattern in (
+            f"initrd.img-{stem.removeprefix('vmlinuz-')}",
+            "initrd.img",
+            "initramfs.img",
+        ):
             candidate = root / pattern
             if candidate.is_file():
                 initrd = candidate

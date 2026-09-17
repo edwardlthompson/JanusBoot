@@ -9,7 +9,6 @@ from typing import Any
 from janusbootctl.paths import entries_path
 from janusbootctl.validate import load_json
 
-
 ONESHOT_ID = "oneshot-linux"
 
 
@@ -46,7 +45,9 @@ def write_oneshot_entry(esp_root: Path, entry: dict[str, Any]) -> Path:
     path = entries_path(esp_root)
     doc = load_json(path) if path.is_file() else {"schema_version": 1, "entries": []}
     assert isinstance(doc, dict)
-    entries = [e for e in doc.get("entries", []) if isinstance(e, dict) and e.get("id") != ONESHOT_ID]
+    entries = [
+        e for e in doc.get("entries", []) if isinstance(e, dict) and e.get("id") != ONESHOT_ID
+    ]
     entries.insert(0, entry)
     doc["schema_version"] = 1
     doc["entries"] = entries

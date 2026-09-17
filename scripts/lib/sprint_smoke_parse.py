@@ -4,7 +4,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field
 
-HEADER = re.compile(r"^###\s+(?P<title>(?:M\d+|Sprint\s+).+)$")
+HEADER = re.compile(r"^#{2,3}\s+(?P<title>(?:M\d+|Sprint\b).+)$")
 ROW = re.compile(
     r"^(?P<num>\d+[a-z]?)\.\s+(?P<status>🔲|✅|❌)\s+"
     r"\[(?P<owner>AGENT|AUTO|HUMAN|ADB)\]"
@@ -44,20 +44,19 @@ class SmokeSprint:
 
 
 def parse_sprints(text: str) -> list[SmokeSprint]:
-    """Maintainer ### M* plus Child Playbook ### Sprint * blocks."""
+    """Maintainer ### M* plus child ##/### Sprint * blocks (incl. JanusBoot em dash)."""
     lines = text.splitlines()
     blocks: list[SmokeSprint] = []
     current: SmokeSprint | None = None
     for line in lines:
         if any(line.startswith(stop) for stop in BOARD_STOP):
             current = None
-        if line.startswith("### "):
+        if line.startswith("## ") or line.startswith("### "):
             match = HEADER.match(line)
             if match:
                 current = SmokeSprint(title=match.group("title").strip())
                 blocks.append(current)
-            else:
-                current = None
+            # Non-sprint ### subsections (Sequential / Parallel / HUMAN) stay in current sprint.
             continue
         if current is None:
             continue

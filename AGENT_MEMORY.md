@@ -57,6 +57,7 @@ Cline is the first-run agent in Cursor: GitHub sign-in, FREE models, no API keys
 
 ## Session Retrospectives
 
+| 2026-09-17 | Must gaps (v1 depth) | Deepened scan/repair/oneshot/NVRAM backup/themes/GUIs/install; LOCAL qemu-boot-ui + install-esp smokes; AGENT archived; HUMAN backlogged | Do not start Nice-later/USB until HUMAN ESP/Windows sign-offs; merge cloud→local before QEMU |
 | 2026-09-16 | Template catch-up 1.8.0 | Applied Canon UPG-01…42 + Mixed merge toward parent 1.8.0; Sacred/GP skipped | Do not overwrite AGENTS.md product card or examples/python janusbootctl |
 | 2026-09-17 | Phase 3–8 ship | scan/repair/theme CLI + LOCAL Makefile; release 1.0.0; board archived | Prefer cloud/* for schema/CLI; local owns Makefile/QEMU |
 | 2026-09-17 | Sprint 0 sign-off | Canonical gates green on `74cf63e`; CI gates pruned stacks; About lego + upgrade-sim skip on child; archive Sprint 0 | Do not run template upgrade-sim as a hard gate on product children; Release Please needs Actions “create PRs” permission (non-blocking for Sprint 0) |

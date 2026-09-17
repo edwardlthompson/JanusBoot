@@ -7,7 +7,12 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from janusbootctl.linux_gui import CliResult, list_entries_via_cli, run_janusbootctl, set_timeout_via_cli
+from janusbootctl.linux_gui import (
+    CliResult,
+    list_entries_via_cli,
+    run_janusbootctl,
+    set_timeout_via_cli,
+)
 
 ELEVATION_WARNING = (
     "JanusBoot Windows tools require an elevated (Administrator) prompt before any "
@@ -29,7 +34,9 @@ def is_elevated() -> bool:
     try:
         import ctypes
 
-        return bool(ctypes.windll.shell32.IsUserAnAdmin())  # type: ignore[attr-defined]
+        shell32 = getattr(ctypes.windll, "shell32", None)
+        fn = getattr(shell32, "IsUserAnAdmin", None) if shell32 is not None else None
+        return bool(fn()) if callable(fn) else False
     except (AttributeError, OSError):
         return False
 

@@ -36,7 +36,18 @@ def test_cli_oneshot_backup_install_theme(
     assert "efibootmgr" in json.loads(capsys.readouterr().out)["command_example"]
     preview = tmp_path / "p.png"
     theme = str(repo / "themes" / "elegant-dark" / "theme.json")
-    _run(esp_copy, repo, "theme-preview", theme, "-o", str(preview), "--width", "1280", "--height", "720")
+    _run(
+        esp_copy,
+        repo,
+        "theme-preview",
+        theme,
+        "-o",
+        str(preview),
+        "--width",
+        "1280",
+        "--height",
+        "720",
+    )
     assert json.loads(capsys.readouterr().out)["valid"] is True and preview.is_file()
     _run(esp_copy, repo, "theme-apply", str(repo / "themes" / "elegant-dark"))
     assert "elegant-dark" in capsys.readouterr().out
@@ -44,7 +55,9 @@ def test_cli_oneshot_backup_install_theme(
     assert "schema_version" in capsys.readouterr().out
 
 
-def test_cli_repair_undo_dry(esp_copy: Path, repo: Path, capsys: pytest.CaptureFixture[str]) -> None:
+def test_cli_repair_undo_dry(
+    esp_copy: Path, repo: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
     _run(esp_copy, repo, "repair-undo", "--dry-run")
     assert json.loads(capsys.readouterr().out)[0]["status"] in {"empty", "dry_run", "skipped"}
 

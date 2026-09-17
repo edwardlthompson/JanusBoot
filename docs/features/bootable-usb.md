@@ -57,8 +57,8 @@
 ## Fallback validation
 
 - Why full USB write tests are not in default CI: requires physical removable media and elevation
-- Command (Cloud): `uv run pytest examples/python/tests/test_usb_media.py`
-- Command (Local): named Makefile target e.g. `make usb-smoke` (removable-only; fails closed)
+- Command (Cloud): `uv run pytest examples/python/tests/test_usb_media.py` (when present) or `bash scripts/feature-gate.sh --stack python`
+- Command (Local): named Makefile target e.g. `make usb-smoke` (removable-only; fails closed); interim `bash scripts/janusboot-smoke-all.sh`
 
 ## Definition of Done
 

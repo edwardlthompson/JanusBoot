@@ -82,9 +82,17 @@ def main(argv: list[str] | None = None) -> None:
                 plans.extend(plan_restore_janus_files(esp))
             if args.kind in ("bootmgfw", "all"):
                 plans.extend(plan_windows_bootmgfw_restore(esp))
-            print(json.dumps(apply_plans(esp, plans, confirm=args.confirm, dry_run=args.dry_run), indent=2))
+            print(
+                json.dumps(
+                    apply_plans(esp, plans, confirm=args.confirm, dry_run=args.dry_run), indent=2
+                )
+            )
         elif args.command == "repair-undo":
-            print(json.dumps(undo_last_repair(esp, confirm=args.confirm, dry_run=args.dry_run), indent=2))
+            print(
+                json.dumps(
+                    undo_last_repair(esp, confirm=args.confirm, dry_run=args.dry_run), indent=2
+                )
+            )
         elif args.command == "oneshot":
             if args.clear:
                 print("cleared" if clear_oneshot_entry(esp) else "none")

@@ -114,7 +114,9 @@ def test_linux_kernel_and_windows_plan(tmp_path: Path) -> None:
     assert plan["dry_run"] is True
 
 
-def test_cli_repair_apply_dry(esp_copy: Path, repo: Path, capsys: pytest.CaptureFixture[str]) -> None:
+def test_cli_repair_apply_dry(
+    esp_copy: Path, repo: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
     backup = esp_copy / "EFI" / "JanusBoot" / "backup" / "latest"
     backup.mkdir(parents=True, exist_ok=True)
     for name in ("settings.json", "entries.json"):

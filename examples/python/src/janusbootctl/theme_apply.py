@@ -85,7 +85,9 @@ def apply_theme_to_esp(
             staging / "background.boot.jpg",
             max_width=int(bg.get("max_source_width") or 3840) if isinstance(bg, dict) else 3840,
             max_height=int(bg.get("max_source_height") or 2160) if isinstance(bg, dict) else 2160,
-            max_bytes=int(bg.get("max_store_bytes") or 2_097_152) if isinstance(bg, dict) else 2_097_152,
+            max_bytes=int(bg.get("max_store_bytes") or 2_097_152)
+            if isinstance(bg, dict)
+            else 2_097_152,
         )
     icons_src = theme_dir / "icons"
     if icons_src.is_dir():

@@ -2,6 +2,30 @@
 
 > Archive of finished BUILD_PLAN items.
 
+
+## Sprint — Must gaps (v1 depth) (2026-09-17)
+
+Cloud `cloud/must-gaps-v1` → local `local/phase-0-2` @ `d95c710`. HUMAN rows remain open (see HUMAN_BACKLOG.md).
+
+- ✅ [AGENT][LOCAL] Lock scopes for Must gaps: one PR stream per lane; Sequential owns board flips only after acceptance — scope: BUILD_PLAN.md
+- ✅ [AGENT][CLOUD] **blocker** Boot UI cards path: Limine-facing assets + conf for large icons, timeout bar, last-used highlight, More…, empty-disk calm copy; document honest floor if Limine cannot do full BURG cards — scope: themes/
+- ✅ [AGENT][CLOUD] **important** Deep scan: os-prober-style / recursive ESP walk beyond fixed heuristics; Windows-host scan plan + tests; never delete foreign EFI — scope: examples/python/
+- ✅ [AGENT][CLOUD] **blocker** Repair apply + undo + repair_history: execute plans with confirm/dry-run; ESP-owned files only; unit tests — scope: examples/python/
+- ✅ [AGENT][CLOUD] **blocker** Super GRUB-like one-shot: pick vmlinuz+initrd → one-shot Limine entry (userspace CLI) + tests — scope: examples/python/
+- ✅ [AGENT][CLOUD] **important** Backup NVRAM dump + settings before changes (API + fixtures; host dump wired by Local) — scope: examples/python/
+- ✅ [AGENT][CLOUD] **blocker** Linux GUI (Mint-friendly): real app (not subprocess façade only); entries/icons/default/timeout/theme/install via janusbootctl only — scope: examples/python/
+- ✅ [AGENT][CLOUD] **blocker** Windows GUI + elevation warnings: same ops as Linux; never silent ESP/NVRAM/BCD write; docs ↔ code — scope: docs/spec.md
+- ✅ [AGENT][CLOUD] **important** Theme pipeline real depth: resize/compress, hashes, atomic themes/.next/, last-good; desktop 1080p/4K preview (not metadata-only) — scope: examples/python/
+- ✅ [AGENT][CLOUD] **important** Built-in theme assets: 2–3 packs with real PNG/JPEG + icons/ fallbacks; wallpaper path resolves in fixtures — scope: fixtures/esp/
+- ✅ [AGENT][CLOUD] **important** In-boot settings gear or ship OS-tools floor with Linux/Windows GUIs covering timeout/default/theme (Phase 4 escape hatch OK only once GUIs exist) — scope: docs/VISION.md
+- ✅ [AGENT][CLOUD] **important** janusbootctl install (EFI binary + conf to ESP layout) + NVRAM entry planner (dry-run first) — scope: esp/
+- ✅ [AGENT][CLOUD] **polish** Linux/Windows schema divergence CI gate (fail when consumers disagree) — scope: schema/
+- ✅ [AGENT][LOCAL] **blocker** QEMU smoke for boot-UI assets (icons/wallpaper/timeout) after Cloud lands — scope: Makefile
+- ✅ [AGENT][LOCAL] **important** Live scan smoke (make scan-live / host ESP read-only) for deep-scan behavior — scope: Makefile
+- ✅ [AGENT][LOCAL] **blocker** Repair apply host smoke: efibootmgr/NVRAM dry-run on lab VM only; document confirm — scope: docs/qemu.md
+- ✅ [AGENT][LOCAL] **important** Wire real NVRAM dump into backup path (Cloud API + Local host tool) — scope: docs/nvram-repair-local.md
+- ✅ [AGENT][LOCAL] **important** Install-to-ESP smoke on QEMU ESP image (not real disk) — scope: build/
+
 ## Sprint / Phase 3–8 — Scanner through Polish (2026-09-17)
 
 

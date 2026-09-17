@@ -13,7 +13,6 @@ from janusbootctl.paths import janus_dir, settings_path
 from janusbootctl.repair import RepairPlan
 from janusbootctl.validate import load_json
 
-
 _OWNED_PREFIX = "EFI/JanusBoot/"
 
 
@@ -70,11 +69,15 @@ def apply_plans(
         if not _is_owned_dest(esp_root, dest):
             raise ValueError(f"refusing write outside owned paths: {dest}")
         if dry_run:
-            results.append({"action": plan.action, "status": "dry_run", "src": str(src), "dest": str(dest)})
+            results.append(
+                {"action": plan.action, "status": "dry_run", "src": str(src), "dest": str(dest)}
+            )
             continue
         dest.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dest)
-        results.append({"action": plan.action, "status": "applied", "src": str(src), "dest": str(dest)})
+        results.append(
+            {"action": plan.action, "status": "applied", "src": str(src), "dest": str(dest)}
+        )
     if not dry_run:
         _append_history(
             esp_root,
@@ -83,7 +86,9 @@ def apply_plans(
     return results
 
 
-def undo_last_repair(esp_root: Path, *, confirm: bool, dry_run: bool = False) -> list[dict[str, Any]]:
+def undo_last_repair(
+    esp_root: Path, *, confirm: bool, dry_run: bool = False
+) -> list[dict[str, Any]]:
     """Restore files from the backup named in the last repair_history entry."""
     if not dry_run and not confirm:
         raise ValueError("refusing undo without --confirm (or use --dry-run)")

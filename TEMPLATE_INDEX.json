@@ -1323,6 +1323,13 @@
     },
     {
       "path": "scripts/janusboot-qemu-smoke.sh",
+      "purpose": "Headless QEMU+OVMF boot smoke wrapper (timeout; serial markers)",
+      "read_when": "prompt_needed",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/janusboot-smoke-all.sh",
       "purpose": "Full LOCAL smoke: host deps, validate, test, esp-image, headless qemu-smoke with timeout",
       "read_when": "prompt_needed",
       "update_when": "milestone_boundary",

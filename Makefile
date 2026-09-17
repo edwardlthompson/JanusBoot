@@ -49,7 +49,7 @@ MMD ?= mmd
 QEMU_SMOKE_TIMEOUT ?= 30
 QEMU_SMOKE_LOG := $(BUILD)/qemu-smoke.log
 
-.PHONY: help deps check-host limine esp-image qemu qemu-smoke validate test clean \
+.PHONY: help deps check-host limine esp-image qemu qemu-smoke smoke-all validate test clean \
 	_require-cloud _require-qemu _require-ovmf _require-fat-tools
 
 help:
@@ -60,11 +60,15 @@ help:
 	@echo "  make esp-image   Build FAT ESP image under build/ (needs cloud merge)"
 	@echo "  make qemu        Interactive GUI boot (GTK display)"
 	@echo "  make qemu-smoke  Headless QEMU boot smoke (no GUI; timeout $(QEMU_SMOKE_TIMEOUT)s)"
+	@echo "  make smoke-all   Deps→install prompt→validate→test→esp-image→qemu-smoke (→ build/smoke.log)"
 	@echo "  make clean       Remove build/ and downloaded Limine tree"
 	@echo ""
-	@echo "Full scripted smoke: scripts/janusboot-qemu-smoke.sh"
-	@echo "Host packages:      scripts/janusboot-host-deps.sh [--apply]"
+	@echo "Full scripted smoke: scripts/janusboot-smoke-all.sh  (or janusboot-qemu-smoke.sh)"
+	@echo "Host packages:      scripts/janusboot-host-deps.sh [--apply]  (sudo TTY or pkexec)"
 	@echo "Never write ESP images to a real disk with dd. See docs/qemu.md."
+
+smoke-all:
+	@bash scripts/janusboot-smoke-all.sh --timeout "$(QEMU_SMOKE_TIMEOUT)"
 
 deps: check-host limine
 	@echo "deps: OK (Limine $(LIMINE_TAG) → $(LIMINE_EFI))"

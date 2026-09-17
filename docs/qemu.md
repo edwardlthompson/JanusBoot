@@ -34,14 +34,20 @@ make qemu OVMF_CODE=/path/to/OVMF_CODE.fd OVMF_VARS=/path/to/OVMF_VARS.fd
 
 ## Install (Mint / Ubuntu)
 
-Preferred (dry-run first, then apply):
+Preferred (dry-run first, then apply **in a real terminal** so sudo can prompt):
 
 ```bash
 scripts/janusboot-host-deps.sh
 scripts/janusboot-host-deps.sh --apply
 ```
 
-`--apply` uses `sudo -n` (passwordless). If sudo needs a password, the script exits with the exact `apt` commands to run yourself.
+`--apply` privilege order:
+
+1. `sudo -n` if credentials are cached / passwordless
+2. Interactive `sudo` on a TTY (password prompt — **not** sudo-only `-n`)
+3. `pkexec` GUI polkit dialog when `DISPLAY`/`WAYLAND_DISPLAY` is set
+
+Cursor agent shells often have **no TTY**. Open **Terminal → New Terminal** (or any gnome-terminal) and re-run `--apply` / `make smoke-all` there. If neither TTY nor pkexec works, the script prints the exact `apt` commands.
 
 Manual:
 
@@ -70,11 +76,16 @@ Run `make deps` after install; it prints FOUND/MISSING for each tool.
 | `make esp-image` | FAT image `build/esp.img` via `mkfs.fat` + `mcopy` |
 | `make qemu` | **Interactive** GTK window + serial on stdio |
 | `make qemu-smoke` | **Headless** `-display none`, timeout (default 30s), serial → `build/qemu-smoke.log` |
+| `make smoke-all` | Deps check → prompt install → validate → test → esp-image → qemu-smoke; log → `build/smoke.log` |
 | `make clean` | Remove `build/` and `third_party/limine/` |
 
 Scripted full chain (deps install attempt + validate + test + esp-image + qemu-smoke):
 
 ```bash
+make smoke-all
+# or
+scripts/janusboot-smoke-all.sh
+# thinner (no build/smoke.log tee):
 scripts/janusboot-qemu-smoke.sh
 ```
 
@@ -123,7 +134,10 @@ build/esp.img  (FAT32, label JANUSBOOT)
 ## Quick sequence
 
 ```bash
-scripts/janusboot-host-deps.sh --apply   # or manual apt if sudo needs a password
+# In an integrated terminal (sudo password prompt / pkexec):
+make smoke-all
+# or step-by-step:
+scripts/janusboot-host-deps.sh --apply
 make deps
 make validate
 make test

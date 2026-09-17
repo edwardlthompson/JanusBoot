@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Full LOCAL smoke: host deps → make deps → validate → test → esp-image → headless QEMU.
 # Clear PASS/FAIL. Does not require a GUI session (--display none).
+# Prefer scripts/janusboot-smoke-all.sh for monitored logging to build/smoke.log.
 #
 # Usage:
 #   scripts/janusboot-qemu-smoke.sh
@@ -45,17 +46,23 @@ pass() {
 echo "=== JanusBoot QEMU smoke ==="
 echo "Root: $ROOT"
 echo "Timeout: ${TIMEOUT_SEC}s"
+echo "(monitored log variant: scripts/janusboot-smoke-all.sh → build/smoke.log)"
 
 # 1) Host packages
 if [ "$SKIP_APT" -eq 0 ]; then
   if ! bash scripts/janusboot-host-deps.sh --check; then
-    echo "Host packages incomplete — attempting --apply…"
+    echo "Host packages incomplete — attempting --apply (sudo TTY or pkexec)…"
+    if [ ! -t 0 ] || [ ! -t 1 ]; then
+      echo "NOTE: no TTY here — looking for pkexec GUI, else open Terminal and re-run."
+    else
+      echo ">>> Enter your sudo password in this terminal when prompted <<<"
+    fi
     set +e
     bash scripts/janusboot-host-deps.sh --apply
     rc=$?
     set -e
     if [ "$rc" -eq 3 ]; then
-      fail "host packages need sudo password (see instructions above)"
+      fail "host packages need sudo/pkexec password (run in integrated terminal)"
     elif [ "$rc" -ne 0 ]; then
       fail "host deps install/check failed (exit $rc)"
     fi

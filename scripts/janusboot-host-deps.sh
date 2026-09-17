@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
 # Detect (and optionally install) JanusBoot LOCAL host deps: QEMU, OVMF, FAT tools.
-# Dry-run by default. Use --apply for apt install (tries passwordless sudo first).
+# Dry-run by default. Use --apply for apt install.
+#
+# Privilege escalation (apply order):
+#   1) sudo -n          (passwordless / cached credentials)
+#   2) sudo with TTY    (interactive password prompt on a real terminal)
+#   3) pkexec           (GUI polkit dialog on Linux desktop, if available)
+# Never use sudo -n as the only path — that skips the password prompt.
 #
 # Usage:
 #   scripts/janusboot-host-deps.sh           # detect only
 #   scripts/janusboot-host-deps.sh --apply   # apt install if needed
 #   scripts/janusboot-host-deps.sh --check   # exit 1 if anything missing
+#   scripts/janusboot-host-deps.sh status    # same as --check (alias)
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -16,13 +23,13 @@ CHECK=0
 for arg in "$@"; do
   case "$arg" in
     --apply) APPLY=1 ;;
-    --check) CHECK=1 ;;
+    --check|status) CHECK=1 ;;
     -h|--help)
-      sed -n '2,10p' "$0"
+      sed -n '2,16p' "$0"
       exit 0
       ;;
     *)
-      echo "Unknown arg: $arg (use --apply, --check, or --help)" >&2
+      echo "Unknown arg: $arg (use --apply, --check, status, or --help)" >&2
       exit 2
       ;;
   esac
@@ -75,6 +82,79 @@ find_mkfs_fat() {
   return 1
 }
 
+have_usable_tty() {
+  # stdin/stdout are TTYs, or /dev/tty is a usable controlling terminal
+  if [ -t 0 ] && [ -t 1 ]; then
+    return 0
+  fi
+  if [ -c /dev/tty ] && { : >/dev/tty; } 2>/dev/null; then
+    return 0
+  fi
+  return 1
+}
+
+print_manual_install() {
+  echo "" >&2
+  echo "ACTION REQUIRED: run this in an integrated terminal (or any real TTY) so sudo can prompt:" >&2
+  echo "" >&2
+  echo "  cd \"$ROOT\"" >&2
+  echo "  scripts/janusboot-host-deps.sh --apply" >&2
+  echo "" >&2
+  echo "Or paste these commands:" >&2
+  echo "  sudo apt update" >&2
+  echo "  sudo DEBIAN_FRONTEND=noninteractive apt install -y ${PKGS_NEEDED[*]}" >&2
+  echo "  scripts/janusboot-qemu-smoke.sh" >&2
+  echo "" >&2
+  echo "If a desktop session is available, --apply will try pkexec (GUI password dialog)." >&2
+  echo "Cursor agent shells often have no TTY — prefer Terminal → New Terminal, then re-run." >&2
+}
+
+# Run a privileged command. Prefer interactive sudo over silent sudo -n-only.
+# Exit codes: 0 ok; 3 = needs human TTY / password; other = command failure.
+run_privileged() {
+  local label="$1"
+  shift
+
+  # 1) Cached / passwordless sudo (fast path, not the only path)
+  if sudo -n true 2>/dev/null; then
+    echo "auth: sudo -n (cached/passwordless) for: $label" >&2
+    sudo -n "$@"
+    return $?
+  fi
+
+  # 2) Interactive sudo on a real TTY (password prompt)
+  if have_usable_tty; then
+    echo "" >&2
+    echo ">>> SUDO PASSWORD PROMPT — look at this terminal and enter your password <<<" >&2
+    echo "auth: interactive sudo for: $label" >&2
+    if [ -t 0 ] && [ -t 1 ]; then
+      sudo "$@"
+      return $?
+    fi
+    # Agent/non-TTY stdout but /dev/tty works (rare): force prompt onto tty
+    sudo "$@" </dev/tty >/dev/tty 2>/dev/tty
+    return $?
+  fi
+
+  # 3) GUI polkit dialog (Linux desktop)
+  if command -v pkexec >/dev/null 2>&1 && { [ -n "${DISPLAY:-}" ] || [ -n "${WAYLAND_DISPLAY:-}" ]; }; then
+    echo "" >&2
+    echo ">>> POLKIT / pkexec — approve the GUI password dialog on your desktop <<<" >&2
+    echo "auth: pkexec for: $label" >&2
+    # Keep cwd; forward noninteractive apt frontend when set
+    if [ -n "${DEBIAN_FRONTEND:-}" ]; then
+      pkexec --keep-cwd env DEBIAN_FRONTEND="$DEBIAN_FRONTEND" "$@"
+    else
+      pkexec --keep-cwd "$@"
+    fi
+    return $?
+  fi
+
+  print_manual_install
+  echo "BLOCKED: no TTY for sudo password and pkexec unavailable/unusable." >&2
+  return 3
+}
+
 echo "=== JanusBoot host deps (detect) ==="
 echo "Root: $ROOT"
 
@@ -100,7 +180,6 @@ if OVMF_VARS="$(find_ovmf_vars)"; then
   echo "FOUND:   OVMF_VARS=$OVMF_VARS"
 else
   echo "MISSING: OVMF_VARS"
-  # ovmf already queued if CODE missing; ensure package listed once
   if [[ ! " ${PKGS_NEEDED[*]} " =~ " ovmf " ]]; then
     PKGS_NEEDED+=(ovmf)
   fi
@@ -161,7 +240,7 @@ if [ "$APPLY" -eq 0 ]; then
     exit 1
   fi
   echo ""
-  echo "Dry-run only (no install). Re-run with --apply to attempt apt."
+  echo "Dry-run only (no install). Re-run with --apply to attempt apt (sudo TTY or pkexec)."
   exit 0
 fi
 
@@ -172,29 +251,33 @@ if ! command -v apt-get >/dev/null 2>&1; then
   exit 1
 fi
 
-run_sudo() {
-  if sudo -n true 2>/dev/null; then
-    sudo -n "$@"
-    return $?
-  fi
-  echo "" >&2
-  echo "BLOCKED: sudo requires a password (passwordless sudo not available)." >&2
-  echo "Run this yourself in a terminal, then re-run smoke:" >&2
-  echo "" >&2
-  echo "  sudo apt update" >&2
-  echo "  sudo DEBIAN_FRONTEND=noninteractive apt install -y ${PKGS_NEEDED[*]}" >&2
-  echo "  scripts/janusboot-qemu-smoke.sh" >&2
-  echo "" >&2
-  exit 3
-}
-
 echo ""
-echo "=== Applying apt install (noninteractive) ==="
+echo "=== Applying apt install ==="
 export DEBIAN_FRONTEND=noninteractive
-run_sudo apt-get update -y
-run_sudo apt-get install -y "${PKGS_NEEDED[@]}"
+
+set +e
+run_privileged "apt-get update" apt-get update -y
+rc=$?
+set -e
+if [ "$rc" -eq 3 ]; then
+  exit 3
+elif [ "$rc" -ne 0 ]; then
+  echo "ERROR: apt-get update failed (exit $rc)" >&2
+  exit "$rc"
+fi
+
+set +e
+run_privileged "apt-get install ${PKGS_NEEDED[*]}" \
+  apt-get install -y "${PKGS_NEEDED[@]}"
+rc=$?
+set -e
+if [ "$rc" -eq 3 ]; then
+  exit 3
+elif [ "$rc" -ne 0 ]; then
+  echo "ERROR: apt-get install failed (exit $rc)" >&2
+  exit "$rc"
+fi
 
 echo ""
 echo "Re-checking after install…"
-# Re-exec as detect+check
 exec "$0" --check

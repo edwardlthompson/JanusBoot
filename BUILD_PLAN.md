@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 13 · AUTO 1 · HUMAN 4 · ADB 0 · **18 open**
+**Remaining:** AGENT 12 · AUTO 1 · HUMAN 3 · ADB 0 · **16 open**
 <!-- /remaining-tally -->
 
 Live board for **JanusBoot**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Lane contract: [`docs/JANUSBOOT_AGENT_LANES.md`](docs/JANUSBOOT_AGENT_LANES.md) · lock: [`.cursor/janusboot-lane-lock.json`](.cursor/janusboot-lane-lock.json).
@@ -72,7 +72,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 2. ✅ [AGENT][LOCAL] Create `docs/JANUSBOOT_AGENT_LANES.md`, lane lock, BUILD_PLAN LOCAL/CLOUD sections, `janusboot.mdc` + `.cursorrules`
 3. ✅ [AGENT][LOCAL] Create branches `cloud/phase-0-2` and `local/phase-0-2` from post-init main
 4. ✅ [HUMAN][LOCAL] Approve merge of `cloud/phase-0-2` into `local/phase-0-2` after cloud PR (Sequential integrate-pr: merge commit `fbf88ea`)
-5. 🔲 [HUMAN][LOCAL] Approve merge of `local/phase-0-2` → `main` after verify (+ host QEMU smoke) — **blocked:** `make validate`/`test`/`esp-image` green; `qemu-smoke` needs `sudo apt install qemu-system-x86 ovmf` (passwordless sudo unavailable)
+5. ✅ [HUMAN][LOCAL] Approve merge of `local/phase-0-2` → `main` after verify (+ host QEMU smoke) — `make smoke-all` PASS 2026-09-16 (qemu-smoke serial markers; packages via pkexec install after Cursor aptrepo blocked `apt update`)
 
 #### Cloud lane
 
@@ -85,9 +85,9 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 #### Local lane
 
-1. ✅ [AGENT][LOCAL] Install/detect host deps (qemu-system-x86_64, OVMF, dosfstools/mtools); write `docs/qemu.md` — FAT tools present; **qemu/ovmf still missing on host** (`scripts/janusboot-host-deps.sh --apply` exits 3: sudo password required)
+1. ✅ [AGENT][LOCAL] Install/detect host deps (qemu-system-x86_64, OVMF, dosfstools/mtools); write `docs/qemu.md` — qemu-system-x86 + ovmf installed; `scripts/janusboot-host-deps.sh --check` PASS
 2. ✅ [AGENT][LOCAL] `Makefile`: pin Limine → `third_party/limine/`, `esp-image`, `qemu`, `qemu-smoke`, wrappers for `validate`/`test` via `uv run`
-3. ❌ [AGENT][LOCAL] After cloud PR merge: `make validate`, `make esp-image`, `make qemu` — two fake entries, timeout/default from JSON — **blocked on apt:** `validate` + `test` (21) + `esp-image` OK; headless `make qemu-smoke` / `scripts/janusboot-qemu-smoke.sh` ready once qemu+ovmf installed
+3. ✅ [AGENT][LOCAL] After cloud PR merge: `make validate`, `make esp-image`, `make qemu` — two fake entries, timeout/default from JSON — `make smoke-all` PASS (`validate` + `test` 21 + `esp-image` + `qemu-smoke` serial markers)
 4. ✅ [AGENT][LOCAL] `python3 scripts/agent-run.py verify` (or python feature-gate); mark Phase 0–2 rows ✅ — `feature-gate --stack python` passed; `make test` 21 passed. Golden Path About/hello tests removed with `janusbootctl` replace (expected product gap vs template About-smoke)
 
 ### Sprint / Phase 3 — Scanner (stub)
@@ -164,9 +164,9 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ### Waiting on a person
 
-- `[HUMAN]` Host password: `sudo apt update && sudo DEBIAN_FRONTEND=noninteractive apt install -y qemu-system-x86 ovmf` then `scripts/janusboot-qemu-smoke.sh` on `local/phase-0-2` (agent cannot enter sudo password)
+- ~~`[HUMAN]` Host password / apt install qemu+ovmf~~ → done (`qemu-system-x86` + `ovmf` installed; note: Cursor aptrepo GPG can break bare `apt update` — install packages directly or fix `NO_PUBKEY 42A1772E62E492D6`)
 - ~~`[HUMAN]` Create JanusBoot product GitHub remote~~ → done (`edwardlthompson/JanusBoot`; origin retargeted; bootstrap remote kept)
-- `[HUMAN]` Approve `local/phase-0-2` → `main` after `qemu-smoke` PASS (do not merge until headless smoke green)
+- ~~`[HUMAN]` Approve `local/phase-0-2` → `main` after `qemu-smoke` PASS~~ → done (`make smoke-all` PASS; ff merge to `main`)
 
 ### Open PRs (synced)
 

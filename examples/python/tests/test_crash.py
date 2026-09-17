@@ -1,6 +1,6 @@
-"""Tests for hello.crash sanitizer."""
+"""Tests for janusbootctl.crash sanitizer (bootstrap allowlist)."""
 
-from hello.crash import sanitize_crash_payload, sanitize_crash_text
+from janusbootctl.crash import sanitize_crash_payload, sanitize_crash_text
 
 
 def test_redacts_email_home_and_token() -> None:

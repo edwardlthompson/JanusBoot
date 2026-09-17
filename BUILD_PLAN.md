@@ -1,10 +1,10 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 1 · LOCAL 1 · CLOUD 0 · AUTO 0 · HUMAN 0 · ADB 0 · **1 open**
+**Remaining:** AGENT 0 · LOCAL 0 · CLOUD 0 · AUTO 0 · HUMAN 0 · ADB 0 · **0 open**
 <!-- /remaining-tally -->
 
-**Progress (not zero):** Sprint 0 ✅ archived · Phase 0–2 ✅ archived · Template upgrade 1.6.0→1.8.0 ✅ archived · Phase 3–8 ✅ implemented (scanner/settings/GUI/repair/themes). The “Remaining” line counts only 🔲/❌ — it does **not** mean nothing shipped. Archive: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).
+**Progress (not zero):** Sprint 0 ✅ archived · Phase 0–2 ✅ archived · Template upgrade 1.6.0→1.8.0 ✅ archived · Phase 3–8 ✅ archived. The “Remaining” line counts only 🔲/❌ — it does **not** mean nothing shipped. Archive: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).
 
 Live board for **JanusBoot**. Lane contract: [`docs/JANUSBOOT_AGENT_LANES.md`](docs/JANUSBOOT_AGENT_LANES.md) · lock: [`.cursor/janusboot-lane-lock.json`](.cursor/janusboot-lane-lock.json).
 
@@ -77,86 +77,16 @@ _No cloud agent items._
 | **Sprint 0 — Customize** | ✅ Done (archived) | [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md) — *Sprint 0 — Customize (JanusBoot, 2026-09-17)* |
 | **Phase 0–2 — Contracts + QEMU smoke** | ✅ Done (archived) | [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md) — *Sprint / Phase 0–2 — Contracts + QEMU smoke (2026-09-17)* |
 | **Template upgrade 1.6.0 → 1.8.0** | ✅ Done (archived) | [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md) — *Template upgrade 1.6.0 → 1.8.0 (2026-09-17)* |
-| **Phase 3–8 — Scanner through Polish** | ✅ Done (rows below) | Cloud CLI + Local Makefile/docs; merge `cloud/phase-3-8` |
+| **Phase 3–8 — Scanner through Polish** | ✅ Done (archived) | [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md) — *Sprint / Phase 3–8 (2026-09-17)* |
 
 > **Sprint / Phase 0–2** archived in COMPLETED_TASKS.md @ `a337d62`.
 > **Sprint — Template upgrade 1.6.0 → 1.8.0** archived in COMPLETED_TASKS.md @ `a337d62`.
 
 Agents **do** flip 🔲 → ✅ on this file as work lands. Status uses emoji markers (✅/🔲), not GitHub `- [ ]` checkboxes. Live tip: `.cursor/worktrees/local-phase-0-2` on `local/phase-0-2` (keep root `BUILD_PLAN.md` in sync for the IDE).
 
-Next open work: **Phase 3–8** stubs.
+> **Sprint / Phase 3–8** archived in COMPLETED_TASKS.md @ `837199b`.
 
-### Sprint / Phase 3 — Scanner (stub)
-
-<!-- parallel_exception: board stub only; dual-lane CLOUD/LOCAL when opened -->
-
-#### Cloud lane
-
-1. ✅ [AGENT][CLOUD] Linux path heuristics as pure functions + tests; entries schema tweaks — scope: schema/
-
-#### Local lane
-
-1. ✅ [AGENT][LOCAL] Live ESP mount scan on host; Windows `bootmgfw.efi` discovery — scope: Makefile
-
-### Sprint / Phase 4 — Boot settings (stub)
-
-<!-- parallel_exception: board stub only; dual-lane CLOUD/LOCAL when opened -->
-
-#### Cloud lane
-
-1. ✅ [AGENT][CLOUD] VISION/docs + settings UX copy — scope: docs/VISION.md
-
-#### Local lane
-
-1. ✅ [AGENT][LOCAL] Confirm Limine in-menu limits on QEMU — scope: docs/qemu.md
-
-### Sprint / Phase 5 — Linux GUI (stub)
-
-<!-- parallel_exception: board stub only; dual-lane CLOUD/LOCAL when opened -->
-
-#### Cloud lane
-
-1. ✅ [AGENT][CLOUD] UI code talking only to CLI — scope: examples/python/
-
-#### Local lane
-
-1. ✅ [AGENT][LOCAL] Mint packaging / Polkit / real ESP install — scope: scripts/janusboot-host-deps.sh
-
-### Sprint / Phase 6 — Windows GUI (stub)
-
-<!-- parallel_exception: board stub only; dual-lane CLOUD/LOCAL when opened -->
-
-#### Cloud lane
-
-1. ✅ [AGENT][CLOUD] C#/WinUI structure + mocks — scope: docs/spec.md
-
-#### Local lane
-
-1. ✅ [AGENT][LOCAL] Elevation, real ESP/BCD dry-run on Windows host — scope: third_party/
-
-### Sprint / Phase 7 — Repair (stub)
-
-<!-- parallel_exception: board stub only; dual-lane CLOUD/LOCAL when opened -->
-
-#### Cloud lane
-
-1. ✅ [AGENT][CLOUD] Repair wizards, dry-run logic, tests — scope: fixtures/esp/
-
-#### Local lane
-
-1. ✅ [AGENT][LOCAL] efibootmgr/NVRAM, backup restore on real/VM ESP — scope: build/
-
-### Sprint / Phase 8 — Polish (stub)
-
-<!-- parallel_exception: board stub only; dual-lane CLOUD/LOCAL when opened -->
-
-#### Cloud lane
-
-1. ✅ [AGENT][CLOUD] Theme pack JSON, apply pipeline code, preview — scope: themes/
-
-#### Local lane
-
-1. ✅ [AGENT][LOCAL] QEMU visual check; Secure Boot doc against real shim if keys exist — scope: scripts/janusboot-qemu-smoke.sh
+Next open work: Open PRs / maintenance (board clear of Phase stubs).
 
 ### Waiting on a person
 
@@ -174,7 +104,7 @@ _None blocking for Sprint 0 / Phase 0–2 process._ Optional IDE: pin `docs/help
 > Auto-managed on product repos too. Do not hand-edit rows inside the markers.
 
 <!-- open-prs-sync:begin -->
-- 🔲 [AGENT][LOCAL] Merge release [#1](https://github.com/edwardlthompson/JanusBoot/pull/1) (chore(main): release 1.0.0) — scope: .
+_No open Dependabot or Release Please PRs._
 <!-- open-prs-sync:end -->
 
 ### Template gaps (synced)
@@ -216,3 +146,4 @@ Older sprints: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).
 | Sprint 0 — Customize | 2026-09-17 | `COMPLETED_TASKS.md` |
 | Sprint / Phase 0–2 — Contracts + QEMU smoke | 2026-09-17 | `COMPLETED_TASKS.md` |
 | Sprint — Template upgrade 1.6.0 → 1.8.0 | 2026-09-17 | `COMPLETED_TASKS.md` |
+| Sprint / Phase 3–8 — Scanner through Polish | 2026-09-17 | `COMPLETED_TASKS.md` |

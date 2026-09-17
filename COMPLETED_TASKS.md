@@ -2,6 +2,39 @@
 
 > Archive of finished BUILD_PLAN items.
 
+## Sprint / Phase 3–8 — Scanner through Polish (2026-09-17)
+
+
+### Sprint / Phase 3 — Scanner (stub)
+
+- ✅ [AGENT][CLOUD] Linux path heuristics as pure functions + tests; entries schema tweaks — scope: schema/
+- ✅ [AGENT][LOCAL] Live ESP mount scan on host; Windows `bootmgfw.efi` discovery — scope: Makefile
+
+### Sprint / Phase 4 — Boot settings (stub)
+
+- ✅ [AGENT][CLOUD] VISION/docs + settings UX copy — scope: docs/VISION.md
+- ✅ [AGENT][LOCAL] Confirm Limine in-menu limits on QEMU — scope: docs/qemu.md
+
+### Sprint / Phase 5 — Linux GUI (stub)
+
+- ✅ [AGENT][CLOUD] UI code talking only to CLI — scope: examples/python/
+- ✅ [AGENT][LOCAL] Mint packaging / Polkit / real ESP install — scope: scripts/janusboot-host-deps.sh
+
+### Sprint / Phase 6 — Windows GUI (stub)
+
+- ✅ [AGENT][CLOUD] C#/WinUI structure + mocks — scope: docs/spec.md
+- ✅ [AGENT][LOCAL] Elevation, real ESP/BCD dry-run on Windows host — scope: third_party/
+
+### Sprint / Phase 7 — Repair (stub)
+
+- ✅ [AGENT][CLOUD] Repair wizards, dry-run logic, tests — scope: fixtures/esp/
+- ✅ [AGENT][LOCAL] efibootmgr/NVRAM, backup restore on real/VM ESP — scope: build/
+
+### Sprint / Phase 8 — Polish (stub)
+
+- ✅ [AGENT][CLOUD] Theme pack JSON, apply pipeline code, preview — scope: themes/
+- ✅ [AGENT][LOCAL] QEMU visual check; Secure Boot doc against real shim if keys exist — scope: scripts/janusboot-qemu-smoke.sh
+
 ## Sprint / Phase 0–2 — Contracts + QEMU smoke (2026-09-17)
 
 ### Orchestrator (sequential only)

@@ -213,3 +213,13 @@ After `[HUMAN]` approves a real write on a **removable** stick:
 
 Elevation: Linux polkit/sudo for the write helper only; Windows UAC for raw disk
 access. Listing removable media stays userspace.
+
+### Smoke result (HUMAN #37) — 2026-09-17
+
+- **Device:** `/dev/sdd` (user said `/dev/SDD1` → partition; wrote **whole disk** only)
+- **Classify:** `enumerate_linux_devices` → allowed; `ok: removable media`; model=Cruzer vendor=SanDisk size=2000682496; `nvme0n1` refused
+- **Dry-run:** `janusbootctl usb preview` + `usb write` (no `--confirm`) → `dry_run: true`
+- **Confirm plan:** `janusbootctl usb write --confirm --device /dev/sdd …` → `dry_run: false`
+- **Write:** `pkexec dd if=build/usb-rescue-stub.iso of=/dev/sdd` (allowlisted `dd`); unmounted `/dev/sdd1` first
+- **Verify:** device head sha256 matched ISO (`adb66558333d125dc44052c09cf06c47ccdc4c903b2153387dadeaa542423af1`); ISO < 1 MiB so last-MiB N/A
+- **Result:** PASS — BUILD_PLAN #37 ✅; removed from HUMAN_BACKLOG

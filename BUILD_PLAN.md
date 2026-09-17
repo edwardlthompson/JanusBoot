@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 1 · LOCAL 1 · CLOUD 0 · AUTO 0 · HUMAN 4 · ADB 0 · **5 open**
+**Remaining:** AGENT 1 · LOCAL 1 · CLOUD 0 · AUTO 0 · HUMAN 3 · ADB 0 · **4 open**
 <!-- /remaining-tally -->
 
 **Progress (not zero):** Sprint 0 ✅ archived · Phase 0–2 ✅ archived · Template upgrade 1.6.0→1.8.0 ✅ archived · Phase 3–8 stubs ✅ archived · Must gaps AGENT ✅ (HUMAN open) · **Nice-later + Bootable USB AGENT ✅ (HUMAN open)**. The “Remaining” line counts only 🔲/❌ — Phase stubs shipped CLI/schema/QEMU depth, not brief-complete Must (v1). Archive: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Gap analysis tip: `f1a191d`.
@@ -87,13 +87,13 @@ _No cloud agent items._
 
 Agents **do** flip 🔲 → ✅ on this file as work lands. Status uses emoji markers (✅/🔲), not GitHub `- [ ]` checkboxes. Live tip: `.cursor/worktrees/local-phase-0-2` on `local/phase-0-2` (keep root `BUILD_PLAN.md` in sync for the IDE).
 
-Next open work: Must gaps **HUMAN** + Nice-later USB **HUMAN** (disposable stick + ISO scope) — see HUMAN_BACKLOG.md. `v1.0.0` ≠ brief-complete Must (v1).
+Next open work: Must gaps **HUMAN** + Nice-later USB **HUMAN** (ISO scope #38) — see HUMAN_BACKLOG.md. Disposable USB write smoke ✅. `v1.0.0` ≠ brief-complete Must (v1).
 
 ### Waiting on a person
 
 _None blocking for Sprint 0 / Phase 0–2 process._ Optional IDE: pin `docs/help/BATCH_COMMANDS.md`; set Cursor mode in the UI. Optional GitHub: Actions bot approval + `AUTOMERGE_TOKEN` (notes from `setup-github-repo.sh`). Re-check: `scripts/janusboot-human-checklist.sh`. Sacred UPG-71…77 waived via `scripts/janusboot-protect-product.sh` (verify-only). Actions `default_workflow_permissions=write` set for Release Please.
 
-Open for new sprints (see rows below): disposable USB for write smoke; Windows GUI elevation UX sign-off when that row is ready.
+Open for new sprints (see rows below): rescue ISO scope (#38); Windows GUI elevation UX sign-off when that row is ready.
 
 - ~~`[HUMAN]` Host password / apt install qemu+ovmf~~ → done (`qemu-system-x86` + `ovmf` installed; note: Cursor aptrepo GPG can break bare `apt update` — install packages directly or fix `NO_PUBKEY 42A1772E62E492D6`)
 - ~~`[HUMAN]` Create JanusBoot product GitHub remote~~ → done (`edwardlthompson/JanusBoot`; origin retargeted; bootstrap remote kept)
@@ -151,7 +151,7 @@ _No UX inventory items._
 
 ### HUMAN
 
-37. 🔲 [HUMAN] Provide disposable USB stick and approve first real write smoke (Local)
+37. ✅ [HUMAN] Provide disposable USB stick and approve first real write smoke (Local) — `/dev/sdd` SanDisk Cruzer; stub ISO write+verify PASS 2026-09-17 (see `docs/qemu.md`)
 38. 🔲 [HUMAN] Confirm rescue ISO common OS boot help scope (what is in vs out of v1 ISO)
 
 

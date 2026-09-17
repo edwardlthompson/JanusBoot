@@ -164,7 +164,9 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ### Waiting on a person
 
-_None for Phase 0–2 beyond merge approvals above._
+- `[HUMAN]` Host: `sudo apt install qemu-system-x86 ovmf` then `make qemu` on `local/phase-0-2`
+- `[HUMAN]` Create JanusBoot product GitHub remote (do not push to bootstrap template `origin`)
+- `[HUMAN]` Approve `local/phase-0-2` → `main` after QEMU smoke
 
 ### Open PRs (synced)
 

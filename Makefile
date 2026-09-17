@@ -196,7 +196,7 @@ test:
 	  echo "BLOCKED: janusbootctl tests need cloud merge (examples/python/src/janusbootctl)."; \
 	  exit 1; \
 	fi
-	@cd "$(PYTHON_DIR)" && $(UV) run pytest
+	@cd "$(PYTHON_DIR)" && $(UV) run --extra dev pytest
 
 esp-image: limine _require-cloud _require-fat-tools
 	@mkdir -p "$(BUILD)"

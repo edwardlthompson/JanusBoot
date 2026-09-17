@@ -42,22 +42,22 @@
 
 ### Project Purpose
 
-FOSS coding-agent bootstrap template: labeled BUILD_PLAN sprints, Golden Path examples, CI guardrails, workspace memory, and design-system cohesion across Web and Android.
+JanusBoot: UEFI-first graphical boot manager (Limine + ESP settings contract + janusbootctl). Bootstrapped from agent-project-bootstrap; dual-lane CLOUD/LOCAL for Phase 0–2.
 
 ### Key Constraints
 
 - Max 300 lines per static data file (UI + i18n), 150 lines per pure logic file
-- Trunk-based development with Conventional Commits
-- Strict type safety and test coverage budgets
+- Lane lock: cloud owns schema/CLI; local owns Makefile/QEMU; Sequential merges cloud → local → main
+- Never `dd` ESP images to real disks; QEMU+OVMF only until human install path
+- Features behind flags: `repair`, `mouse`, `secureboot`
 
 ### First-run agent
 
 Cline is the first-run agent in Cursor: GitHub sign-in, FREE models, no API keys (no OPENAI_API_KEY and no Codex CLI on the first-time path). Codex remains optional advanced review only (`/codex-review`) and is not part of onboarding, `/tour`, `/prerelease`, or `/ship`.
 
-Golden Path Settings/About/Feedback are a route stack, not three booleans. Web History API and Android BackHandler pop one level; at home Back stays in the app. Persist key `gp.nav.v1` restores location after theme/crash/share-target (web) and rotation/process death (Android). Home chrome is Settings-only; theme, About, and donate live in sectioned Settings/About menus with dropdowns. Ship UI to `docs/ux-ui-guidelines.md`; `/ux-review` uses the same law and writes `UX-NNN` inventory (not Sequential `/build` fuel).
-
 ## Session Retrospectives
 
+| 2026-09-16 | Phase 0–2 integrate | Merged `cloud/phase-0-2` → `local/phase-0-2`; `make validate` + `esp-image` OK; pytest 21; feature-gate python pass; `make qemu` blocked on apt qemu/ovmf | Do not push to bootstrap template origin; create JanusBoot product remote before main merge |
 | 2026-09-15 | v1.6.0 /ship | RP #110; construction law + `/ux-review`; `setup-android` `platform-tools` only | Do not install SDK `tools`; dispatch `release.yml` if RP GraphQL flakes after tag |
 | 2026-09-15 | M62 UX construction | `docs/ux-ui-guidelines.md` + always-on `ux-ui.mdc`; `/ux-review` writes UX inventory; `/build` does not auto-drain UX-NNN | Do not dump Golden Path findings while landing the law; Status never backlog/later |
 | 2026-09-14 | Dependabot #109 | Merged `setup-java` 5→6 after rebase + green Android/upgrade-sim | Temurin + java-version only; do not wait on `/update-deps` for Action majors |

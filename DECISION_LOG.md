@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-09-16 — Phase 0–2 cloud→local integration
+- **Status:** Accepted
+- **Context:** Dual-lane Phase 0–2 finished on `cloud/phase-0-2` (schemas + janusbootctl) and `local/phase-0-2` (Makefile + qemu docs). Origin still points at the bootstrap template.
+- **Decision:** Merge cloud into local on `local/phase-0-2` only; leave `main` alone until a JanusBoot product remote exists and host QEMU smoke passes. `make test` uses `uv run --extra dev pytest`.
+- **Alternatives considered:** Merge straight to `main` (rejected: qemu smoke incomplete; wrong remote). Silent schema edits on local for qemu (rejected: lane lock).
+- **Consequences:** Integration commit on `local/phase-0-2`; `[HUMAN]` apt install `qemu-system-x86 ovmf`; do not push to template origin.
+
 ### 2026-09-15 — v1.6.0 /ship
 - **Status:** Accepted
 - **Context:** M62 UX construction law was on `main` as `feat`. First push (`f532e8b`) failed required CodeQL/Android assemble because `setup-android@v4` still asked for the obsolete SDK `tools` package. Release Please #110 opened for 1.6.0. Admin-merge of #110 created the GitHub Release, then RP GraphQL failed before dispatching `release.yml`, so SBOM assets were missing until a manual workflow_dispatch.

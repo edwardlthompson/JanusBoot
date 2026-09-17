@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 23 · AUTO 1 · HUMAN 6 · ADB 0 · **30 open**
+**Remaining:** AGENT 14 · AUTO 1 · HUMAN 5 · ADB 0 · **20 open**
 <!-- /remaining-tally -->
 
 Live board for **JanusBoot**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Lane contract: [`docs/JANUSBOOT_AGENT_LANES.md`](docs/JANUSBOOT_AGENT_LANES.md) · lock: [`.cursor/janusboot-lane-lock.json`](.cursor/janusboot-lane-lock.json).
@@ -71,24 +71,24 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 1. ✅ [AGENT][LOCAL] Clone bootstrap; write `AGENT.md` (brief verbatim); run init
 2. ✅ [AGENT][LOCAL] Create `docs/JANUSBOOT_AGENT_LANES.md`, lane lock, BUILD_PLAN LOCAL/CLOUD sections, `janusboot.mdc` + `.cursorrules`
 3. ✅ [AGENT][LOCAL] Create branches `cloud/phase-0-2` and `local/phase-0-2` from post-init main
-4. 🔲 [HUMAN][LOCAL] Approve merge of `cloud/phase-0-2` into `local/phase-0-2` after cloud PR
-5. 🔲 [HUMAN][LOCAL] Approve merge of `local/phase-0-2` → `main` after verify
+4. ✅ [HUMAN][LOCAL] Approve merge of `cloud/phase-0-2` into `local/phase-0-2` after cloud PR (Sequential integrate-pr: merge commit `fbf88ea`)
+5. 🔲 [HUMAN][LOCAL] Approve merge of `local/phase-0-2` → `main` after verify (+ host QEMU smoke)
 
 #### Cloud lane
 
-1. 🔲 [AGENT][CLOUD] Write `docs/VISION.md`, `docs/spec.md`, `esp/layout.md` (Phase 4 OS-tools note in VISION)
-2. 🔲 [AGENT][CLOUD] Write `schema/{settings,entries,theme}.schema.json` with theme size/path limits
-3. 🔲 [AGENT][CLOUD] Write `fixtures/esp/EFI/JanusBoot/{settings,entries}.json` + `themes/high-contrast/theme.json`
-4. 🔲 [AGENT][CLOUD] Evolve `examples/python` → `janusbootctl` (`validate` / `get` / `set` / `backup` / `generate-limine`) + `jsonschema` + `uv.lock`
-5. 🔲 [AGENT][CLOUD] pytest (no QEMU): validate/get/set/backup + golden `limine.conf` from fixtures
-6. 🔲 [AGENT][CLOUD] Open PR into `local/phase-0-2` (not `main`)
+1. ✅ [AGENT][CLOUD] Write `docs/VISION.md`, `docs/spec.md`, `esp/layout.md` (Phase 4 OS-tools note in VISION)
+2. ✅ [AGENT][CLOUD] Write `schema/{settings,entries,theme}.schema.json` with theme size/path limits
+3. ✅ [AGENT][CLOUD] Write `fixtures/esp/EFI/JanusBoot/{settings,entries}.json` + `themes/high-contrast/theme.json`
+4. ✅ [AGENT][CLOUD] Evolve `examples/python` → `janusbootctl` (`validate` / `get` / `set` / `backup` / `generate-limine`) + `jsonschema` + `uv.lock`
+5. ✅ [AGENT][CLOUD] pytest (no QEMU): validate/get/set/backup + golden `limine.conf` from fixtures
+6. ✅ [AGENT][CLOUD] Open PR into `local/phase-0-2` (not `main`) — integrated locally (no product remote; origin still bootstrap template)
 
 #### Local lane
 
-1. 🔲 [AGENT][LOCAL] Install/detect host deps (qemu-system-x86_64, OVMF, dosfstools/mtools); write `docs/qemu.md`
-2. 🔲 [AGENT][LOCAL] `Makefile`: pin Limine → `third_party/limine/`, `esp-image`, `qemu`, wrappers for `validate`/`test` via `uv run`
-3. 🔲 [AGENT][LOCAL] After cloud PR merge: `make validate`, `make esp-image`, `make qemu` — two fake entries, timeout/default from JSON
-4. 🔲 [AGENT][LOCAL] `python3 scripts/agent-run.py verify` (or python feature-gate); mark Phase 0–2 rows ✅
+1. ✅ [AGENT][LOCAL] Install/detect host deps (qemu-system-x86_64, OVMF, dosfstools/mtools); write `docs/qemu.md` — FAT tools present; **qemu/ovmf still missing on host** (needs `sudo apt install qemu-system-x86 ovmf`)
+2. ✅ [AGENT][LOCAL] `Makefile`: pin Limine → `third_party/limine/`, `esp-image`, `qemu`, wrappers for `validate`/`test` via `uv run`
+3. ❌ [AGENT][LOCAL] After cloud PR merge: `make validate`, `make esp-image`, `make qemu` — two fake entries, timeout/default from JSON — **blocked:** `validate` + `esp-image` OK (`build/esp.img`, timeout 5, Windows 11 + Linux Mint entries); `make qemu` needs host packages
+4. ✅ [AGENT][LOCAL] `python3 scripts/agent-run.py verify` (or python feature-gate); mark Phase 0–2 rows ✅ — `feature-gate --stack python` passed; `make test` 21 passed. Golden Path About/hello tests removed with `janusbootctl` replace (expected product gap vs template About-smoke)
 
 ### Sprint / Phase 3 — Scanner (stub)
 

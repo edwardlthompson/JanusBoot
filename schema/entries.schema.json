@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://janusboot.local/schema/entries.schema.json",
+  "title": "JanusBoot boot entries",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["entries"],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 64,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title", "type", "path"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-z0-9][a-z0-9_-]*$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "subtitle": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "type": {
+            "type": "string",
+            "enum": ["efi_chainload", "linux", "firmware", "tool"]
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512,
+            "not": { "pattern": "(^|[\\\\/])\\.\\.([\\\\/]|$)" }
+          },
+          "icon": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "hidden": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

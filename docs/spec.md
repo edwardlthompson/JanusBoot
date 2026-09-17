@@ -1,7 +1,7 @@
-# Product Specification
+# Product Specification — JanusBoot
 
-> Spec-driven development stub. Fill after `init-project`. Feature slices still use `docs/features/{name}.md`.
 > Status markers: 🔲 open · ✅ done · ❌ blocked.
+> Read `AGENT.md` before any BUILD_PLAN sprint row.
 
 ## Overview
 
@@ -12,39 +12,53 @@
 **Do not drift:** limine, uefi, janusbootctl, efi/janusboot, qemu, ovmf
 <!-- product-brief-sync:end -->
 
-**Product:** agent-project-bootstrap
-**Purpose:** GitHub Template Repository that bootstraps FOSS projects with Cursor-ready agent routing, CI, and Golden Path examples.
-**Users:** Humans and AI agents initializing or maintaining a child repo. Read `AGENT.md` on a child before Golden Path About/donate work.
+**Product:** JanusBoot  
+**CLI:** `janusbootctl`  
+**ESP root:** `EFI/JanusBoot/`  
+**Stack:** Python (CLI + schemas); Limine UEFI loader; QEMU+OVMF for boot tests  
+**Users:** Dual-boot Linux/Windows owners who want one graphical boot UI and one
+settings contract editable from EFI, Linux, and Windows.
 
-## Functional Requirements & User Stories
+## Functional Requirements (Phase 0–2)
 
 | ID | Story | Acceptance |
 |----|-------|------------|
-| FR-1 | As a maintainer I run `scripts/init-project.sh` so the child repo is customized | Manifest, adapters, and checklist exist; unused stacks prune when asked |
-| FR-2 | As an agent I read `AGENTS.md` first so I follow architecture and test-first rules | Adapters for Cursor, Claude Code, and Copilot stay in sync |
-| FR-3 | As a reviewer I get CI + security on every PR without opting in | `ci.yml`, `security.yml`, Dependabot, issue/PR templates present |
+| FR-1 | As an agent I validate ESP JSON against schemas | `janusbootctl validate` exits 0 on fixtures; fails on invalid docs |
+| FR-2 | As a user I get/set settings keys without hand-editing | `get` / `set` round-trip; schema still valid |
+| FR-3 | As a user I backup settings before changes | `backup` copies into `EFI/JanusBoot/backup/` |
+| FR-4 | As the build I generate Limine conf from JSON | Golden `limine.conf` matches fixtures (timeout, default, two entries, wallpaper) |
+| FR-5 | As LOCAL I smoke two fake entries in QEMU | After cloud merge: `make qemu` shows Windows 11 + Linux Mint |
 
 ## Non-Functional Constraints
 
-- MIT default (Apache-2.0 selectable at init for child repos)
-- No proprietary SDKs on the FOSS production path
-- Opt-in telemetry only; never enabled by default
-- File budgets: 300 lines static data, 150 lines pure logic
-- Preflight fails clearly when `git` or Python is missing
+- MIT; FOSS only on the production path
+- Linux and Windows share schemas; divergence fails CI
+- Theme assets: data only; size/path limits in `schema/theme.schema.json`
+- Feature flags: `repair`, `mouse`, `secureboot` (off by default in fixtures)
+- File budgets: 300 lines static data, 150 lines pure logic per module
+- No real-disk `dd`; QEMU+OVMF for every boot change
 
 ## Architecture & Data Flow
 
 ```mermaid
 flowchart LR
-  Template[GitHub Template] --> Clone[Child clone]
-  Clone --> Pre[Preflight hooks]
-  Pre --> Init[init-project]
-  Init --> Post[Post hooks]
-  Post --> Agents[AGENTS.md adapters]
-  Post --> Check[PROJECT_CHECKLIST.md]
-  Post --> Manifest[bootstrap.config.json]
+  JSON[settings.json + entries.json] --> CLI[janusbootctl]
+  Themes[theme packs] --> CLI
+  CLI -->|validate| Schema[schema/*.schema.json]
+  CLI -->|generate-limine| Conf[limine.conf]
+  Conf --> Limine[Limine UEFI]
+  Limine --> QEMU[QEMU + OVMF]
 ```
+
+## Schemas
+
+| File | Role |
+|------|------|
+| `schema/settings.schema.json` | Timeout, default, theme, flags, wallpaper |
+| `schema/entries.schema.json` | Boot entry list (id, title, path, type) |
+| `schema/theme.schema.json` | Theme pack metadata + size/path limits |
 
 ## Test-first rule
 
-Every feature in `docs/plan.md` / BUILD_PLAN must list tests, or state why automation is not feasible and name the fallback command.
+Phase 0–2 CLI changes ship with pytest under `examples/python/tests/` (no QEMU).
+QEMU acceptance is LOCAL after cloud merge.

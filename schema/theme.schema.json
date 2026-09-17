@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://janusboot.local/schema/theme.schema.json",
+  "title": "JanusBoot theme pack",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "version", "schema_version", "appearance", "layout", "colors"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "author": {
+      "type": "string",
+      "maxLength": 128
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 32
+    },
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "appearance": {
+      "type": "string",
+      "enum": ["dark", "light", "high-contrast"]
+    },
+    "layout": {
+      "type": "string",
+      "enum": ["row", "list"]
+    },
+    "colors": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "muted", "accent", "danger", "focus"],
+      "properties": {
+        "text": { "$ref": "#/$defs/hex_color" },
+        "muted": { "$ref": "#/$defs/hex_color" },
+        "accent": { "$ref": "#/$defs/hex_color" },
+        "danger": { "$ref": "#/$defs/hex_color" },
+        "focus": { "$ref": "#/$defs/hex_color" }
+      }
+    },
+    "padding": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "radius": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 64
+    },
+    "timeout_bar": {
+      "type": "boolean"
+    },
+    "background": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string",
+          "maxLength": 256,
+          "pattern": "^[A-Za-z0-9._/-]+$",
+          "not": { "pattern": "(^|[\\\\/])\\.\\.([\\\\/]|$)" },
+          "description": "Relative path inside the theme folder only."
+        },
+        "max_source_width": {
+          "type": "integer",
+          "maximum": 3840
+        },
+        "max_source_height": {
+          "type": "integer",
+          "maximum": 2160
+        },
+        "max_store_bytes": {
+          "type": "integer",
+          "maximum": 2097152,
+          "description": "Compiled background file cap (~2 MiB)."
+        }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Hard caps enforced by janusbootctl theme apply.",
+      "properties": {
+        "theme_warn_bytes": {
+          "type": "integer",
+          "const": 4194304
+        },
+        "theme_max_bytes": {
+          "type": "integer",
+          "maximum": 12582912,
+          "description": "Uncompressed theme on ESP max (~8–12 MiB)."
+        },
+        "icon_max_bytes": {
+          "type": "integer",
+          "maximum": 131072
+        },
+        "icon_sizes_px": {
+          "type": "array",
+          "items": { "type": "integer", "enum": [64, 128, 256] },
+          "uniqueItems": true
+        },
+        "max_custom_icons": {
+          "type": "integer",
+          "maximum": 24
+        },
+        "max_chrome_images": {
+          "type": "integer",
+          "maximum": 8
+        },
+        "allowed_formats": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["png", "jpeg"] }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "hex_color": {
+      "type": "string",
+      "pattern": "^#[0-9A-Fa-f]{6}$"
+    }
+  }
+}

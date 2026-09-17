@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "timeout": 5,
+  "timeout_style": "menu",
+  "default": "windows-11",
+  "save_default": true,
+  "theme": "high-contrast",
+  "wallpaper": "boot():/EFI/JanusBoot/themes/high-contrast/background.boot.jpg",
+  "scan_paths": [],
+  "hidden": [],
+  "icons": {
+    "windows-11": "windows",
+    "linux-mint": "linux"
+  },
+  "last_boot": "windows-11",
+  "last_boot_ok": true,
+  "repair_history": [],
+  "features": {
+    "repair": false,
+    "mouse": false,
+    "secureboot": false
+  }
+}

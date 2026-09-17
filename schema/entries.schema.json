@@ -50,6 +50,11 @@
           },
           "hidden": {
             "type": "boolean"
+          },
+          "source": {
+            "type": "string",
+            "enum": ["manual", "scanned"],
+            "description": "manual = user/OS tool; scanned = Phase 3 heuristics (never deletes foreign EFI)"
           }
         }
       }

@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 14 · AUTO 1 · HUMAN 4 · ADB 0 · **19 open**
+**Remaining:** AGENT 13 · AUTO 1 · HUMAN 4 · ADB 0 · **18 open**
 <!-- /remaining-tally -->
 
 Live board for **JanusBoot**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Lane contract: [`docs/JANUSBOOT_AGENT_LANES.md`](docs/JANUSBOOT_AGENT_LANES.md) · lock: [`.cursor/janusboot-lane-lock.json`](.cursor/janusboot-lane-lock.json).
@@ -54,9 +54,9 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 1. ✅ [AGENT][LOCAL] Copy `AGENT.md.example` → `AGENT.md` and paste the original brief verbatim (before init)
 2. ✅ [AGENT][LOCAL] Run `scripts/init-project.sh` (`--stack python --non-interactive --prune --prune-optional`)
 3. ✅ [AGENT][LOCAL] Fill `branding/product.json` (`mode: product`); sync tokens + README
-4. 🔲 [AGENT][LOCAL] Run `scripts/setup-github-repo.sh` (`gh` admin) when a JanusBoot remote exists — remote created via `scripts/janusboot-product-remote.sh`; run setup next
+4. ✅ [AGENT][LOCAL] Run `scripts/setup-github-repo.sh` (`gh` admin) when a JanusBoot remote exists — applied to `edwardlthompson/JanusBoot` (Dependabot alerts, private reporting, branch protection, Discussions)
 5. 🔲 [AUTO] Sprint 0 sign-off on `main`: `validate-bootstrap --quick` · `feature-gate --stack python` · `check-github-ci --wait 300` · `check-license-compliance`
-6. ✅ [HUMAN][LOCAL] Create/confirm GitHub product repo (not the bootstrap template remote) — `edwardlthompson/JanusBoot` via `scripts/janusboot-product-remote.sh`; bootstrap kept as remote `bootstrap`
+6. ✅ [HUMAN][LOCAL] Create/confirm GitHub product repo (not the bootstrap template remote) — https://github.com/edwardlthompson/JanusBoot ; origin retargeted; bootstrap kept as remote `bootstrap`
 7. ✅ [HUMAN][LOCAL] Pick FOSS vs Commercial (`--distribution-tier foss`, MIT)
 8. 🔲 [HUMAN] Fill `docs/INITIALIZATION_PROMPT.md`
 9. 🔲 [HUMAN] Pick Cursor mode (`docs/CURSOR_MODES.md`)
@@ -81,7 +81,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 3. ✅ [AGENT][CLOUD] Write `fixtures/esp/EFI/JanusBoot/{settings,entries}.json` + `themes/high-contrast/theme.json`
 4. ✅ [AGENT][CLOUD] Evolve `examples/python` → `janusbootctl` (`validate` / `get` / `set` / `backup` / `generate-limine`) + `jsonschema` + `uv.lock`
 5. ✅ [AGENT][CLOUD] pytest (no QEMU): validate/get/set/backup + golden `limine.conf` from fixtures
-6. ✅ [AGENT][CLOUD] Open PR into `local/phase-0-2` (not `main`) — integrated locally (no product remote; origin still bootstrap template)
+6. ✅ [AGENT][CLOUD] Open PR into `local/phase-0-2` (not `main`) — integrated locally; product remote https://github.com/edwardlthompson/JanusBoot now hosts `cloud/phase-0-2` + `local/phase-0-2` + `main`
 
 #### Local lane
 

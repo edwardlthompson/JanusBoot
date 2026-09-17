@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* **janusbootctl:** Debian `.deb` packaging + guest QEMU VM smoke (`make deb` / `make vm-smoke` / `make vm-gui`); GUI `--smoke` without host install
 * **janusbootctl:** nice-later (mouse flag markers, theme-shop, HiDPI presets, snapshot cards, PIN, icon atlas, reduce-motion/fast-boot) + removable-only Bootable USB planner/GUI/`make usb-smoke`
 
 ### Changed

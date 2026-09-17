@@ -51,7 +51,7 @@ QEMU_SMOKE_LOG := $(BUILD)/qemu-smoke.log
 
 .PHONY: help deps check-host limine esp-image qemu qemu-smoke smoke-all validate test clean \
 	scan scan-live scan-live-deep repair-plan repair-apply-smoke nvram-backup \
-	qemu-boot-ui-smoke install-esp-smoke usb-smoke \
+	qemu-boot-ui-smoke install-esp-smoke usb-smoke deb vm-smoke vm-gui \
 	_require-cloud _require-qemu _require-ovmf _require-fat-tools
 
 help:
@@ -71,10 +71,14 @@ help:
 	@echo "  make qemu        Interactive GUI boot (GTK display)"
 	@echo "  make qemu-smoke  Headless QEMU boot smoke (no GUI; timeout $(QEMU_SMOKE_TIMEOUT)s)"
 	@echo "  make qemu-boot-ui-smoke  Assert wallpaper/icons on image + qemu-smoke"
+	@echo "  make deb         Build dist/janusbootctl_*.deb (host artifact only; no dpkg -i)"
+	@echo "  make vm-smoke    Guest QEMU: install .deb + janusboot-gui --smoke (+ ESP)"
+	@echo "  make vm-gui      Guest QEMU GTK + leave running; SSH then janusboot-gui"
 	@echo "  make smoke-all   Deps→install prompt→validate→test→esp-image→qemu-smoke (→ build/smoke.log)"
 	@echo "  make clean       Remove build/ and downloaded Limine tree"
 	@echo ""
 	@echo "Full scripted smoke: scripts/janusboot-smoke-all.sh  (or janusboot-qemu-smoke.sh)"
+	@echo "Guest .deb/GUI:     scripts/janusboot-vm-smoke.sh  (docs/vm-guest-smoke.md)"
 	@echo "Host packages:      scripts/janusboot-host-deps.sh [--apply]  (sudo TTY or pkexec)"
 	@echo "ESP scan:           scripts/janusboot-scan-esp.sh [ESP_ROOT]"
 	@echo "HUMAN process:      scripts/janusboot-human-checklist.sh [--apply]"
@@ -85,6 +89,15 @@ smoke-all:
 
 usb-smoke:
 	@bash scripts/janusboot-usb-smoke.sh
+
+deb:
+	@bash scripts/janusboot-build-deb.sh
+
+vm-smoke:
+	@bash scripts/janusboot-vm-smoke.sh
+
+vm-gui:
+	@bash scripts/janusboot-vm-smoke.sh --interactive --leave-running --skip-esp
 
 deps: check-host limine
 	@echo "deps: OK (Limine $(LIMINE_TAG) → $(LIMINE_EFI))"

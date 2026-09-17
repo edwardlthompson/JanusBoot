@@ -26,7 +26,7 @@ Isolation for dual-lane Phase 0–2 work. Full contract: `.cursor/janusboot-lane
 | Owner | Paths |
 |-------|-------|
 | **CLOUD** | `schema/**`, `fixtures/esp/**`, `themes/**`, `docs/VISION.md`, `docs/spec.md`, `esp/**`, `examples/python/**` |
-| **LOCAL** | `Makefile`, `third_party/**`, `build/**`, `*.img`, `docs/qemu.md`, `scripts/janusboot-qemu*` |
+| **LOCAL** | `Makefile`, `third_party/**`, `build/**`, `*.img`, `docs/qemu.md`, `docs/vm-guest-smoke.md`, `packaging/deb/**`, `scripts/janusboot-qemu*`, `scripts/janusboot-build-deb.sh`, `scripts/janusboot-vm-smoke.sh`, `tests/test_janusboot_deb_packaging.py` |
 | **SEQUENTIAL** | `BUILD_PLAN.md`, `COMPLETED_TASKS.md`, `AGENT.md`, `AGENTS.md`, `.cursor/rules/janusboot.mdc`, `.cursorrules`, `docs/JANUSBOOT_AGENT_LANES.md`, `docs/PARALLEL_AGENT_SCOPES.md`, `bootstrap.config.json`, branding stamps init owns |
 
 Before any edit: read the lane lock. If the path is not owned by your lane → **stop**.

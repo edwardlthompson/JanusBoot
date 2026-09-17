@@ -16,10 +16,15 @@
     "third_party/",
     "build/",
     "docs/qemu.md",
+    "docs/vm-guest-smoke.md",
     "docs/nvram-repair-local.md",
+    "packaging/deb/",
     "scripts/janusboot-qemu*",
+    "scripts/janusboot-build-deb.sh",
+    "scripts/janusboot-vm-smoke.sh",
     "scripts/janusboot-scan-esp.sh",
-    "scripts/janusboot-smoke*"
+    "scripts/janusboot-smoke*",
+    "tests/test_janusboot_deb_packaging.py"
   ],
   "sequential_paths": [
     "BUILD_PLAN.md",

@@ -1,0 +1,11 @@
+Package: janusbootctl
+Version: 0.1.0
+Section: utils
+Priority: optional
+Architecture: all
+Maintainer: JanusBoot Maintainers <janusboot@localhost>
+Depends: python3 (>= 3.11), python3-tk, python3-pil, python3-jsonschema
+Description: JanusBoot ESP settings CLI and Linux GUI
+ janusbootctl validates and edits the JanusBoot ESP settings/theme contract
+ and launches a Tk desktop GUI. Install on Linux guests for OS-side
+ configuration; EFI boot itself uses Limine + ESP assets (QEMU smoke separate).

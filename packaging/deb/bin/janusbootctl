@@ -1,0 +1,18 @@
+#!/usr/bin/python3
+"""CLI wrapper installed by the janusbootctl .deb."""
+
+from __future__ import annotations
+
+import os
+import sys
+from pathlib import Path
+
+SHARE = Path(os.environ.get("JANUSBOOT_SHARE", "/usr/share/janusboot"))
+SRC = SHARE / "examples" / "python" / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
+
+from janusbootctl.cli import main
+
+if __name__ == "__main__":
+    main()

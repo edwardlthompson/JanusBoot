@@ -1,0 +1,86 @@
+#!/usr/bin/python3
+"""Linux GUI launcher for the janusbootctl .deb (supports --smoke / --self-test)."""
+
+from __future__ import annotations
+
+import argparse
+import os
+import sys
+from pathlib import Path
+
+SHARE = Path(os.environ.get("JANUSBOOT_SHARE", "/usr/share/janusboot"))
+SRC = SHARE / "examples" / "python" / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
+
+
+def _parse(argv: list[str] | None = None) -> argparse.Namespace:
+    p = argparse.ArgumentParser(prog="janusboot-gui", description="JanusBoot Linux GUI")
+    p.add_argument(
+        "--esp",
+        type=Path,
+        default=None,
+        help="ESP root (default: packaged fixtures/esp)",
+    )
+    p.add_argument(
+        "--smoke",
+        "--self-test",
+        dest="smoke",
+        action="store_true",
+        help="Open the GUI briefly then exit 0 (CI / guest smoke)",
+    )
+    p.add_argument(
+        "--smoke-ms",
+        type=int,
+        default=400,
+        help="Milliseconds to keep the window open in --smoke mode (default 400)",
+    )
+    return p.parse_args(argv)
+
+
+def _default_esp() -> Path:
+    return SHARE / "fixtures" / "esp"
+
+
+def run_smoke(esp: Path, *, smoke_ms: int) -> int:
+    """Prove Tk + package import without a human VNC session."""
+    try:
+        import tkinter as tk
+    except ModuleNotFoundError:
+        print("error: tkinter unavailable (install python3-tk)", file=sys.stderr)
+        return 2
+
+    # Import path used by the interactive GUI (fails closed if packaging broke).
+    from janusbootctl.linux_gui import list_entries_via_cli  # noqa: F401
+
+    root = tk.Tk()
+    root.title("JanusBoot (smoke)")
+    root.geometry("320x120")
+    label = tk.Label(root, text=f"smoke ok\nesp={esp}")
+    label.pack(expand=True, padx=12, pady=12)
+    root.after(max(50, smoke_ms), root.destroy)
+    root.mainloop()
+    print("janusboot-gui: smoke ok")
+    return 0
+
+
+def run_interactive(esp: Path) -> int:
+    from janusbootctl.linux_gui import launch_linux_gui
+
+    launch_linux_gui(esp)
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = _parse(argv)
+    esp = args.esp or _default_esp()
+    if not esp.is_dir():
+        print(f"error: ESP root not found: {esp}", file=sys.stderr)
+        return 1
+    if args.smoke:
+        return run_smoke(esp, smoke_ms=args.smoke_ms)
+    return run_interactive(esp)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

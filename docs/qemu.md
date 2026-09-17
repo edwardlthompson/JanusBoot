@@ -189,6 +189,18 @@ Repair NVRAM apply outside QEMU remains `[HUMAN]` — see `docs/nvram-repair-loc
 
 Secure Boot: document only unless keys exist. OVMF ships `OVMF_CODE_4M.secboot.fd`; JanusBoot does **not** fake signed boot in v1. If shim/keys are present on the host, note the path in a local scratch file — do not commit secrets. Feature flag: `secureboot`.
 
+## Guest Linux .deb + GUI smoke (LOCAL)
+
+Install and open the Linux GUI **only inside a QEMU guest** — never `dpkg -i` on the host during smoke.
+
+```bash
+make deb          # → dist/janusbootctl_*.deb (host artifact)
+make vm-smoke     # guest apt install + xvfb janusboot-gui --smoke + qemu-smoke
+make vm-gui       # interactive guest; leave QEMU running for SSH GUI
+```
+
+Full write-up: [`docs/vm-guest-smoke.md`](vm-guest-smoke.md).
+
 ## Bootable USB (LOCAL) — removable only
 
 ```bash

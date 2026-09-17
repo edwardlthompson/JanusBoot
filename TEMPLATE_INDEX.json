@@ -2359,6 +2359,13 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/janusboot-build-deb.sh",
+      "purpose": "Build janusbootctl .deb from packaging/deb (host-safe; no apt install / dpkg -i)",
+      "read_when": "prompt_needed",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/janusboot-fill-init-prompt.sh",
       "purpose": "Stamp docs/INITIALIZATION_PROMPT.md from AGENT.md + branding (idempotent; --check/--dry-run)",
       "read_when": "bootstrap_session_start",
@@ -2368,6 +2375,13 @@
     {
       "path": "scripts/janusboot-host-deps.sh",
       "purpose": "Detect/install QEMU+OVMF+FAT host deps for JanusBoot LOCAL lane (dry-run default; --apply apt)",
+      "read_when": "prompt_needed",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/janusboot-host-dry-run.sh",
+      "purpose": "Read-only host ESP dry-run via janusbootctl; refuses write/confirm/repair/install argv",
       "read_when": "prompt_needed",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -2414,6 +2428,21 @@
       "update_when": "milestone_boundary",
       "owner": "maintainer"
     },
+    {
+      "path": "scripts/janusboot-usb-smoke.sh",
+      "purpose": "Removable-only USB write/verify smoke (fail closed on non-removable; dry-run default)",
+      "read_when": "prompt_needed",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/janusboot-vm-smoke.sh",
+      "purpose": "Guest QEMU VM smoke for .deb / GUI self-test without host install",
+      "read_when": "prompt_needed",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+
     {
       "path": "scripts/lib/about_lego_cli.py",
       "purpose": "Backup/strip/restore rust/go/node/python About slices for verify-about-feature-gate",

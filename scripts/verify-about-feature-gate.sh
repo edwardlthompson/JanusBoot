@@ -9,6 +9,12 @@ cd "$ROOT"
 # shellcheck source=lib/resolve-python.sh
 . "$(cd "$(dirname "$0")" && pwd)/lib/resolve-python.sh"
 
+# Pruned python/node/android children have no web About slice — skip cleanly for CI.
+if [ ! -f "$ROOT/examples/web/package.json" ] || [ ! -d "$ROOT/examples/web/src/about" ]; then
+  echo "SKIP: examples/web About slice pruned — About lego gate N/A"
+  exit 0
+fi
+
 WEB_SRC="$ROOT/examples/web/src"
 WEB_E2E="$ROOT/examples/web/e2e"
 BACKUP="$(mktemp -d)"

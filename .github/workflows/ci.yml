@@ -26,11 +26,12 @@ jobs:
       python: ${{ steps.stacks.outputs.python }}
       web: ${{ steps.stacks.outputs.web }}
       node: ${{ steps.stacks.outputs.node }}
+      android: ${{ steps.stacks.outputs.android }}
     steps:
       - uses: actions/checkout@v7
       - id: stacks
         run: |
-          for spec in python:examples/python/pyproject.toml web:examples/web/package-lock.json node:examples/node/package-lock.json; do
+          for spec in python:examples/python/pyproject.toml web:examples/web/package-lock.json node:examples/node/package-lock.json android:examples/android/gradlew; do
             key="${spec%%:*}"
             path="${spec#*:}"
             if [ -f "$path" ]; then
@@ -156,6 +157,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
+        if: hashFiles('examples/web/package-lock.json', 'examples/node/package-lock.json') != ''
         with:
           node-version: "22"
           cache: npm
@@ -163,9 +165,11 @@ jobs:
             examples/web/package-lock.json
             examples/node/package-lock.json
       - uses: astral-sh/setup-uv@v7
+        if: hashFiles('examples/python/pyproject.toml') != ''
         with:
           enable-cache: true
       - uses: actions/setup-java@v6
+        if: hashFiles('examples/android/gradlew') != ''
         with:
           distribution: temurin
           java-version: "21"
@@ -249,6 +253,8 @@ jobs:
 
   web:
     name: Web - Lint, Test, Build
+    needs: stack-presence
+    if: needs.stack-presence.outputs.web == 'true'
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -324,6 +330,8 @@ jobs:
 
   node:
     name: Node - Lint, Test
+    needs: stack-presence
+    if: needs.stack-presence.outputs.node == 'true'
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -351,6 +359,8 @@ jobs:
 
   android-structure:
     name: Android - Structure Validation
+    needs: stack-presence
+    if: needs.stack-presence.outputs.android == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -392,6 +402,8 @@ jobs:
 
   android-build:
     name: Android - assembleDebug
+    needs: stack-presence
+    if: needs.stack-presence.outputs.android == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -552,11 +564,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - name: Detect repo mode
+        id: mode
+        run: |
+          MODE="$(python3 scripts/lib/repo_mode.py .)"
+          echo "repo_mode=${MODE}" >> "$GITHUB_OUTPUT"
+          echo "Detected repo mode: ${MODE}"
       - name: Simulate child-repo upgrade path
+        if: steps.mode.outputs.repo_mode == 'template'
         env:
           GH_TOKEN: ${{ github.token }}
           GITHUB_TOKEN: ${{ github.token }}
         run: bash scripts/simulate-template-upgrade.sh
+      - name: Skip on product child repos
+        if: steps.mode.outputs.repo_mode != 'template'
+        run: echo "SKIP: upgrade-sim is template-maintainer only (child product repos use /upgrade gap plan)."
 
   upgrade-simulation-windows:
     name: Template Upgrade Simulation (Windows)
@@ -566,7 +588,15 @@ jobs:
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.12"
+      - name: Detect repo mode
+        id: mode
+        shell: bash
+        run: |
+          MODE="$(python3 scripts/lib/repo_mode.py .)"
+          echo "repo_mode=${MODE}" >> "$GITHUB_OUTPUT"
+          echo "Detected repo mode: ${MODE}"
       - name: Simulate child-repo upgrade path
+        if: steps.mode.outputs.repo_mode == 'template'
         shell: bash
         env:
           PYTHON_BASIC_REPL: "1"
@@ -576,6 +606,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GITHUB_TOKEN: ${{ github.token }}
         run: bash scripts/simulate-template-upgrade.sh
+      - name: Skip on product child repos
+        if: steps.mode.outputs.repo_mode != 'template'
+        shell: bash
+        run: echo "SKIP: upgrade-sim is template-maintainer only (child product repos use /upgrade gap plan)."
 
   template-update-check:
     name: Template Update Check
@@ -598,6 +632,8 @@ jobs:
 
   android-release:
     name: Android - assembleRelease
+    needs: stack-presence
+    if: needs.stack-presence.outputs.android == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7

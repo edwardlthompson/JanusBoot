@@ -2,6 +2,7 @@ name: CodeQL
 
 # Matrix covers primary stacks (JS/TS, Python, Android). Optional examples/rust and
 # examples/go are excluded — see modules/rust/MODULE.md and modules/go/MODULE.md.
+# Android java-kotlin is omitted when examples/android was pruned.
 
 on:
   push:
@@ -16,8 +17,28 @@ on:
 # (ACTION_REQUIRED) and stall auto-merge. github-pages is Pages-only.
 
 jobs:
+  matrix-prep:
+    name: Detect CodeQL languages
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.emit.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Emit matrix JSON
+        id: emit
+        run: |
+          set -euo pipefail
+          if [ -f examples/android/gradlew ]; then
+            MATRIX='{"include":[{"language":"javascript-typescript"},{"language":"python"},{"language":"java-kotlin","paths":"examples/android"}]}'
+          else
+            MATRIX='{"include":[{"language":"javascript-typescript"},{"language":"python"}]}'
+          fi
+          echo "matrix=${MATRIX}" >> "$GITHUB_OUTPUT"
+          echo "CodeQL matrix: ${MATRIX}"
+
   analyze:
     name: Analyze
+    needs: matrix-prep
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -25,12 +46,7 @@ jobs:
       security-events: write
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - language: javascript-typescript
-          - language: python
-          - language: java-kotlin
-            paths: examples/android
+      matrix: ${{ fromJSON(needs.matrix-prep.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v7
       - name: Setup Java (Android)

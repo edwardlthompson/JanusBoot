@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+* **ci:** skip pruned stacks, About lego, and upgrade-sim on child product repos
+
 ## [1.6.0](https://github.com/edwardlthompson/agent-project-bootstrap/compare/v1.5.0...v1.6.0) (2026-09-15)
 
 

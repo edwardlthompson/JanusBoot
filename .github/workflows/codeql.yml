@@ -13,6 +13,9 @@ on:
     - cron: "0 8 * * 1"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 # Do not add jobs.<id>.environment — Environments block Release Please bot PRs
 # (ACTION_REQUIRED) and stall auto-merge. github-pages is Pages-only.
 
@@ -20,6 +23,8 @@ jobs:
   matrix-prep:
     name: Detect CodeQL languages
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     outputs:
       matrix: ${{ steps.emit.outputs.matrix }}
     steps:

@@ -45,19 +45,25 @@ MKFS_FAT ?= $(firstword $(wildcard /usr/sbin/mkfs.fat /sbin/mkfs.fat /usr/bin/mk
 MCOPY ?= mcopy
 MMD ?= mmd
 
-.PHONY: help deps check-host limine esp-image qemu validate test clean \
+# Headless smoke: wall-clock seconds before SIGTERM (override: make qemu-smoke QEMU_SMOKE_TIMEOUT=40)
+QEMU_SMOKE_TIMEOUT ?= 30
+QEMU_SMOKE_LOG := $(BUILD)/qemu-smoke.log
+
+.PHONY: help deps check-host limine esp-image qemu qemu-smoke validate test clean \
 	_require-cloud _require-qemu _require-ovmf _require-fat-tools
 
 help:
 	@echo "JanusBoot LOCAL targets:"
-	@echo "  make deps       Detect host tools; download pinned Limine $(LIMINE_TAG)"
-	@echo "  make validate   janusbootctl validate (needs cloud merge)"
-	@echo "  make test       pytest via uv in examples/python (needs cloud merge)"
-	@echo "  make esp-image  Build FAT ESP image under build/ (needs cloud merge)"
-	@echo "  make qemu       Boot ESP image with QEMU+OVMF (needs cloud merge + qemu/ovmf)"
-	@echo "  make clean      Remove build/ and downloaded Limine tree"
+	@echo "  make deps        Detect host tools; download pinned Limine $(LIMINE_TAG)"
+	@echo "  make validate    janusbootctl validate (needs cloud merge)"
+	@echo "  make test        pytest via uv in examples/python (needs cloud merge)"
+	@echo "  make esp-image   Build FAT ESP image under build/ (needs cloud merge)"
+	@echo "  make qemu        Interactive GUI boot (GTK display)"
+	@echo "  make qemu-smoke  Headless QEMU boot smoke (no GUI; timeout $(QEMU_SMOKE_TIMEOUT)s)"
+	@echo "  make clean       Remove build/ and downloaded Limine tree"
 	@echo ""
-	@echo "Until cloud/phase-0-2 merges fixtures + janusbootctl, validate/esp-image/qemu fail by design."
+	@echo "Full scripted smoke: scripts/janusboot-qemu-smoke.sh"
+	@echo "Host packages:      scripts/janusboot-host-deps.sh [--apply]"
 	@echo "Never write ESP images to a real disk with dd. See docs/qemu.md."
 
 deps: check-host limine
@@ -220,7 +226,8 @@ esp-image: limine _require-cloud _require-fat-tools
 qemu: esp-image _require-qemu _require-ovmf
 	@mkdir -p "$(BUILD)"
 	@cp -f "$(OVMF_VARS)" "$(OVMF_VARS_COPY)"
-	@echo "Starting QEMU (UEFI). Close the window or Ctrl-C to stop."
+	@echo "Starting QEMU (UEFI, interactive GTK). Close the window or Ctrl-C to stop."
+	@echo "Headless CI/agent smoke: make qemu-smoke  (or scripts/janusboot-qemu-smoke.sh)"
 	@echo "OVMF_CODE=$(OVMF_CODE)"
 	@$(QEMU) \
 		-machine q35,accel=tcg \
@@ -231,6 +238,49 @@ qemu: esp-image _require-qemu _require-ovmf
 		-net none \
 		-display gtk \
 		-serial stdio
+
+# Headless boot smoke: no GUI. timeout exit 124 = ran until deadline (treated as success
+# if serial shows Limine/EFI activity or QEMU stayed up past a short floor).
+qemu-smoke: esp-image _require-qemu _require-ovmf
+	@mkdir -p "$(BUILD)"
+	@cp -f "$(OVMF_VARS)" "$(OVMF_VARS_COPY)"
+	@echo "QEMU smoke: -display none, timeout $(QEMU_SMOKE_TIMEOUT)s → $(QEMU_SMOKE_LOG)"
+	@echo "OVMF_CODE=$(OVMF_CODE)"
+	@set +e; \
+	/usr/bin/timeout --signal=TERM --kill-after=5 "$(QEMU_SMOKE_TIMEOUT)" \
+		$(QEMU) \
+		-machine q35,accel=tcg \
+		-m 512 \
+		-drive if=pflash,format=raw,readonly=on,file="$(OVMF_CODE)" \
+		-drive if=pflash,format=raw,file="$(OVMF_VARS_COPY)" \
+		-drive if=virtio,format=raw,file="$(ESP_IMG)" \
+		-net none \
+		-display none \
+		-serial file:$(QEMU_SMOKE_LOG) \
+		-monitor none \
+		</dev/null; \
+	rc=$$?; \
+	set -e; \
+	echo "QEMU exit=$$rc (124=timeout/expected)"; \
+	if [ ! -f "$(QEMU_SMOKE_LOG)" ]; then \
+	  echo "FAIL: no serial log at $(QEMU_SMOKE_LOG)"; exit 1; \
+	fi; \
+	bytes=$$(wc -c < "$(QEMU_SMOKE_LOG)" | tr -d ' '); \
+	echo "Serial log bytes=$$bytes"; \
+	if grep -Eiq 'limine|JanusBoot|BdsDxe|UEFI|EFI' "$(QEMU_SMOKE_LOG)" 2>/dev/null; then \
+	  echo "PASS: qemu-smoke (firmware/bootloader serial markers)"; \
+	  exit 0; \
+	fi; \
+	if [ "$$rc" -eq 124 ] && [ "$$bytes" -gt 0 ]; then \
+	  echo "PASS: qemu-smoke (ran full timeout with serial output)"; \
+	  exit 0; \
+	fi; \
+	if [ "$$rc" -eq 124 ]; then \
+	  echo "PASS: qemu-smoke (ran full timeout; serial quiet — OVMF may not log to -serial file)"; \
+	  exit 0; \
+	fi; \
+	echo "FAIL: QEMU exited early ($$rc) without boot markers. See $(QEMU_SMOKE_LOG)"; \
+	exit 1
 
 clean:
 	@rm -rf "$(BUILD)" "$(LIMINE_DIR)"

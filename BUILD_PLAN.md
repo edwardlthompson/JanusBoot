@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 14 · AUTO 1 · HUMAN 5 · ADB 0 · **20 open**
+**Remaining:** AGENT 14 · AUTO 1 · HUMAN 4 · ADB 0 · **19 open**
 <!-- /remaining-tally -->
 
 Live board for **JanusBoot**. Finished work: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Lane contract: [`docs/JANUSBOOT_AGENT_LANES.md`](docs/JANUSBOOT_AGENT_LANES.md) · lock: [`.cursor/janusboot-lane-lock.json`](.cursor/janusboot-lane-lock.json).
@@ -54,9 +54,9 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 1. ✅ [AGENT][LOCAL] Copy `AGENT.md.example` → `AGENT.md` and paste the original brief verbatim (before init)
 2. ✅ [AGENT][LOCAL] Run `scripts/init-project.sh` (`--stack python --non-interactive --prune --prune-optional`)
 3. ✅ [AGENT][LOCAL] Fill `branding/product.json` (`mode: product`); sync tokens + README
-4. 🔲 [AGENT][LOCAL] Run `scripts/setup-github-repo.sh` (`gh` admin) when a JanusBoot remote exists
+4. 🔲 [AGENT][LOCAL] Run `scripts/setup-github-repo.sh` (`gh` admin) when a JanusBoot remote exists — remote created via `scripts/janusboot-product-remote.sh`; run setup next
 5. 🔲 [AUTO] Sprint 0 sign-off on `main`: `validate-bootstrap --quick` · `feature-gate --stack python` · `check-github-ci --wait 300` · `check-license-compliance`
-6. 🔲 [HUMAN][LOCAL] Create/confirm GitHub product repo (not the bootstrap template remote)
+6. ✅ [HUMAN][LOCAL] Create/confirm GitHub product repo (not the bootstrap template remote) — `edwardlthompson/JanusBoot` via `scripts/janusboot-product-remote.sh`; bootstrap kept as remote `bootstrap`
 7. ✅ [HUMAN][LOCAL] Pick FOSS vs Commercial (`--distribution-tier foss`, MIT)
 8. 🔲 [HUMAN] Fill `docs/INITIALIZATION_PROMPT.md`
 9. 🔲 [HUMAN] Pick Cursor mode (`docs/CURSOR_MODES.md`)
@@ -72,7 +72,7 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 2. ✅ [AGENT][LOCAL] Create `docs/JANUSBOOT_AGENT_LANES.md`, lane lock, BUILD_PLAN LOCAL/CLOUD sections, `janusboot.mdc` + `.cursorrules`
 3. ✅ [AGENT][LOCAL] Create branches `cloud/phase-0-2` and `local/phase-0-2` from post-init main
 4. ✅ [HUMAN][LOCAL] Approve merge of `cloud/phase-0-2` into `local/phase-0-2` after cloud PR (Sequential integrate-pr: merge commit `fbf88ea`)
-5. 🔲 [HUMAN][LOCAL] Approve merge of `local/phase-0-2` → `main` after verify (+ host QEMU smoke)
+5. 🔲 [HUMAN][LOCAL] Approve merge of `local/phase-0-2` → `main` after verify (+ host QEMU smoke) — **blocked:** `make validate`/`test`/`esp-image` green; `qemu-smoke` needs `sudo apt install qemu-system-x86 ovmf` (passwordless sudo unavailable)
 
 #### Cloud lane
 
@@ -85,9 +85,9 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 #### Local lane
 
-1. ✅ [AGENT][LOCAL] Install/detect host deps (qemu-system-x86_64, OVMF, dosfstools/mtools); write `docs/qemu.md` — FAT tools present; **qemu/ovmf still missing on host** (needs `sudo apt install qemu-system-x86 ovmf`)
-2. ✅ [AGENT][LOCAL] `Makefile`: pin Limine → `third_party/limine/`, `esp-image`, `qemu`, wrappers for `validate`/`test` via `uv run`
-3. ❌ [AGENT][LOCAL] After cloud PR merge: `make validate`, `make esp-image`, `make qemu` — two fake entries, timeout/default from JSON — **blocked:** `validate` + `esp-image` OK (`build/esp.img`, timeout 5, Windows 11 + Linux Mint entries); `make qemu` needs host packages
+1. ✅ [AGENT][LOCAL] Install/detect host deps (qemu-system-x86_64, OVMF, dosfstools/mtools); write `docs/qemu.md` — FAT tools present; **qemu/ovmf still missing on host** (`scripts/janusboot-host-deps.sh --apply` exits 3: sudo password required)
+2. ✅ [AGENT][LOCAL] `Makefile`: pin Limine → `third_party/limine/`, `esp-image`, `qemu`, `qemu-smoke`, wrappers for `validate`/`test` via `uv run`
+3. ❌ [AGENT][LOCAL] After cloud PR merge: `make validate`, `make esp-image`, `make qemu` — two fake entries, timeout/default from JSON — **blocked on apt:** `validate` + `test` (21) + `esp-image` OK; headless `make qemu-smoke` / `scripts/janusboot-qemu-smoke.sh` ready once qemu+ovmf installed
 4. ✅ [AGENT][LOCAL] `python3 scripts/agent-run.py verify` (or python feature-gate); mark Phase 0–2 rows ✅ — `feature-gate --stack python` passed; `make test` 21 passed. Golden Path About/hello tests removed with `janusbootctl` replace (expected product gap vs template About-smoke)
 
 ### Sprint / Phase 3 — Scanner (stub)
@@ -164,9 +164,9 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 
 ### Waiting on a person
 
-- `[HUMAN]` Host: `sudo apt install qemu-system-x86 ovmf` then `make qemu` on `local/phase-0-2`
-- `[HUMAN]` Create JanusBoot product GitHub remote (do not push to bootstrap template `origin`)
-- `[HUMAN]` Approve `local/phase-0-2` → `main` after QEMU smoke
+- `[HUMAN]` Host password: `sudo apt update && sudo DEBIAN_FRONTEND=noninteractive apt install -y qemu-system-x86 ovmf` then `scripts/janusboot-qemu-smoke.sh` on `local/phase-0-2` (agent cannot enter sudo password)
+- ~~`[HUMAN]` Create JanusBoot product GitHub remote~~ → done (`edwardlthompson/JanusBoot`; origin retargeted; bootstrap remote kept)
+- `[HUMAN]` Approve `local/phase-0-2` → `main` after `qemu-smoke` PASS (do not merge until headless smoke green)
 
 ### Open PRs (synced)
 

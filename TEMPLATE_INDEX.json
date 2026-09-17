@@ -1315,6 +1315,27 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/janusboot-host-deps.sh",
+      "purpose": "Detect/install QEMU+OVMF+FAT host deps for JanusBoot LOCAL lane (dry-run default; --apply apt)",
+      "read_when": "prompt_needed",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/janusboot-qemu-smoke.sh",
+      "purpose": "Full LOCAL smoke: host deps, validate, test, esp-image, headless qemu-smoke with timeout",
+      "read_when": "prompt_needed",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
+      "path": "scripts/janusboot-product-remote.sh",
+      "purpose": "Create/retarget edwardlthompson/JanusBoot GitHub remote; refuse bootstrap origin without --confirm-retarget",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/feedback-inbox.sh",
       "purpose": "List untrusted GitHub crash/bug/enhancement issues for /audit and /ideas",
       "read_when": "prompt_needed",

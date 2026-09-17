@@ -83,7 +83,7 @@ _No cloud agent items._
 > **Sprint / Phase 0–2** archived in COMPLETED_TASKS.md @ `a337d62`.
 > **Sprint — Template upgrade 1.6.0 → 1.8.0** archived in COMPLETED_TASKS.md @ `a337d62`.
 > **Sprint / Phase 3–8** archived in COMPLETED_TASKS.md @ `837199b` (stubs).
-> **Sprint — Nice-later + Bootable USB** AGENT archived in COMPLETED_TASKS.md @ `42ae6da`.
+> **Sprint — Nice-later + Bootable USB** AGENT archived in COMPLETED_TASKS.md @ `346597d`.
 
 Agents **do** flip 🔲 → ✅ on this file as work lands. Status uses emoji markers (✅/🔲), not GitHub `- [ ]` checkboxes. Live tip: `.cursor/worktrees/local-phase-0-2` on `local/phase-0-2` (keep root `BUILD_PLAN.md` in sync for the IDE).
 
@@ -147,7 +147,7 @@ _No UX inventory items._
 
 <!-- parallel_exception: numbered Parallel CLOUD/LOCAL lists (not markdown tables); AGENT archived -->
 
-> **Nice-later + Bootable USB** AGENT/LOCAL/CLOUD archived in COMPLETED_TASKS.md @ `42ae6da`. HUMAN sign-offs remain below.
+> **Nice-later + Bootable USB** AGENT/LOCAL/CLOUD archived in COMPLETED_TASKS.md @ `346597d`. HUMAN sign-offs remain below.
 
 ### HUMAN
 

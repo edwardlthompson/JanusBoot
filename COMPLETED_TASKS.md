@@ -4,7 +4,7 @@
 
 ## Sprint — Nice-later + Bootable USB (2026-09-17)
 
-AGENT/LOCAL/CLOUD archived @ `42ae6da` (worktree tip may advance). HUMAN rows remain open (see HUMAN_BACKLOG.md).
+AGENT/LOCAL/CLOUD archived @ `346597d` (worktree tip may advance). HUMAN rows remain open (see HUMAN_BACKLOG.md).
 
 - ✅ [AGENT][LOCAL] Keep board pointers honest as Cloud/Local USB and Must rows land — scope: BUILD_PLAN.md
 - ✅ [AGENT][CLOUD] **nice** Mouse support behind mouse feature flag (boot UI + settings) — scope: schema/

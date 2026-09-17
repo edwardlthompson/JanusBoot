@@ -69,7 +69,7 @@ flowchart TD
 
 ## Install
 
-Python 3.11+ with uv for examples/python (janusbootctl). Host tools for Local lane: qemu-system-x86_64, OVMF, dosfstools/mtools. See modules/python/MODULE.md and docs/qemu.md (Local).
+Python 3.11+ with uv for examples/python (janusbootctl). Host tools for Local lane: qemu-system-x86_64, OVMF, dosfstools/mtools. See modules/python/MODULE.md and docs/qemu.md (Local). Real-machine read-only scan: docs/host-dry-run.md (`make host-dry-run`).
 
 ## Usage
 

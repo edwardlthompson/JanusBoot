@@ -1,6 +1,6 @@
 # JanusBoot QEMU + ESP smoke (LOCAL lane)
 
-Host checklist for Phase 0–2. **QEMU only** — never write the ESP image to a real disk with `dd`, `cp`, or similar. `build/esp.img` is a throwaway FAT image for the emulator.
+Host checklist for Phase 0–2. **QEMU only** — never write the ESP image to a real disk with `dd`, `cp`, or similar. `build/esp.img` is a throwaway FAT image for the emulator. After QEMU is green, the safe real-machine next step is a **read-only** host dry-run: [`docs/host-dry-run.md`](host-dry-run.md) (`make host-dry-run`).
 
 ## Verified host (this machine)
 

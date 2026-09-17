@@ -51,7 +51,7 @@ QEMU_SMOKE_LOG := $(BUILD)/qemu-smoke.log
 
 .PHONY: help deps check-host limine esp-image qemu qemu-smoke smoke-all validate test clean \
 	scan scan-live scan-live-deep repair-plan repair-apply-smoke nvram-backup \
-	qemu-boot-ui-smoke install-esp-smoke usb-smoke deb vm-smoke vm-gui \
+	qemu-boot-ui-smoke install-esp-smoke usb-smoke host-dry-run deb vm-smoke vm-gui \
 	_require-cloud _require-qemu _require-ovmf _require-fat-tools
 
 help:
@@ -62,6 +62,7 @@ help:
 	@echo "  make scan        Heuristic EFI scan on fixtures/esp (print JSON)"
 	@echo "  make scan-live   Scan ESP_ROOT (default /boot/efi) via janusboot-scan-esp.sh"
 	@echo "  make scan-live-deep  Deep recursive scan (fixtures or ESP_ROOT)"
+	@echo "  make host-dry-run  Read-only host scan+validate (JANUSBOOT_ESP_ROOT or fixtures)"
 	@echo "  make repair-plan Dry-run repair plan JSON"
 	@echo "  make repair-apply-smoke  Dry-run repair-apply on fixtures (+ docs confirm)"
 	@echo "  make nvram-backup  Backup settings + host efibootmgr dump (if present)"
@@ -81,6 +82,7 @@ help:
 	@echo "Guest .deb/GUI:     scripts/janusboot-vm-smoke.sh  (docs/vm-guest-smoke.md)"
 	@echo "Host packages:      scripts/janusboot-host-deps.sh [--apply]  (sudo TTY or pkexec)"
 	@echo "ESP scan:           scripts/janusboot-scan-esp.sh [ESP_ROOT]"
+	@echo "Host dry-run:       scripts/janusboot-host-dry-run.sh  (docs/host-dry-run.md)"
 	@echo "HUMAN process:      scripts/janusboot-human-checklist.sh [--apply]"
 	@echo "Never write ESP images to a real disk with dd. See docs/qemu.md."
 
@@ -89,6 +91,10 @@ smoke-all:
 
 usb-smoke:
 	@bash scripts/janusboot-usb-smoke.sh
+
+# Read-only host path: fixtures, or JANUSBOOT_ESP_ROOT=/boot/efi — never --write / NVRAM.
+host-dry-run: _require-cloud
+	@bash scripts/janusboot-host-dry-run.sh
 
 deb:
 	@bash scripts/janusboot-build-deb.sh

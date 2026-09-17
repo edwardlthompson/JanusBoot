@@ -50,13 +50,16 @@ QEMU_SMOKE_TIMEOUT ?= 30
 QEMU_SMOKE_LOG := $(BUILD)/qemu-smoke.log
 
 .PHONY: help deps check-host limine esp-image qemu qemu-smoke smoke-all validate test clean \
-	_require-cloud _require-qemu _require-ovmf _require-fat-tools
+	scan scan-live repair-plan _require-cloud _require-qemu _require-ovmf _require-fat-tools
 
 help:
 	@echo "JanusBoot LOCAL targets:"
 	@echo "  make deps        Detect host tools; download pinned Limine $(LIMINE_TAG)"
 	@echo "  make validate    janusbootctl validate (needs cloud merge)"
 	@echo "  make test        pytest via uv in examples/python (needs cloud merge)"
+	@echo "  make scan        Heuristic EFI scan on fixtures/esp (print JSON)"
+	@echo "  make scan-live   Scan ESP_ROOT (default /boot/efi) via janusboot-scan-esp.sh"
+	@echo "  make repair-plan Dry-run repair plan JSON"
 	@echo "  make esp-image   Build FAT ESP image under build/ (needs cloud merge)"
 	@echo "  make qemu        Interactive GUI boot (GTK display)"
 	@echo "  make qemu-smoke  Headless QEMU boot smoke (no GUI; timeout $(QEMU_SMOKE_TIMEOUT)s)"
@@ -65,6 +68,7 @@ help:
 	@echo ""
 	@echo "Full scripted smoke: scripts/janusboot-smoke-all.sh  (or janusboot-qemu-smoke.sh)"
 	@echo "Host packages:      scripts/janusboot-host-deps.sh [--apply]  (sudo TTY or pkexec)"
+	@echo "ESP scan:           scripts/janusboot-scan-esp.sh [ESP_ROOT]"
 	@echo "HUMAN process:      scripts/janusboot-human-checklist.sh [--apply]"
 	@echo "Never write ESP images to a real disk with dd. See docs/qemu.md."
 
@@ -198,6 +202,17 @@ _require-ovmf:
 # janusbootctl uses --esp (default: repo fixtures/esp) and subcommands without extra paths.
 validate: _require-cloud
 	@cd "$(PYTHON_DIR)" && $(UV) run janusbootctl --esp "../../$(FIXTURES_ESP)" validate
+
+# Phase 3 LOCAL: heuristic scan (fixtures by default; live mount via scan-live).
+ESP_ROOT ?= /boot/efi
+scan: _require-cloud
+	@bash scripts/janusboot-scan-esp.sh "$(FIXTURES_ESP)"
+
+scan-live: _require-cloud
+	@bash scripts/janusboot-scan-esp.sh "$(ESP_ROOT)"
+
+repair-plan: _require-cloud
+	@cd "$(PYTHON_DIR)" && $(UV) run janusbootctl --esp "../../$(FIXTURES_ESP)" repair-plan
 
 test:
 	@if [ ! -f "$(PYTHON_DIR)/pyproject.toml" ]; then \

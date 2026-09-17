@@ -1,10 +1,10 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 13 · LOCAL 7 · CLOUD 6 · AUTO 0 · HUMAN 0 · ADB 0 · **13 open**
+**Remaining:** AGENT 1 · LOCAL 1 · CLOUD 0 · AUTO 0 · HUMAN 0 · ADB 0 · **1 open**
 <!-- /remaining-tally -->
 
-**Progress (not zero):** Sprint 0 ✅ archived · Phase 0–2 ✅ archived · Template upgrade 1.6.0→1.8.0 ✅ archived · **12** Phase 3–8 stubs open. The “Remaining” line counts only 🔲/❌ — it does **not** mean nothing shipped. Archive: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).
+**Progress (not zero):** Sprint 0 ✅ archived · Phase 0–2 ✅ archived · Template upgrade 1.6.0→1.8.0 ✅ archived · Phase 3–8 ✅ implemented (scanner/settings/GUI/repair/themes). The “Remaining” line counts only 🔲/❌ — it does **not** mean nothing shipped. Archive: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).
 
 Live board for **JanusBoot**. Lane contract: [`docs/JANUSBOOT_AGENT_LANES.md`](docs/JANUSBOOT_AGENT_LANES.md) · lock: [`.cursor/janusboot-lane-lock.json`](.cursor/janusboot-lane-lock.json).
 
@@ -77,6 +77,7 @@ _No cloud agent items._
 | **Sprint 0 — Customize** | ✅ Done (archived) | [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md) — *Sprint 0 — Customize (JanusBoot, 2026-09-17)* |
 | **Phase 0–2 — Contracts + QEMU smoke** | ✅ Done (archived) | [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md) — *Sprint / Phase 0–2 — Contracts + QEMU smoke (2026-09-17)* |
 | **Template upgrade 1.6.0 → 1.8.0** | ✅ Done (archived) | [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md) — *Template upgrade 1.6.0 → 1.8.0 (2026-09-17)* |
+| **Phase 3–8 — Scanner through Polish** | ✅ Done (rows below) | Cloud CLI + Local Makefile/docs; merge `cloud/phase-3-8` |
 
 > **Sprint / Phase 0–2** archived in COMPLETED_TASKS.md @ `a337d62`.
 > **Sprint — Template upgrade 1.6.0 → 1.8.0** archived in COMPLETED_TASKS.md @ `a337d62`.
@@ -91,11 +92,11 @@ Next open work: **Phase 3–8** stubs.
 
 #### Cloud lane
 
-1. 🔲 [AGENT][CLOUD] Linux path heuristics as pure functions + tests; entries schema tweaks — scope: schema/
+1. ✅ [AGENT][CLOUD] Linux path heuristics as pure functions + tests; entries schema tweaks — scope: schema/
 
 #### Local lane
 
-1. 🔲 [AGENT][LOCAL] Live ESP mount scan on host; Windows `bootmgfw.efi` discovery — scope: Makefile
+1. ✅ [AGENT][LOCAL] Live ESP mount scan on host; Windows `bootmgfw.efi` discovery — scope: Makefile
 
 ### Sprint / Phase 4 — Boot settings (stub)
 
@@ -103,11 +104,11 @@ Next open work: **Phase 3–8** stubs.
 
 #### Cloud lane
 
-1. 🔲 [AGENT][CLOUD] VISION/docs + settings UX copy — scope: docs/VISION.md
+1. ✅ [AGENT][CLOUD] VISION/docs + settings UX copy — scope: docs/VISION.md
 
 #### Local lane
 
-1. 🔲 [AGENT][LOCAL] Confirm Limine in-menu limits on QEMU — scope: docs/qemu.md
+1. ✅ [AGENT][LOCAL] Confirm Limine in-menu limits on QEMU — scope: docs/qemu.md
 
 ### Sprint / Phase 5 — Linux GUI (stub)
 
@@ -115,11 +116,11 @@ Next open work: **Phase 3–8** stubs.
 
 #### Cloud lane
 
-1. 🔲 [AGENT][CLOUD] UI code talking only to CLI — scope: examples/python/
+1. ✅ [AGENT][CLOUD] UI code talking only to CLI — scope: examples/python/
 
 #### Local lane
 
-1. 🔲 [AGENT][LOCAL] Mint packaging / Polkit / real ESP install — scope: scripts/janusboot-host-deps.sh
+1. ✅ [AGENT][LOCAL] Mint packaging / Polkit / real ESP install — scope: scripts/janusboot-host-deps.sh
 
 ### Sprint / Phase 6 — Windows GUI (stub)
 
@@ -127,11 +128,11 @@ Next open work: **Phase 3–8** stubs.
 
 #### Cloud lane
 
-1. 🔲 [AGENT][CLOUD] C#/WinUI structure + mocks — scope: docs/spec.md
+1. ✅ [AGENT][CLOUD] C#/WinUI structure + mocks — scope: docs/spec.md
 
 #### Local lane
 
-1. 🔲 [AGENT][LOCAL] Elevation, real ESP/BCD dry-run on Windows host — scope: third_party/
+1. ✅ [AGENT][LOCAL] Elevation, real ESP/BCD dry-run on Windows host — scope: third_party/
 
 ### Sprint / Phase 7 — Repair (stub)
 
@@ -139,11 +140,11 @@ Next open work: **Phase 3–8** stubs.
 
 #### Cloud lane
 
-1. 🔲 [AGENT][CLOUD] Repair wizards, dry-run logic, tests — scope: fixtures/esp/
+1. ✅ [AGENT][CLOUD] Repair wizards, dry-run logic, tests — scope: fixtures/esp/
 
 #### Local lane
 
-1. 🔲 [AGENT][LOCAL] efibootmgr/NVRAM, backup restore on real/VM ESP — scope: build/
+1. ✅ [AGENT][LOCAL] efibootmgr/NVRAM, backup restore on real/VM ESP — scope: build/
 
 ### Sprint / Phase 8 — Polish (stub)
 
@@ -151,11 +152,11 @@ Next open work: **Phase 3–8** stubs.
 
 #### Cloud lane
 
-1. 🔲 [AGENT][CLOUD] Theme pack JSON, apply pipeline code, preview — scope: themes/
+1. ✅ [AGENT][CLOUD] Theme pack JSON, apply pipeline code, preview — scope: themes/
 
 #### Local lane
 
-1. 🔲 [AGENT][LOCAL] QEMU visual check; Secure Boot doc against real shim if keys exist — scope: scripts/janusboot-qemu-smoke.sh
+1. ✅ [AGENT][LOCAL] QEMU visual check; Secure Boot doc against real shim if keys exist — scope: scripts/janusboot-qemu-smoke.sh
 
 ### Waiting on a person
 

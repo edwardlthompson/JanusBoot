@@ -281,3 +281,10 @@ fi
 echo ""
 echo "Re-checking after install…"
 exec "$0" --check
+
+# --- Phase 5 LOCAL notes (Mint packaging / Polkit / real ESP) ---
+# Packaging (future .deb): wrap janusbootctl + polkit policy that allows
+# org.janusboot.esp.write only after auth; GUI must call CLI, never raw mount.
+# Real ESP install: mount ESP, copy EFI/JanusBoot + Limine BOOTX64, then
+# efibootmgr (see docs/nvram-repair-local.md). Always dry-run + confirm.
+# pkexec is already used above for apt --apply when no TTY.

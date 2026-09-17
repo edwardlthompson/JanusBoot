@@ -147,3 +147,30 @@ make qemu-smoke    # agent / headless
 ```
 
 Expect two fake boot entries driven by JSON (timeout/default from `settings.json`). For interactive runs, close the QEMU window or Ctrl-C when done.
+
+
+## Limine in-menu limits (Phase 4 LOCAL)
+
+Confirmed against Limine **v12.9.0** in QEMU (this host):
+
+| Capability | In Limine menu | JanusBoot path |
+|------------|----------------|----------------|
+| Timeout | Via `TIMEOUT` in `limine.conf` | `janusbootctl set timeout` → `generate-limine` |
+| Default entry | Via `DEFAULT_ENTRY` / order | `janusbootctl set default` |
+| Theme / wallpaper | Wallpaper path in conf | `theme-apply` + regenerate |
+| Live edit of settings JSON | **Not** available in-menu | OS tools only (VISION Phase 4) |
+| Mouse | Limine may ignore | Feature flag `mouse` (off by default) |
+
+Do not block desktop GUIs waiting for full in-boot settings. OS tools + regenerate is supported.
+
+## Visual check + Secure Boot (Phase 8 LOCAL)
+
+Interactive visual check:
+
+```bash
+make qemu
+```
+
+Expect two cards (Windows 11 + Linux Mint) from fixtures, timeout bar, high-contrast-capable theme path.
+
+Secure Boot: document only unless keys exist. OVMF ships `OVMF_CODE_4M.secboot.fd`; JanusBoot does **not** fake signed boot in v1. If shim/keys are present on the host, note the path in a local scratch file — do not commit secrets. Feature flag: `secureboot`.

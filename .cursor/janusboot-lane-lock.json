@@ -1,8 +1,28 @@
 {
-  "phase": "0-2",
-  "cloud_branch": "cloud/phase-0-2",
+  "phase": "3-8",
+  "cloud_branch": "cloud/phase-3-8",
   "local_branch": "local/phase-0-2",
-  "cloud_paths": ["schema/", "fixtures/esp/", "themes/", "docs/VISION.md", "docs/spec.md", "esp/", "examples/python/"],
-  "local_paths": ["Makefile", "third_party/", "build/", "docs/qemu.md"],
-  "sequential_paths": ["BUILD_PLAN.md", "AGENT.md", "AGENTS.md", ".cursorrules", ".cursor/rules/janusboot.mdc", "docs/JANUSBOOT_AGENT_LANES.md"]
+  "cloud_paths": [
+    "schema/",
+    "fixtures/esp/",
+    "themes/",
+    "docs/VISION.md",
+    "docs/spec.md",
+    "esp/",
+    "examples/python/"
+  ],
+  "local_paths": [
+    "Makefile",
+    "third_party/",
+    "build/",
+    "docs/qemu.md"
+  ],
+  "sequential_paths": [
+    "BUILD_PLAN.md",
+    "AGENT.md",
+    "AGENTS.md",
+    ".cursorrules",
+    ".cursor/rules/janusboot.mdc",
+    "docs/JANUSBOOT_AGENT_LANES.md"
+  ]
 }

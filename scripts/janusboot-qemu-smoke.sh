@@ -2,6 +2,7 @@
 # Full LOCAL smoke: host deps → make deps → validate → test → esp-image → headless QEMU.
 # Clear PASS/FAIL. Does not require a GUI session (--display none).
 # Prefer scripts/janusboot-smoke-all.sh for monitored logging to build/smoke.log.
+# Phase 8: visual check = make qemu; Secure Boot = docs/qemu.md (no fake signed boot).
 #
 # Usage:
 #   scripts/janusboot-qemu-smoke.sh

@@ -67,17 +67,33 @@ class PreCommitHookTests(unittest.TestCase):
             self.skipTest("bash not available")
         with tempfile.TemporaryDirectory() as tmp:
             repo = Path(tmp)
-            subprocess.run(["git", "init"], cwd=repo, check=True, capture_output=True)
+            # Pre-commit sets GIT_DIR; isolate the temp repo from the parent checkout.
+            env = {**os.environ}
+            for key in (
+                "GIT_DIR",
+                "GIT_WORK_TREE",
+                "GIT_COMMON_DIR",
+                "GIT_INDEX_FILE",
+                "GIT_OBJECT_DIRECTORY",
+                "GIT_ALTERNATE_OBJECT_DIRECTORIES",
+            ):
+                env.pop(key, None)
+            env.pop("CI", None)
+            env.pop("GITHUB_ACTIONS", None)
+            env.pop("BOOTSTRAP_UPGRADE_SIM", None)
+            subprocess.run(
+                ["git", "init"],
+                cwd=repo,
+                check=True,
+                capture_output=True,
+                env=env,
+            )
             script = repo / "scripts" / "check-pre-commit-hooks.sh"
             script.parent.mkdir()
             script.write_text(
                 (ROOT / "scripts" / "check-pre-commit-hooks.sh").read_text(encoding="utf-8"),
                 encoding="utf-8",
             )
-            env = {**os.environ}
-            env.pop("CI", None)
-            env.pop("GITHUB_ACTIONS", None)
-            env.pop("BOOTSTRAP_UPGRADE_SIM", None)
             empty = repo / "empty.gitconfig"
             empty.write_text("", encoding="utf-8")
             env["GIT_CONFIG_GLOBAL"] = str(empty)

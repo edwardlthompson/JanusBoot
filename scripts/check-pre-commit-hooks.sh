@@ -12,12 +12,13 @@ if [ "${CI:-}" = "true" ] || [ "${GITHUB_ACTIONS:-}" = "true" ] \
   exit 0
 fi
 
-if [ ! -d .git ]; then
+# Worktrees use a .git file; still a real checkout.
+if [ ! -e .git ]; then
   echo "OK   not a git checkout"
   exit 0
 fi
 
-HOOKS_DIR=".git/hooks"
+HOOKS_DIR="$(git rev-parse --git-path hooks 2>/dev/null || echo ".git/hooks")"
 CUSTOM="$(git config --get core.hooksPath || true)"
 if [ -n "$CUSTOM" ]; then
   case "$CUSTOM" in

@@ -8,7 +8,10 @@
       "detect": {
         "web": ["examples/web/src/about", "src/about"],
         "android": ["examples/android/app/src/main/java/dev/foss/goldenpath/about"],
-        "python": ["examples/python/src/hello/about.py"],
+        "python": [
+          "examples/python/src/hello/about.py",
+          "examples/python/src/janusbootctl/about.py"
+        ],
         "node": ["examples/node/src/about.ts"],
         "go": ["examples/go/about.go"],
         "rust": ["examples/rust/src/about.rs"]
@@ -22,7 +25,10 @@
       "detect": {
         "web": ["examples/web/src/crash-capture", "src/crash-capture"],
         "android": ["examples/android/app/src/main/java/dev/foss/goldenpath/crashcapture"],
-        "python": ["examples/python/src/hello/crash.py"],
+        "python": [
+          "examples/python/src/hello/crash.py",
+          "examples/python/src/janusbootctl/crash.py"
+        ],
         "node": ["examples/node/src/crash.ts"],
         "go": ["examples/go/crash.go"],
         "rust": ["examples/rust/src/crash.rs"]

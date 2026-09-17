@@ -148,6 +148,16 @@ if [ -f examples/python/pyproject.toml ] && [ ! -f examples/python/uv.lock ]; th
   ERRORS=$((ERRORS + 1))
 fi
 
+# JanusBoot product child: never allow template hello to displace janusbootctl.
+if [ -f branding/product.json ] && grep -q '"name": "JanusBoot"' branding/product.json 2>/dev/null; then
+  if [ -f scripts/janusboot-protect-product.sh ]; then
+    run_check bash scripts/janusboot-protect-product.sh
+  else
+    echo "MISSING: scripts/janusboot-protect-product.sh (required for JanusBoot)"
+    ERRORS=$((ERRORS + 1))
+  fi
+fi
+
 run_check bash scripts/check-python-pytest-workflow.sh
 
 if ! grep -q '\[AGENT\]' BUILD_PLAN.md && ! grep -q '\[HUMAN\]' BUILD_PLAN.md; then

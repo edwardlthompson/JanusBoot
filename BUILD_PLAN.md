@@ -1,10 +1,10 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 12 · LOCAL 6 · CLOUD 6 · AUTO 0 · HUMAN 7 · ADB 0 · **19 open**
+**Remaining:** AGENT 12 · LOCAL 6 · CLOUD 6 · AUTO 0 · HUMAN 0 · ADB 0 · **12 open**
 <!-- /remaining-tally -->
 
-**Progress (not zero):** Sprint 0 ✅ done (archived) · Phase 0–2 ✅ **15/15** rows done · **12** Phase 3–8 stubs still open · Template upgrade 1.6.0→1.8.0: Canon+Mixed applied; Sacred/Golden skipped or product-gated. The “Remaining” line counts only 🔲/❌ — it does **not** mean nothing shipped. Archive: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).
+**Progress (not zero):** Sprint 0 ✅ done (archived) · Phase 0–2 ✅ **15/15** rows done · **12** Phase 3–8 stubs still open · Template upgrade 1.6.0→1.8.0: Canon+Mixed applied; Sacred UPG-71…77 ✅ waived—product retained; Golden UPG-78/79 ✅ About+crash alongside janusbootctl. The “Remaining” line counts only 🔲/❌ — it does **not** mean nothing shipped. Archive: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).
 
 Live board for **JanusBoot**. Lane contract: [`docs/JANUSBOOT_AGENT_LANES.md`](docs/JANUSBOOT_AGENT_LANES.md) · lock: [`.cursor/janusboot-lane-lock.json`](.cursor/janusboot-lane-lock.json).
 
@@ -79,7 +79,7 @@ _No cloud agent items._
 
 Agents **do** flip 🔲 → ✅ on this file as work lands. Status uses emoji markers (✅/🔲), not GitHub `- [ ]` checkboxes. If your IDE still shows Sprint 0 open with “30 remaining,” you are on a **stale path** (repo root leftover while the live checkout is `.cursor/worktrees/local-phase-0-2` on `main` / `local/phase-0-2` @ `41c13f0`+). Open the worktree copy or pull `origin/main`.
 
-Next open work: **Phase 3–8** stubs (template upgrade 1.6.0→1.8.0 Canon+Mixed applied; Sacred/Golden skipped).
+Next open work: **Phase 3–8** stubs (template upgrade 1.6.0→1.8.0 Canon+Mixed+Sacred-waived+Golden About/crash applied).
 
 ### Sprint / Phase 0–2 — Contracts + QEMU smoke
 
@@ -183,12 +183,14 @@ Next open work: **Phase 3–8** stubs (template upgrade 1.6.0→1.8.0 Canon+Mixe
 
 ### Waiting on a person
 
-_None blocking for Sprint 0 / Phase 0–2 process._ Optional IDE: pin `docs/help/BATCH_COMMANDS.md`; set Cursor mode in the UI. Optional GitHub: Actions bot approval + `AUTOMERGE_TOKEN` (notes from `setup-github-repo.sh`). Re-check: `scripts/janusboot-human-checklist.sh`.
+_None blocking for Sprint 0 / Phase 0–2 process._ Optional IDE: pin `docs/help/BATCH_COMMANDS.md`; set Cursor mode in the UI. Optional GitHub: Actions bot approval + `AUTOMERGE_TOKEN` (notes from `setup-github-repo.sh`). Re-check: `scripts/janusboot-human-checklist.sh`. Sacred UPG-71…77 waived via `scripts/janusboot-protect-product.sh` (verify-only). Actions `default_workflow_permissions=write` set for Release Please.
 
 - ~~`[HUMAN]` Host password / apt install qemu+ovmf~~ → done (`qemu-system-x86` + `ovmf` installed; note: Cursor aptrepo GPG can break bare `apt update` — install packages directly or fix `NO_PUBKEY 42A1772E62E492D6`)
 - ~~`[HUMAN]` Create JanusBoot product GitHub remote~~ → done (`edwardlthompson/JanusBoot`; origin retargeted; bootstrap remote kept)
 - ~~`[HUMAN]` Approve `local/phase-0-2` → `main` after `qemu-smoke` PASS~~ → done (`make smoke-all` PASS; ff merge to `main`)
 - ~~`[HUMAN]` Fill INITIALIZATION_PROMPT / pick mode / bookmark BATCH_COMMANDS~~ → done (fill script + checklist; IDE pin/mode remain optional)
+- ~~`[HUMAN]` Sacred UPG-71…77~~ → waived—product retained (`janusboot-protect-product.sh`)
+- ~~`[HUMAN]` Actions workflow permissions for Release Please~~ → done (`default_workflow_permissions=write`)
 
 ### Open PRs (synced)
 
@@ -210,7 +212,7 @@ Named gaps **1–79** boarded under **Sprint — Template upgrade 1.6.0 → 1.8.
 
 ### Sprint — Template upgrade 1.6.0 → 1.8.0
 
-Named gaps from `/upgrade` (parent `edwardlthompson/agent-project-bootstrap` **1.8.0**). Apply executed 2026-09-16: Canon ✅ copy; Mixed ✅ merge (JanusBoot board/branding/history kept); Sacred ❌ skipped—product; Golden ❌ skipped (boot manager).
+Named gaps from `/upgrade` (parent `edwardlthompson/agent-project-bootstrap` **1.8.0**). Apply executed 2026-09-16: Canon ✅ copy; Mixed ✅ merge (JanusBoot board/branding/history kept); Sacred ✅ waived—product retained (`janusboot-protect-product.sh`); Golden ✅ About+crash alongside janusbootctl (no template hello restore).
 
 <!-- parallel_exception: template catch-up board; Sequential apply when numbers named for copy -->
 
@@ -290,20 +292,20 @@ Named gaps from `/upgrade` (parent `edwardlthompson/agent-project-bootstrap` **1
 69. ✅ [AGENT] Mixed UPG-69: merge `tests/test_sync_template_gaps_build_plan.py` (keep JanusBoot values; human review)
 70. ✅ [AGENT] Mixed UPG-70: merge `tests/test_validate_bootstrap_agent.py` (keep JanusBoot values; human review)
 
-#### Sacred (71–77) — `[HUMAN]` approval required before apply (do not overwrite yet)
+#### Sacred (71–77) — `[HUMAN]` waived—product retained (verify-only; do not overwrite)
 
-71. ❌ [HUMAN] Sacred UPG-71: skipped — AGENTS.md product card — blocked—product (no blind overwrite; sync-adapters OK)
-72. ❌ [HUMAN] Sacred UPG-72: skipped — examples/node lock — blocked—product (stack pruned / not JanusBoot app)
-73. ❌ [HUMAN] Sacred UPG-73: skipped — examples/node package.json — blocked—product (stack pruned)
-74. ❌ [HUMAN] Sacred UPG-74: skipped — examples/python/pyproject.toml — blocked—product (janusbootctl)
-75. ❌ [HUMAN] Sacred UPG-75: skipped — examples/python/uv.lock — blocked—product (janusbootctl)
-76. ❌ [HUMAN] Sacred UPG-76: skipped — examples/web lock — blocked—product (stack pruned)
-77. ❌ [HUMAN] Sacred UPG-77: skipped — examples/web package.json — blocked—product (stack pruned)
+71. ✅ [HUMAN] Sacred UPG-71: waived—product retained — AGENTS.md JanusBoot card (`janusboot-protect-product.sh`; sync-adapters OK)
+72. ✅ [HUMAN] Sacred UPG-72: waived—product retained — examples/node lock (stack pruned / not JanusBoot app)
+73. ✅ [HUMAN] Sacred UPG-73: waived—product retained — examples/node package.json (stack pruned)
+74. ✅ [HUMAN] Sacred UPG-74: waived—product retained — examples/python/pyproject.toml (janusbootctl)
+75. ✅ [HUMAN] Sacred UPG-75: waived—product retained — examples/python/uv.lock (janusbootctl)
+76. ✅ [HUMAN] Sacred UPG-76: waived—product retained — examples/web lock (stack pruned)
+77. ✅ [HUMAN] Sacred UPG-77: waived—product retained — examples/web package.json (stack pruned)
 
-#### Golden Path (78–79) — optional / product; adopt via `/feature` only
+#### Golden Path (78–79) — applied alongside janusbootctl (no hello-primary restore)
 
-78. ❌ skipped Golden UPG-78 (optional): boot-manager product; do not replace janusbootctl with About stub
-79. ❌ skipped Golden UPG-79 (optional): boot-manager product; do not replace janusbootctl with crash-capture stub
+78. ✅ [AGENT] Golden UPG-78: About payload + `janusbootctl about` (+ `hello.about` catalog re-export)
+79. ✅ [AGENT] Golden UPG-79: crash sanitizer + `janusbootctl sanitize-crash` (+ `hello.crash` catalog re-export)
 
 
 ### UX & UI inventory

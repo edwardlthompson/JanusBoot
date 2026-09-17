@@ -1,5 +1,6 @@
 """Tests for janusbootctl.crash sanitizer (bootstrap allowlist)."""
 
+from hello.crash import sanitize_crash_payload as hello_sanitize_payload
 from janusbootctl.crash import sanitize_crash_payload, sanitize_crash_text
 
 
@@ -24,17 +25,17 @@ def test_redacts_prompt_injection() -> None:
 
 
 def test_payload_keeps_schema_keys() -> None:
-    got = sanitize_crash_payload(
-        {
-            "message": "boom user@example.com",
-            "stack": r"at C:\Users\ada\x.py",
-            "email": "keep-out",
-            "token": "keep-out",
-            "prompt": "keep-out",
-        }
-    )
+    raw = {
+        "message": "boom user@example.com",
+        "stack": r"at C:\Users\ada\x.py",
+        "email": "keep-out",
+        "token": "keep-out",
+        "prompt": "keep-out",
+    }
+    got = sanitize_crash_payload(raw)
     assert set(got) == {"message", "stack"}
     assert "keep-out" not in got["message"]
     assert "keep-out" not in got["stack"]
     assert "<redacted-email>" in got["message"]
     assert "<redacted-home>" in got["stack"]
+    assert hello_sanitize_payload(raw) == got

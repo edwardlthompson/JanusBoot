@@ -332,6 +332,11 @@ if should_run python && [ -f examples/python/pyproject.toml ]; then
       skip_or_block "Skipping python gate (uv not found)"
     fi
   else
+    if [ -f scripts/janusboot-protect-product.sh ] \
+      && [ -f branding/product.json ] \
+      && grep -q '"name": "JanusBoot"' branding/product.json 2>/dev/null; then
+      run_cmd janusboot-protect bash scripts/janusboot-protect-product.sh
+    fi
     run_in_dir examples/python python-lint uv run ruff check .
     run_in_dir examples/python python-format uv run ruff format --check .
     run_in_dir examples/python python-type-mypy uv run mypy src

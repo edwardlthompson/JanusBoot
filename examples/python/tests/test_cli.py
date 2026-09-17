@@ -76,6 +76,33 @@ def test_cli_validate_theme(capsys: pytest.CaptureFixture[str], repo: Path) -> N
     assert capsys.readouterr().out.strip() == "ok"
 
 
+def test_cli_about(capsys: pytest.CaptureFixture[str]) -> None:
+    main(["about"])
+    out = capsys.readouterr().out.strip()
+    assert "JanusBoot" in out
+    assert "donate" in out
+    main(["about", "--json"])
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["version"]
+    assert payload["donate"].startswith("http")
+
+
+def test_cli_sanitize_crash(capsys: pytest.CaptureFixture[str]) -> None:
+    main(
+        [
+            "sanitize-crash",
+            "--message",
+            "boom user@example.com",
+            "--stack",
+            r"at C:\Users\ada\x.py",
+        ]
+    )
+    got = json.loads(capsys.readouterr().out)
+    assert set(got) == {"message", "stack"}
+    assert "<redacted-email>" in got["message"]
+    assert "<redacted-home>" in got["stack"]
+
+
 def test_cli_validate_fails(esp_copy: Path, repo: Path) -> None:
     settings_path(esp_copy).unlink()
     with pytest.raises(SystemExit) as exc:

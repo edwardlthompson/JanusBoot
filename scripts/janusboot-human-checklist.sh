@@ -131,6 +131,32 @@ else
   still "install host deps: scripts/janusboot-host-deps.sh --apply (sudo TTY or pkexec)"
 fi
 
+# --- Sacred product protect + upgrade waivers ---
+info ""
+info "## Sacred product protect (UPG-71…77)"
+if bash scripts/janusboot-protect-product.sh >/dev/null 2>&1; then
+  ok "janusboot-protect-product.sh — JanusBoot markers + janusbootctl present"
+else
+  still "scripts/janusboot-protect-product.sh failed — product markers missing"
+fi
+scripted "Sacred UPG-71…77: waived—product retained (verify-only; never copy parent hello)"
+scripted "Golden UPG-78/79: About+crash alongside janusbootctl (hello/* re-exports product)"
+
+# --- Release Please / Actions (optional HUMAN leftovers) ---
+info ""
+info "## GitHub Actions / Release Please"
+if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
+  wf="$(gh api repos/edwardlthompson/JanusBoot/actions/permissions/workflow --jq .default_workflow_permissions 2>/dev/null || true)"
+  if [ "$wf" = "write" ]; then
+    ok "Actions default_workflow_permissions=write (Release Please can open PRs)"
+  else
+    still "set Actions workflow permissions to write (gh api …/actions/permissions/workflow)"
+  fi
+else
+  scripted "optional: gh auth + workflow permissions write for Release Please"
+fi
+scripted "optional HUMAN: Actions approval for github-actions[bot]; AUTOMERGE_TOKEN"
+
 # --- Future phases: hooks only, do not fake product completion ---
 info ""
 info "## Phase 3–8 (stubs — no fake completion)"

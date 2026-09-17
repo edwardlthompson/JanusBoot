@@ -2387,6 +2387,13 @@
       "owner": "maintainer"
     },
     {
+      "path": "scripts/janusboot-protect-product.sh",
+      "purpose": "Verify-only gate: sacred JanusBoot markers + janusbootctl present (blocks template hello overwrite)",
+      "read_when": "bootstrap_session_start",
+      "update_when": "milestone_boundary",
+      "owner": "maintainer"
+    },
+    {
       "path": "scripts/janusboot-qemu-smoke.sh",
       "purpose": "Headless QEMU+OVMF boot smoke wrapper (timeout; serial markers)",
       "read_when": "prompt_needed",

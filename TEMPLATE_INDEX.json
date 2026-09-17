@@ -1,5 +1,5 @@
 {
-  "template_version": "1.0.0",
+  "template_version": "1.1.0",
   "project": {
     "name": "JanusBoot",
     "purpose": "UEFI-first graphical boot manager (Limine + ESP settings contract + janusbootctl)",
@@ -168,7 +168,7 @@
     },
     {
       "path": ".cursor/rules/brief-replies.mdc",
-      "purpose": "Always-on ADHD short-reply law (1\u20133 sentences)",
+      "purpose": "Always-on ADHD short-reply law (1–3 sentences)",
       "read_when": "session_start",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -413,7 +413,7 @@
     },
     {
       "path": ".github/workflows/dependency-review.yml",
-      "purpose": "PR dependency review \u2014 fail on new High/Critical vulnerabilities",
+      "purpose": "PR dependency review — fail on new High/Critical vulnerabilities",
       "read_when": "contributing",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -2388,7 +2388,7 @@
     },
     {
       "path": "scripts/janusboot-human-checklist.sh",
-      "purpose": "One-command HUMAN process checklist (fill-init, GitHub setup, mode/bookmark docs; Phase 3\u20138 prep notes)",
+      "purpose": "One-command HUMAN process checklist (fill-init, GitHub setup, mode/bookmark docs; Phase 3–8 prep notes)",
       "read_when": "bootstrap_session_start",
       "update_when": "milestone_boundary",
       "owner": "maintainer"
@@ -2442,7 +2442,6 @@
       "update_when": "milestone_boundary",
       "owner": "maintainer"
     },
-
     {
       "path": "scripts/lib/about_lego_cli.py",
       "purpose": "Backup/strip/restore rust/go/node/python About slices for verify-about-feature-gate",
@@ -2823,7 +2822,7 @@
     },
     {
       "path": "scripts/run-codex-review.sh",
-      "purpose": "Local Codex CLI review \u2192 CODE_REVIEW.md",
+      "purpose": "Local Codex CLI review → CODE_REVIEW.md",
       "read_when": "audit",
       "update_when": "milestone_boundary",
       "owner": "maintainer"

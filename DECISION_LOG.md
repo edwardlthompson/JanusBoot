@@ -17,6 +17,13 @@
 
 ## Entries
 
+### 2026-09-17 — JanusBoot v1.1.0 /ship
+- **Status:** Accepted
+- **Context:** Must gaps + Nice-later/USB AGENT depth on `main`; Release Please #2 open for 1.1.0; first push CI failed on pytest-imported root tests + unindexed smoke scripts; Scorecard/Release Actions YAML existed but were not indexed for `workflow_dispatch` until nudged.
+- **Decision:** Ship **1.1.0**. Convert host/deb root tests to unittest; index janusboot smoke scripts in `TEMPLATE_INDEX.json`; empty Unreleased before push; admin-merge RP #2; leave CodeQL `@v4` (reject `vcodeql-bundle-*` from upd); nudge Scorecard/Release workflows so SBOM + Scorecard can run.
+- **Alternatives considered:** Keep pytest in root `tests/` (rejected: Validate Bootstrap has no pytest). Skip Scorecard for child (rejected: `/regress --strict` expects a run).
+- **Consequences:** Tag **v1.1.0**; HUMAN backlog remains (real ESP/NVRAM, Windows elevation UX, rescue ISO scope #38); SBOM attach may need Release workflow after registry nudge.
+
 ### 2026-09-16 — Template catch-up 1.6.0 → 1.8.0
 - **Status:** Accepted
 - **Context:** Parent agent-project-bootstrap shipped 1.7.0 (LOCAL/CLOUD venues) and 1.8.0 (cost diet / brevity). JanusBoot boarded UPG-01…79.

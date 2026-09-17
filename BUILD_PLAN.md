@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 1 · LOCAL 1 · CLOUD 0 · AUTO 0 · HUMAN 3 · ADB 0 · **4 open**
+**Remaining:** AGENT 0 · LOCAL 0 · CLOUD 0 · AUTO 0 · HUMAN 3 · ADB 0 · **3 open**
 <!-- /remaining-tally -->
 
 **Progress (not zero):** Sprint 0 ✅ archived · Phase 0–2 ✅ archived · Template upgrade 1.6.0→1.8.0 ✅ archived · Phase 3–8 stubs ✅ archived · Must gaps AGENT ✅ (HUMAN open) · **Nice-later + Bootable USB AGENT ✅ (HUMAN open)**. The “Remaining” line counts only 🔲/❌ — Phase stubs shipped CLI/schema/QEMU depth, not brief-complete Must (v1). Archive: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Gap analysis tip: `f1a191d`.
@@ -107,7 +107,7 @@ Open for new sprints (see rows below): rescue ISO scope (#38); Windows GUI eleva
 > Auto-managed on product repos too. Do not hand-edit rows inside the markers.
 
 <!-- open-prs-sync:begin -->
-- 🔲 [AGENT][LOCAL] Merge release [#2](https://github.com/edwardlthompson/JanusBoot/pull/2) (chore(main): release 1.1.0) — scope: .
+_No open Dependabot or Release Please PRs._
 <!-- open-prs-sync:end -->
 
 ### Template gaps (synced)

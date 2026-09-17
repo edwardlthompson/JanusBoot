@@ -2,12 +2,126 @@
 
 > Archive of finished BUILD_PLAN items.
 
-## Template upgrade 1.6.0 → 1.8.0 (2026-09-16)
+## Sprint / Phase 0–2 — Contracts + QEMU smoke (2026-09-17)
 
-- ✅ [AGENT] Canon UPG-01…42 — copy commands/rules/scripts/docs from parent v1.8.0
-- ✅ [AGENT] Mixed UPG-43…70 — merge; keep JanusBoot board, branding, COMPLETED_TASKS history, janusbootctl
-- ❌ [HUMAN] Sacred UPG-71…77 — skipped—product (AGENTS.md card / examples stacks)
-- ❌ Golden UPG-78…79 — skipped (boot-manager; no About/crash Golden Path replace)
+### Orchestrator (sequential only)
+
+- ✅ [AGENT][LOCAL] Clone bootstrap; write `AGENT.md` (brief verbatim); run init
+- ✅ [AGENT][LOCAL] Create `docs/JANUSBOOT_AGENT_LANES.md`, lane lock, BUILD_PLAN LOCAL/CLOUD sections, `janusboot.mdc` + `.cursorrules`
+- ✅ [AGENT][LOCAL] Create branches `cloud/phase-0-2` and `local/phase-0-2` from post-init main
+- ✅ [HUMAN][LOCAL] Approve merge of `cloud/phase-0-2` into `local/phase-0-2` after cloud PR (Sequential integrate-pr: merge commit `fbf88ea`)
+- ✅ [HUMAN][LOCAL] Approve merge of `local/phase-0-2` → `main` after verify (+ host QEMU smoke) — `make smoke-all` PASS 2026-09-16 (qemu-smoke serial markers; packages via pkexec install after Cursor aptrepo blocked `apt update`)
+
+### Cloud lane
+
+- ✅ [AGENT][CLOUD] Write `docs/VISION.md`, `docs/spec.md`, `esp/layout.md` (Phase 4 OS-tools note in VISION)
+- ✅ [AGENT][CLOUD] Write `schema/{settings,entries,theme}.schema.json` with theme size/path limits
+- ✅ [AGENT][CLOUD] Write `fixtures/esp/EFI/JanusBoot/{settings,entries}.json` + `themes/high-contrast/theme.json`
+- ✅ [AGENT][CLOUD] Evolve `examples/python` → `janusbootctl` (`validate` / `get` / `set` / `backup` / `generate-limine`) + `jsonschema` + `uv.lock`
+- ✅ [AGENT][CLOUD] pytest (no QEMU): validate/get/set/backup + golden `limine.conf` from fixtures
+- ✅ [AGENT][CLOUD] Open PR into `local/phase-0-2` (not `main`) — integrated locally; product remote https://github.com/edwardlthompson/JanusBoot now hosts `cloud/phase-0-2` + `local/phase-0-2` + `main`
+
+### Local lane
+
+- ✅ [AGENT][LOCAL] Install/detect host deps (qemu-system-x86_64, OVMF, dosfstools/mtools); write `docs/qemu.md` — qemu-system-x86 + ovmf installed; `scripts/janusboot-host-deps.sh --check` PASS
+- ✅ [AGENT][LOCAL] `Makefile`: pin Limine → `third_party/limine/`, `esp-image`, `qemu`, `qemu-smoke`, wrappers for `validate`/`test` via `uv run`
+- ✅ [AGENT][LOCAL] After cloud PR merge: `make validate`, `make esp-image`, `make qemu` — two fake entries, timeout/default from JSON — `make smoke-all` PASS (`validate` + `test` 21 + `esp-image` + `qemu-smoke` serial markers)
+- ✅ [AGENT][LOCAL] `python3 scripts/agent-run.py verify` (or python feature-gate); mark Phase 0–2 rows ✅ — `feature-gate --stack python` passed; `make test` 21 passed. Golden Path About/hello tests removed with `janusbootctl` replace (expected product gap vs template About-smoke)
+
+## Template upgrade 1.6.0 → 1.8.0 (2026-09-17)
+
+Named gaps from `/upgrade` (parent `edwardlthompson/agent-project-bootstrap` **1.8.0**). Apply executed 2026-09-16.
+
+#### Canon (1–42) — `[AGENT]` copy from parent
+
+- ✅ [AGENT] Canon UPG-01: copy `.cursor/commands/build.md` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-02: copy `.cursor/commands/coach.md` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-03: copy `.cursor/commands/feature.md` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-04: copy `.cursor/commands/gates.md` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-05: copy `.cursor/commands/plan.md` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-06: copy `.cursor/commands/resume.md` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-07: copy `.cursor/commands/scope.md` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-08: copy `.cursor/rules/batch-commands.mdc` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-09: copy `.cursor/rules/brief-replies.mdc` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-10: copy `.cursor/rules/core-directives.mdc` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-11: copy `.cursor/rules/feature-modules.mdc` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-12: copy `.cursor/rules/foss-compliance.mdc` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-13: copy `.cursor/rules/local-compute.mdc` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-14: copy `.cursor/rules/local-deps.mdc` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-15: copy `.cursor/rules/read-before-write.mdc` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-16: copy `.cursor/rules/ux-ui.mdc` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-17: copy `.cursor/rules/windows-encoding.mdc` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-18: copy `BUILD_PLAN_TEMPLATE.md` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-19: copy `docs/CURSOR_MODES.md` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-20: copy `docs/help/BATCH_COMMANDS.md` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-21: copy `docs/help/COACH.md` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-22: copy `docs/help/DONATIONS.md` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-23: copy `docs/help/TOUR.md` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-24: copy `scripts/check-agent-venue.sh` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-25: copy `scripts/lib/agent_venue.py` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-26: copy `scripts/lib/build_plan_tally.py` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-27: copy `scripts/lib/build_sprint.py` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-28: copy `scripts/lib/build_sprint_model.py` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-29: copy `scripts/lib/build_sprint_parse.py` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-30: copy `scripts/lib/build_sprint_resolve.py` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-31: copy `scripts/lib/cursor_feature_radar_io.py` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-32: copy `scripts/lib/cursor_rule_audit.py` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-33: copy `scripts/lib/gate_scope.py` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-34: copy `scripts/lib/gates_canvas.py` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-35: copy `scripts/lib/parallel_scope_model.py` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-36: copy `scripts/lib/resume_digest.py` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-37: copy `scripts/lib/resume_handoff.py` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-38: copy `scripts/lib/sprint_smoke_parse.py` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-39: copy `scripts/lib/sync_open_prs_render.py` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-40: copy `scripts/lib/sync_template_gaps_render.py` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-41: copy `scripts/sync-cursor-features.py` from parent 1.8.0
+- ✅ [AGENT] Canon UPG-42: copy `scripts/validate-bootstrap.sh` from parent 1.8.0
+
+#### Mixed (43–70) — `[AGENT]` merge; keep child
+
+- ✅ [AGENT] Mixed UPG-43: merge `.cursor-plugin/plugin.json` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-44: merge `.cursor/hooks/session_start_context.py` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-45: merge `.cursor/skills/validate-bootstrap/SKILL.md` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-46: merge `.pre-commit-config.yaml` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-47: merge `.release-please-manifest.json` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-48: merge `.template-version` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-49: merge `AGENT_MEMORY.md` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-50: merge `BUILD_PLAN.md` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-51: merge `CHANGELOG.md` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-52: merge `CITATION.cff` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-53: merge `COMPLETED_TASKS.md` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-54: merge `DECISION_LOG.md` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-55: merge `KNOWLEDGE_BASE.md` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-56: merge `README.md` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-57: merge `TEMPLATE_INDEX.json` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-58: merge `docs/CURSOR_INTEGRATIONS.md` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-59: merge `docs/PARALLEL_AGENT_SCOPES.md` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-60: merge `docs/START_HERE.md` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-61: merge `docs/adr/0008-agent-venue.md` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-62: merge `docs/adr/0009-cost-diet-brevity.md` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-63: merge `schemas/golden-path/upgrade-policy.json` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-64: merge `tests/test_agent_venue.py` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-65: merge `tests/test_build_plan_tally.py` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-66: merge `tests/test_gate_scope.py` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-67: merge `tests/test_resume_handoff.py` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-68: merge `tests/test_sync_open_prs_build_plan.py` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-69: merge `tests/test_sync_template_gaps_build_plan.py` (keep JanusBoot values; human review)
+- ✅ [AGENT] Mixed UPG-70: merge `tests/test_validate_bootstrap_agent.py` (keep JanusBoot values; human review)
+
+#### Sacred (71–77) — `[HUMAN]` waived—product retained
+
+- ✅ [HUMAN] Sacred UPG-71: waived—product retained — AGENTS.md JanusBoot card (`janusboot-protect-product.sh`; sync-adapters OK)
+- ✅ [HUMAN] Sacred UPG-72: waived—product retained — examples/node lock (stack pruned / not JanusBoot app)
+- ✅ [HUMAN] Sacred UPG-73: waived—product retained — examples/node package.json (stack pruned)
+- ✅ [HUMAN] Sacred UPG-74: waived—product retained — examples/python/pyproject.toml (janusbootctl)
+- ✅ [HUMAN] Sacred UPG-75: waived—product retained — examples/python/uv.lock (janusbootctl)
+- ✅ [HUMAN] Sacred UPG-76: waived—product retained — examples/web lock (stack pruned)
+- ✅ [HUMAN] Sacred UPG-77: waived—product retained — examples/web package.json (stack pruned)
+
+#### Golden Path (78–79) — applied alongside janusbootctl
+
+- ✅ [AGENT] Golden UPG-78: About payload + `janusbootctl about` (+ `hello.about` catalog re-export)
+- ✅ [AGENT] Golden UPG-79: crash sanitizer + `janusbootctl sanitize-crash` (+ `hello.crash` catalog re-export)
 
 ## Sprint 0 — Customize (JanusBoot, 2026-09-17)
 

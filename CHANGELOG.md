@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
 ## [1.0.0](https://github.com/edwardlthompson/JanusBoot/compare/v1.13.0...v1.0.0) (2026-11-11)
 
 
@@ -205,8 +207,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Miscellaneous
 
 * **release:** prepare v1.0.0 release ([6e037a2](https://github.com/edwardlthompson/JanusBoot/commit/6e037a237aaa62c9b6c4514264ca527437056e21))
-
-## [Unreleased]
 
 ## [1.1.0](https://github.com/edwardlthompson/JanusBoot/compare/v1.0.0...v1.1.0) (2026-09-17)
 

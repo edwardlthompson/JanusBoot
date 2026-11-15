@@ -12,7 +12,7 @@ A Cursor planning agent should review these items and fold the useful ones into 
 
 **Tasks for the planning agent**
 
-- [ ] Bump pillow floor to >=13.0.0 in janusbootctl — pyproject allows pillow>=10.0.0, which includes the vulnerable versions. Label: `[AGENT][LOCAL]` · Priority: P1 · https://github.com/advisories/GHSA-xcvg-w56q-r89m
+- [x] Bump pillow floor to >=13.0.0 in janusbootctl — pyproject allows pillow>=10.0.0, which includes the vulnerable versions. Label: `[AGENT][LOCAL]` · Priority: P1 · https://github.com/advisories/GHSA-xcvg-w56q-r89m (synced to BUILD_PLAN)
 
 ## 2026-11-14
 
@@ -23,3 +23,13 @@ A Cursor planning agent should review these items and fold the useful ones into 
 **Tasks for the planning agent**
 
 - [ ] Add Libreboot/MrChromebox EDK2 UEFI firmware to compatibility notes and smoke tests — Libreboot users are now all on UEFI, a new target for JanusBoot. Label: `[AGENT][LOCAL]` · Priority: P3 · https://libreboot.org/news/libreboot2611.html
+
+## 2026-11-15
+
+**News and updates**
+
+- Limine 12.10.0: UEFI disk reads now retry with smaller transfers on picky disks, firmware-reserved/non-WB memory is reported as reserved, the menu auto-rotates on known rotated panels (e.g. Steam Deck; `interface_rotation` still overrides), misreported GOP framebuffer geometry is corrected, and APIC ID, VT-d/AMD-Vi handoff and TSC calibration bugs are fixed. [source](https://github.com/Limine-Bootloader/Limine/releases/tag/v12.10.0) ([changelog](https://raw.githubusercontent.com/Limine-Bootloader/Limine/v12.10.0/ChangeLog))
+
+**Tasks for the planning agent**
+
+- [x] Bump Limine to v12.10.0 and re-run the QEMU/OVMF smoke — The new framebuffer-geometry and auto-rotation fixes can change how JanusBoot themes render, and the UEFI disk-read fix helps on picky hardware; verify the release signature when bumping. Label: `[AGENT][LOCAL]` · Priority: P2 · https://github.com/Limine-Bootloader/Limine/releases/tag/v12.10.0 (synced to BUILD_PLAN)

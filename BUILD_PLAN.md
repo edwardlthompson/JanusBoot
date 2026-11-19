@@ -179,3 +179,19 @@ Older sprints: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).
 | Sprint / Phase 3–8 — Scanner through Polish (stubs) | 2026-09-17 | `COMPLETED_TASKS.md` |
 | Sprint — Must gaps (v1 depth) | 2026-09-17 | `COMPLETED_TASKS.md` |
 | Sprint — Nice-later + Bootable USB | 2026-09-17 | `COMPLETED_TASKS.md` |
+
+<!-- argus-portfolio-chores:start -->
+## Argus portfolio chores
+
+Synced from argus-runner (2026-11-18). Prefer YOLO maintain on the runner; keep these until cleared.
+
+| Status | Venue | Task |
+|--------|-------|------|
+| 🔲 | `[AUTO][CLOUD]` | Clear open Dependabot alerts |
+
+```text
+Repo: edwardlthompson/JanusBoot
+Squash-merge green Dependabot PRs; leave security-red open.
+Gate: Dependabot alert count 0.
+```
+<!-- argus-portfolio-chores:end -->

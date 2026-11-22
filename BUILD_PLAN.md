@@ -44,7 +44,8 @@ That command re-smokes **every** ✅ row: no errors or crashes, plus startup tim
 Standing queue for This Computer. Product sprint rows below carry venue tags; keep markers empty unless a venue row is parked here.
 
 <!-- local-agent-lane:begin -->
-_No local agent items._
+- 🔲 [AGENT][LOCAL] Bump pillow floor to >=13.0.0 in janusbootctl — scope: examples/python/ (news P1, 2026-11-13) https://github.com/advisories/GHSA-xcvg-w56q-r89m
+- 🔲 [AGENT][LOCAL] Bump Limine to v12.10.0 and re-run the QEMU/OVMF smoke — scope: Makefile,scripts/,docs/limine-gen.md (news P2, 2026-11-15) https://github.com/Limine-Bootloader/Limine/releases/tag/v12.10.0
 <!-- local-agent-lane:end -->
 
 ### Cloud agent (Cursor Cloud)
@@ -178,3 +179,19 @@ Older sprints: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md).
 | Sprint / Phase 3–8 — Scanner through Polish (stubs) | 2026-09-17 | `COMPLETED_TASKS.md` |
 | Sprint — Must gaps (v1 depth) | 2026-09-17 | `COMPLETED_TASKS.md` |
 | Sprint — Nice-later + Bootable USB | 2026-09-17 | `COMPLETED_TASKS.md` |
+
+<!-- argus-portfolio-chores:start -->
+## Argus portfolio chores
+
+Synced from argus-runner (2026-11-18). Prefer YOLO maintain on the runner; keep these until cleared.
+
+| Status | Venue | Task |
+|--------|-------|------|
+| 🔲 | `[AUTO][CLOUD]` | Clear open Dependabot alerts |
+
+```text
+Repo: edwardlthompson/JanusBoot
+Squash-merge green Dependabot PRs; leave security-red open.
+Gate: Dependabot alert count 0.
+```
+<!-- argus-portfolio-chores:end -->

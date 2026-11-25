@@ -1,7 +1,7 @@
 # Build Plan
 
 <!-- remaining-tally -->
-**Remaining:** AGENT 0 · LOCAL 0 · CLOUD 0 · AUTO 0 · HUMAN 3 · ADB 0 · **3 open**
+**Remaining:** AGENT 2 · LOCAL 2 · CLOUD 0 · AUTO 0 · HUMAN 3 · ADB 0 · **5 open**
 <!-- /remaining-tally -->
 
 **Progress (not zero):** Sprint 0 ✅ archived · Phase 0–2 ✅ archived · Template upgrade 1.6.0→1.8.0 ✅ archived · Phase 3–8 stubs ✅ archived · Must gaps AGENT ✅ (HUMAN open) · **Nice-later + Bootable USB AGENT ✅ (HUMAN open)**. The “Remaining” line counts only 🔲/❌ — Phase stubs shipped CLI/schema/QEMU depth, not brief-complete Must (v1). Archive: [`COMPLETED_TASKS.md`](COMPLETED_TASKS.md). Gap analysis tip: `f1a191d`.
@@ -45,7 +45,7 @@ Standing queue for This Computer. Product sprint rows below carry venue tags; ke
 
 <!-- local-agent-lane:begin -->
 - 🔲 [AGENT][LOCAL] Bump pillow floor to >=13.0.0 in janusbootctl — scope: examples/python/ (news P1, 2026-11-13) https://github.com/advisories/GHSA-xcvg-w56q-r89m
-- 🔲 [AGENT][LOCAL] Bump Limine to v12.10.0 and re-run the QEMU/OVMF smoke — scope: Makefile,scripts/,docs/limine-gen.md (news P2, 2026-11-15) https://github.com/Limine-Bootloader/Limine/releases/tag/v12.10.0
+- 🔲 [AGENT][LOCAL] Bump Limine to v12.11.1 and re-run the QEMU/OVMF smoke — scope: Makefile,scripts/,docs/limine-gen.md (news P2, 2026-11-25) https://github.com/Limine-Bootloader/Limine/releases/tag/v12.11.1
 <!-- local-agent-lane:end -->
 
 ### Cloud agent (Cursor Cloud)

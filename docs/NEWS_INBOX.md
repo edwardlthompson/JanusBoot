@@ -33,3 +33,13 @@ A Cursor planning agent should review these items and fold the useful ones into 
 **Tasks for the planning agent**
 
 - [x] Bump Limine to v12.10.0 and re-run the QEMU/OVMF smoke — The new framebuffer-geometry and auto-rotation fixes can change how JanusBoot themes render, and the UEFI disk-read fix helps on picky hardware; verify the release signature when bumping. Label: `[AGENT][LOCAL]` · Priority: P2 · https://github.com/Limine-Bootloader/Limine/releases/tag/v12.10.0 (synced to BUILD_PLAN)
+
+## 2026-11-25
+
+**News and updates**
+
+- Limine 12.11.0 (Nov 21) adds Vim-style menu keys (H/J/K/L), a `qwertz` keyboard layout, and restores 16-color approximations on serial and text mode (24-bit colors had been lost since 12.0.0); 12.11.1 the same day fixes an AArch64 UEFI link failure on toolchains such as Alpine's. JanusBoot is still pinned at 12.9.0, and the open 12.10.0 board row was never applied. [12.11.0 ChangeLog](https://github.com/Limine-Bootloader/Limine/blob/v12.11.1/ChangeLog) · [12.11.1](https://github.com/Limine-Bootloader/Limine/releases/tag/v12.11.1)
+
+**Tasks for the planning agent**
+
+- - [ ] Bump Limine to v12.11.1 and re-run the QEMU/OVMF smoke (retarget the open 12.10.0 board row; Makefile is still 12.9.0) — 12.11 adds menu keybindings and color fixes that can change how JanusBoot themes render, and 12.11.1 is the one to land on. Label: `[AGENT][LOCAL]` · Priority: P2 · https://github.com/Limine-Bootloader/Limine/releases/tag/v12.11.1 (retargeted existing BUILD_PLAN row)

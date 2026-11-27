@@ -43,3 +43,14 @@ A Cursor planning agent should review these items and fold the useful ones into 
 **Tasks for the planning agent**
 
 - - [ ] Bump Limine to v12.11.1 and re-run the QEMU/OVMF smoke (retarget the open 12.10.0 board row; Makefile is still 12.9.0) — 12.11 adds menu keybindings and color fixes that can change how JanusBoot themes render, and 12.11.1 is the one to land on. Label: `[AGENT][LOCAL]` · Priority: P2 · https://github.com/Limine-Bootloader/Limine/releases/tag/v12.11.1 (retargeted existing BUILD_PLAN row)
+
+## 2026-11-27
+
+**News and updates**
+
+- systemd [v263-rc1](https://github.com/systemd/systemd/releases/tag/v263-rc1) (Nov 27) leans harder on PE add-ons: Type #1 boot entries can share one UKI and pass different `.addon.efi` files via new "extra" lines (`bootctl link --extra=`), and UKI profiles gain CONDITION_TPM/SECUREBOOT/NETBOOT plus TOFU trust for unsigned add-ons. Add-ons are not bootable on their own, but janusbootctl's `discover_recursive()` (examples/python/src/janusbootctl/scan.py) does an unfiltered `rglob("*.efi")`, so `*.addon.efi`, `*.extra.d/` contents, `EFI/*/drivers/*.efi` and the shim helpers `mmx64.efi` / `fbx64.efi` (present on most Ubuntu/Fedora ESPs today) each become a chainload entry. rEFInd-style scanners skip these by default ([rEFInd scan options](https://www.rodsbooks.com/refind/configfile.html)). This is a scan-quality bug today; v263 is still an RC.
+
+**Tasks for the planning agent**
+
+- [x] Filter non-bootable PE files out of the recursive ESP scan (*.addon.efi, *.extra.d/, EFI/*/drivers/, shim mm*/fb* helpers) and label EFI/Linux/*.efi as UKIs, with a fixture ESP test — Today the deep scan turns MokManager, the shim fallback and any UKI add-on into bogus boot entries that fail or confuse when picked. Label: `[AGENT][LOCAL]` · Priority: P2 · https://github.com/systemd/systemd/releases/tag/v263-rc1 (synced to BUILD_PLAN)
+- [ ] Note systemd v263 sd-boot behaviour (Type #1 extra add-on lines, UKI profile CONDITION_*) in the scan design notes — v263 lets several entries share one UKI, so a later BLS loader/entries parser should show one entry per Type #1 file, not per *.efi. Label: `[AGENT][LOCAL]` · Priority: P3 · https://github.com/systemd/systemd/releases/tag/v263-rc1

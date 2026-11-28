@@ -45,7 +45,7 @@ Standing queue for This Computer. Product sprint rows below carry venue tags; ke
 
 <!-- local-agent-lane:begin -->
 - 🔲 [AGENT][LOCAL] Bump pillow floor to >=13.0.0 in janusbootctl — scope: examples/python/ (news P1, 2026-11-13) https://github.com/advisories/GHSA-xcvg-w56q-r89m
-- 🔲 [AGENT][LOCAL] Bump Limine to v12.11.1 and re-run the QEMU/OVMF smoke — scope: Makefile,scripts/,docs/limine-gen.md (news P2, 2026-11-25) https://github.com/Limine-Bootloader/Limine/releases/tag/v12.11.1
+- 🔲 [AGENT][LOCAL] Bump Limine to v12.11.2 (headless-GPU UEFI boot hang fix), verify the tarball signature and re-run the QEMU/OVMF smoke — scope: Makefile,scripts/,docs/limine-gen.md (news P2, 2026-11-28) https://github.com/Limine-Bootloader/Limine/releases/tag/v12.11.2
 - 🔲 [AGENT][LOCAL] Filter non-bootable PE files out of the recursive ESP scan (*.addon.efi, *.extra.d/, EFI/*/drivers/, shim mm*/fb* helpers), label EFI/Linux/*.efi as UKIs, and add a fixture ESP test — scope: examples/python/src/janusbootctl/scan.py,examples/python/tests/ (news P2, 2026-11-27) https://github.com/systemd/systemd/releases/tag/v263-rc1
 <!-- local-agent-lane:end -->
 

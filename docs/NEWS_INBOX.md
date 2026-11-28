@@ -54,3 +54,13 @@ A Cursor planning agent should review these items and fold the useful ones into 
 
 - [x] Filter non-bootable PE files out of the recursive ESP scan (*.addon.efi, *.extra.d/, EFI/*/drivers/, shim mm*/fb* helpers) and label EFI/Linux/*.efi as UKIs, with a fixture ESP test — Today the deep scan turns MokManager, the shim fallback and any UKI add-on into bogus boot entries that fail or confuse when picked. Label: `[AGENT][LOCAL]` · Priority: P2 · https://github.com/systemd/systemd/releases/tag/v263-rc1 (synced to BUILD_PLAN)
 - [ ] Note systemd v263 sd-boot behaviour (Type #1 extra add-on lines, UKI profile CONDITION_*) in the scan design notes — v263 lets several entries share one UKI, so a later BLS loader/entries parser should show one entry per Type #1 file, not per *.efi. Label: `[AGENT][LOCAL]` · Priority: P3 · https://github.com/systemd/systemd/releases/tag/v263-rc1
+
+## 2026-11-28
+
+**News and updates**
+
+- Limine [12.11.2](https://github.com/Limine-Bootloader/Limine/releases/tag/v12.11.2) (Nov 27) skips UEFI GOPs that report no modes and graphics modes whose QueryMode() "succeeds" without writing data. That fixes a boot hang present since 12.9.4 on machines (several Minisforum AMD boxes) with a GPU that has no display attached; it also drops measured-boot support for EFI_CC_MEASUREMENT_PROTOCOL. The Makefile still pins 12.9.0, inside the affected range, so the open bump row now targets 12.11.2. [ChangeLog](https://raw.githubusercontent.com/Limine-Bootloader/Limine/v12.11.2/ChangeLog)
+
+**Tasks for the planning agent**
+
+- [x] Bump Limine to v12.11.2 (not 12.11.1), verify the tarball signature and re-run the QEMU/OVMF smoke — 12.11.2 fixes a UEFI boot hang on machines with a headless GPU that affects every release since 12.9.4, and the Makefile is still on 12.9.0. Label: `[AGENT][LOCAL]` · Priority: P2 · https://github.com/Limine-Bootloader/Limine/releases/tag/v12.11.2 (synced to BUILD_PLAN: retargeted existing row)
